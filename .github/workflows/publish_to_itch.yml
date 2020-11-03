@@ -3,7 +3,7 @@ on:
     types: [published]
     
 env:
-  GAME_TITLE: gameoff-2019
+  GAME_TITLE: gameoff-2020
   ITCH_USER: Lounge Dev Knights
   PACKAGE_PREFIX: gameoff
 
