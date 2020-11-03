@@ -30,3 +30,6 @@ func _unhandled_input(event):
 		moon.mode = RigidBody2D.MODE_RIGID
 		
 		moon.find_node("Camera2D").current = true
+	
+	if Input.is_action_just_pressed("reset"):
+		get_tree().reload_current_scene()
