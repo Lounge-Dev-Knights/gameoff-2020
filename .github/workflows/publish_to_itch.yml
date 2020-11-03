@@ -4,7 +4,7 @@ on:
     
 env:
   GAME_TITLE: gameoff-2020
-  ITCH_USER: Lounge Dev Knights
+  ITCH_USER: lounge-dev-knights
   PACKAGE_PREFIX: gameoff
 
 jobs:
