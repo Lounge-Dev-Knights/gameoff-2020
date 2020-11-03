@@ -1,11 +1,12 @@
 extends Node2D
 
 const START_RADIUS = 100
-const START_ANGULAR_SPEED = 0.5 * PI
-const SHOOT_VELOCITY = 400
+const START_ANGULAR_SPEED = 1 * PI
+const SHOOT_VELOCITY = 600
 var start_angle: float
 
 onready var moon = $StartPlanet/Moon
+onready var camera = $Camera2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,7 +30,7 @@ func _unhandled_input(event):
 		moon.linear_velocity = direction * SHOOT_VELOCITY
 		moon.mode = RigidBody2D.MODE_RIGID
 		
-		moon.find_node("Camera2D").current = true
+		camera.target = moon
 	
 	if Input.is_action_just_pressed("reset"):
 		get_tree().reload_current_scene()

@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scenes/Planet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/TestLevel.gd" type="Script" id=2]
 [ext_resource path="res://scenes/planet.svg" type="Texture" id=3]
 [ext_resource path="res://scenes/moon.svg" type="Texture" id=4]
 [ext_resource path="res://scenes/blackhole.png" type="Texture" id=5]
+[ext_resource path="res://scenes/MoonCamera.gd" type="Script" id=6]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -36,7 +37,7 @@ void fragment() {
 shader = SubResource( 1 )
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 77.6192
+radius = 164.286
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 23.468
@@ -49,6 +50,8 @@ script = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
+smoothing_enabled = true
+script = ExtResource( 6 )
 
 [node name="Planet" parent="." instance=ExtResource( 1 )]
 position = Vector2( 511.945, -25.4559 )
@@ -74,7 +77,6 @@ material = SubResource( 2 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-visible = false
 shape = SubResource( 3 )
 
 [node name="StartPlanet" type="Node2D" parent="."]
@@ -88,9 +90,6 @@ texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlanet/Moon"]
 shape = SubResource( 4 )
-
-[node name="Camera2D" type="Camera2D" parent="StartPlanet/Moon"]
-position = Vector2( -100, 0 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="StartPlanet/Moon"]
 amount = 32
