@@ -8,7 +8,7 @@ env:
   PACKAGE_PREFIX: gameoff
 
 jobs:
-  release_windows:
+  publish_to_itch:
     runs-on: ubuntu-latest
     steps:
       - name: download Windows
@@ -35,13 +35,47 @@ jobs:
           file: ${{ env.PACKAGE_PREFIX }}-linux.zip
         env:
           GITHUB_TOKEN: "${{ secrets.GH_CREDENTIALS }}"
-      - name: deploy to itch.io (Windows)
+      - name: deploy to itch.io (Linux)
         uses: josephbmanley/butler-publish-itchio-action@master
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
           CHANNEL: linux
           ITCH_GAME: ${{ env.GAME_TITLE }}
           ITCH_USER: ${{ env.ITCH_USER }}
-          PACKAGE: ${{ env.PACKAGE_PREFIX }}-windows.zip
-          VERSION: ${{ steps.download-windows.outputs.version }}
+          PACKAGE: ${{ env.PACKAGE_PREFIX }}-linux.zip
+          VERSION: ${{ steps.download-linux.outputs.version }}
+      
+      - name: download macos
+        id: download-macos
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          file: ${{ env.PACKAGE_PREFIX }}-macos.zip
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_CREDENTIALS }}"
+      - name: deploy to itch.io (Mac OS)
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: macos
+          ITCH_GAME: ${{ env.GAME_TITLE }}
+          ITCH_USER: ${{ env.ITCH_USER }}
+          PACKAGE: ${{ env.PACKAGE_PREFIX }}-macos.zip
+          VERSION: ${{ steps.download-macos.outputs.version }}
+      
+      - name: download HTML5
+        id: download-html5
+        uses: dsaltares/fetch-gh-release-asset@master
+        with:
+          file: ${{ env.PACKAGE_PREFIX }}-html5.zip
+        env:
+          GITHUB_TOKEN: "${{ secrets.GH_CREDENTIALS }}"
+      - name: deploy to itch.io (HTML5)
+        uses: josephbmanley/butler-publish-itchio-action@master
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_CREDENTIALS }}
+          CHANNEL: html5
+          ITCH_GAME: ${{ env.GAME_TITLE }}
+          ITCH_USER: ${{ env.ITCH_USER }}
+          PACKAGE: ${{ env.PACKAGE_PREFIX }}-html5.zip
+          VERSION: ${{ steps.download-html5.outputs.version }}
 
