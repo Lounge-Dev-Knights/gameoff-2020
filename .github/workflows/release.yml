@@ -40,4 +40,4 @@ jobs:
         create_release: true
         base_version:  ${{ steps.tag_version.outputs.TAG_VERSION}} 
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
