@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/Planet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/TestLevel.gd" type="Script" id=2]
+[ext_resource path="res://scenes/planet.svg" type="Texture" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 23.468
+
+[node name="TestLevel" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+
+[node name="Planet" parent="." instance=ExtResource( 1 )]
+position = Vector2( 511.945, -25.4559 )
+
+[node name="Planet2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 868.485, -6.95613 )
+
+[node name="StartPlanet" type="Node2D" parent="."]
+
+[node name="Moon" type="RigidBody2D" parent="StartPlanet"]
+position = Vector2( 100, 0 )
+mode = 1
+
+[node name="planet" type="Sprite" parent="StartPlanet/Moon"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlanet/Moon"]
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="StartPlanet/Moon"]
+position = Vector2( -100, 0 )
+
+[node name="planet" type="Sprite" parent="StartPlanet"]
+texture = ExtResource( 3 )
