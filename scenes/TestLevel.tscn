@@ -103,14 +103,15 @@ mode = 1
 texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlanet/Moon"]
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
-[node name="CPUParticles2D" type="CPUParticles2D" parent="StartPlanet/Moon"]
-amount = 12
+[node name="ParticleTrail" type="CPUParticles2D" parent="StartPlanet/Moon"]
+amount = 32
 local_coords = false
 texture = ExtResource( 4 )
 gravity = Vector2( 0, 0 )
-scale_amount_curve = SubResource( 6 )
+scale_amount_curve = SubResource( 5 )
+color = Color( 1, 1, 1, 0.0627451 )
 
 [node name="planet" type="Sprite" parent="StartPlanet"]
 texture = ExtResource( 3 )
@@ -131,41 +132,37 @@ __meta__ = {
 [node name="Tips" type="VBoxContainer" parent="HUD/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 218.0
+margin_right = 128.0
 margin_bottom = 42.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Shoot" type="Label" parent="HUD/MarginContainer/Tips"]
-margin_right = 208.0
+margin_right = 118.0
 margin_bottom = 14.0
 text = "Space bar to shoot"
 
 [node name="Reset" type="Label" parent="HUD/MarginContainer/Tips"]
 margin_top = 18.0
-margin_right = 208.0
+margin_right = 118.0
 margin_bottom = 32.0
 text = "Press R to reload."
 
-[node name="Background" type="Node2D" parent="."]
-position = Vector2( -851.382, -308.559 )
-z_index = -100
-__meta__ = {
-"_edit_group_": true
-}
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[node name="StarsAndNebulas" type="ColorRect" parent="Background"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="StarsAndNebulas" type="ColorRect" parent="CanvasLayer"]
 light_mask = 0
-material = SubResource( 7 )
-margin_left = -811.0
-margin_top = -768.0
-margin_right = 3289.0
-margin_bottom = 1381.0
-color = Color( 0.65098, 0.0431373, 0.0431373, 1 )
+material = SubResource( 6 )
+margin_left = -1498.56
+margin_top = -1316.74
+margin_right = 4062.44
+margin_bottom = 2124.26
+color = Color( 0.00392157, 0.00392157, 0.00392157, 1 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
