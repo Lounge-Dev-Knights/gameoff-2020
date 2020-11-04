@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/Planet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/TestLevel.gd" type="Script" id=2]
@@ -6,8 +6,9 @@
 [ext_resource path="res://scenes/moon.svg" type="Texture" id=4]
 [ext_resource path="res://scenes/blackhole.png" type="Texture" id=5]
 [ext_resource path="res://scenes/MoonCamera.gd" type="Script" id=6]
+[ext_resource path="res://resources/shaders/star_sky.shader" type="Shader" id=7]
 
-[sub_resource type="Shader" id=1]
+[sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
@@ -33,53 +34,66 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
-
-[sub_resource type="CircleShape2D" id=3]
-radius = 164.286
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 
 [sub_resource type="CircleShape2D" id=4]
+radius = 164.286
+
+[sub_resource type="CircleShape2D" id=5]
 radius = 23.468
 
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=6]
 _data = [ Vector2( 0, 1 ), 0.0, -3.04047, 0, 0, Vector2( 0.996914, 0 ), -0.0745684, 0.0, 0, 0 ]
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 7 )
+shader_param/octaves = 5
+shader_param/viewport_size = Vector2( 800, 600 )
+shader_param/x_offset = 0.0
 
 [node name="TestLevel" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+z_index = 1
 current = true
 smoothing_enabled = true
 script = ExtResource( 6 )
 
 [node name="Planet" parent="." instance=ExtResource( 1 )]
 position = Vector2( 511.945, -25.4559 )
+z_index = -1
 
 [node name="Planet2" parent="." instance=ExtResource( 1 )]
-position = Vector2( 926.919, 93.4305 )
+position = Vector2( 929.439, 85.8709 )
+z_index = -1
 
 [node name="Planet3" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1359.93, 36.4948 )
+z_index = 1
 
 [node name="Planet4" parent="." instance=ExtResource( 1 )]
 position = Vector2( 1133.69, -279.648 )
+z_index = 1
 
 [node name="Area2D" type="Area2D" parent="."]
 position = Vector2( 1772.89, -85.5263 )
+z_index = 1
 space_override = 1
 gravity_point = true
 gravity_vec = Vector2( 0, 0 )
 gravity = 1024.0
 
 [node name="blackhole" type="Sprite" parent="Area2D"]
-material = SubResource( 2 )
+material = SubResource( 3 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="StartPlanet" type="Node2D" parent="."]
+z_index = 1
 
 [node name="Moon" type="RigidBody2D" parent="StartPlanet"]
 position = Vector2( 100, 0 )
@@ -89,21 +103,21 @@ mode = 1
 texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlanet/Moon"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="StartPlanet/Moon"]
-amount = 32
+amount = 12
 local_coords = false
 texture = ExtResource( 4 )
 gravity = Vector2( 0, 0 )
-scale_amount_curve = SubResource( 5 )
+scale_amount_curve = SubResource( 6 )
 
 [node name="planet" type="Sprite" parent="StartPlanet"]
 texture = ExtResource( 3 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="MarginContainer" type="MarginContainer" parent="HUD"]
 margin_right = 40.0
 margin_bottom = 40.0
 custom_constants/margin_right = 10
@@ -123,15 +137,35 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Shoot" type="Label" parent="CanvasLayer/MarginContainer/Tips"]
+[node name="Shoot" type="Label" parent="HUD/MarginContainer/Tips"]
 margin_right = 208.0
 margin_bottom = 14.0
-text = "Left mouse button click to shoot"
+text = "Space bar to shoot"
 
-[node name="Reset" type="Label" parent="CanvasLayer/MarginContainer/Tips"]
+[node name="Reset" type="Label" parent="HUD/MarginContainer/Tips"]
 margin_top = 18.0
 margin_right = 208.0
 margin_bottom = 32.0
 text = "Press R to reload."
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2( -851.382, -308.559 )
+z_index = -100
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StarsAndNebulas" type="ColorRect" parent="Background"]
+light_mask = 0
+material = SubResource( 7 )
+margin_left = -811.0
+margin_top = -768.0
+margin_right = 3289.0
+margin_bottom = 1381.0
+color = Color( 0.65098, 0.0431373, 0.0431373, 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
