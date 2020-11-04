@@ -128,7 +128,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tips" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+[node name="Tips" type="VBoxContainer" parent="HUD/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 218.0
