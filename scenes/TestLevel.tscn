@@ -8,7 +8,7 @@
 [ext_resource path="res://scenes/MoonCamera.gd" type="Script" id=6]
 [ext_resource path="res://resources/shaders/star_sky.shader" type="Shader" id=7]
 
-[sub_resource type="Shader" id=2]
+[sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
@@ -34,19 +34,19 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=3]
 radius = 164.286
 
-[sub_resource type="CircleShape2D" id=5]
+[sub_resource type="CircleShape2D" id=4]
 radius = 23.468
 
-[sub_resource type="Curve" id=6]
+[sub_resource type="Curve" id=5]
 _data = [ Vector2( 0, 1 ), 0.0, -3.04047, 0, 0, Vector2( 0.996914, 0 ), -0.0745684, 0.0, 0, 0 ]
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=6]
 shader = ExtResource( 7 )
 shader_param/octaves = 5
 shader_param/viewport_size = Vector2( 800, 600 )
@@ -86,11 +86,11 @@ gravity_vec = Vector2( 0, 0 )
 gravity = 1024.0
 
 [node name="blackhole" type="Sprite" parent="Area2D"]
-material = SubResource( 3 )
+material = SubResource( 2 )
 texture = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="StartPlanet" type="Node2D" parent="."]
 z_index = 1
@@ -117,6 +117,22 @@ color = Color( 1, 1, 1, 0.0627451 )
 texture = ExtResource( 3 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Success" type="Label" parent="HUD"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -59.0
+margin_top = -7.0
+margin_right = 59.0
+margin_bottom = 7.0
+text = "Success!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD"]
 margin_right = 40.0
@@ -151,10 +167,10 @@ text = "Press R to reload."
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="Background" type="CanvasLayer" parent="."]
 layer = -100
 
-[node name="StarsAndNebulas" type="ColorRect" parent="CanvasLayer"]
+[node name="StarsAndNebulas" type="ColorRect" parent="Background"]
 light_mask = 0
 material = SubResource( 6 )
 margin_left = -1498.56
@@ -166,3 +182,4 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
+[connection signal="body_entered" from="Area2D" to="." method="blackhole_hit"]
