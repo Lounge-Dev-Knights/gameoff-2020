@@ -17,6 +17,7 @@ var _moon_slowed = false
 func _ready():
 	randomize()
 	start_angle = randf() * 2 * PI
+	Input.set_custom_mouse_cursor(preload("res://scenes/fortuna_cursor.png"))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,6 +48,7 @@ func _unhandled_input(event):
 	
 	if Input.is_action_just_released("shoot") and moon.mode == RigidBody2D.MODE_STATIC:
 		print("shoot")
+		
 
 		
 		# set moon to not be slow anymore
