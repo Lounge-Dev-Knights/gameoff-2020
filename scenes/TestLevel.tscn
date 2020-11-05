@@ -29,7 +29,8 @@ void fragment() {
 	
 	
 	COLOR = texture(TEXTURE, rotate(uv, rotation) + offset);
-	COLOR.a = 1.0 - radius + 0.5 * sin(TIME * 2.0);
+	// disable this because it doesn't look good on a non-black background
+	//COLOR.a = 1.0 - radius + 0.5 * sin(TIME * 2.0);
 	
 }
 "
