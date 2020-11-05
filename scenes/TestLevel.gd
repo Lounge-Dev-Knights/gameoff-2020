@@ -17,7 +17,6 @@ var _moon_slowed = false
 func _ready():
 	randomize()
 	start_angle = randf() * 2 * PI
-	Input.set_custom_mouse_cursor(preload("res://scenes/gods/fortuna_cursor.png"), 0, Vector2(16, 16))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

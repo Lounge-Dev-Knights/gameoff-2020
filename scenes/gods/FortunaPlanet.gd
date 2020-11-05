@@ -21,6 +21,10 @@ func _ready():
 		object.connect("mouse_exited", self, "_on_object_mouse_exited", [object])
 		
 
+func _process(delta):
+	$CPUParticles2D.position = get_local_mouse_position()
+
+
 func _physics_process(delta):
 	if drag_object != null:
 		var drag_offset = get_global_mouse_position() - drag_origin
@@ -30,19 +34,36 @@ func _physics_process(delta):
 func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.pressed and hovered_object != null and drags_left > 0:
-			drags_left -= 1
-			drag_object = hovered_object
-			drag_origin = drag_object.position
+			_start_drag(hovered_object)
 		elif drag_object != null:
-			drag_object = null
+			_stop_drag()
+			
+
+func _start_drag(object):
+	drags_left -= 1
+	drag_object = object
+	drag_object.pause_mode = Node.PAUSE_MODE_PROCESS
+	get_tree().paused = true
+	drag_origin = drag_object.position
+	
+func _stop_drag():
+	drag_object.pause_mode = Node.PAUSE_MODE_INHERIT
+	drag_object = null
+	get_tree().paused = false
 
 
 func _on_object_mouse_entered(object):
+	Engine.time_scale = 0.5
+	$CPUParticles2D.emitting = true
+	Input.set_custom_mouse_cursor(preload("res://scenes/gods/clover.png"), 0, Vector2(16, 16))
 	hovered_object = object
 	object.modulate += MODULATE_COLOR
 
 
 func _on_object_mouse_exited(object):
+	Engine.time_scale = 1
+	Input.set_custom_mouse_cursor(null)
 	object.modulate -= MODULATE_COLOR
 	if hovered_object == object:
 		hovered_object = null
+		$CPUParticles2D.emitting = false
