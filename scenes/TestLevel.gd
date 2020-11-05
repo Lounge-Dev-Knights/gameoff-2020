@@ -6,10 +6,10 @@ const MIN_SHOOT_VELOCITY = 200
 const MAX_SHOOT_VELOCITY = 10000
 var start_angle: float
 
-onready var moon = $StartPlanet/Moon
+onready var moon = $Moon
 onready var camera = $Camera2D
-onready var moon_sprite = $StartPlanet/Moon/planet
-onready var moon_particles = $StartPlanet/Moon/ParticleTrail
+onready var moon_sprite = $Moon/planet
+onready var moon_particles = $Moon/ParticleTrail
 onready var timer = $CameraFixedTimer
 onready var black_hole = $BlackHole
 
@@ -27,6 +27,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if camera.offset.length() > 0.01:
+		camera.offset = camera.offset.linear_interpolate(Vector2(), delta)
 	if moon.mode == RigidBody2D.MODE_STATIC:
 		var speed
 		# slow mo effect before shooting
@@ -57,6 +59,7 @@ func _unhandled_input(event):
 	
 	if Input.is_action_just_released("shoot") and moon.mode == RigidBody2D.MODE_STATIC:
 		print("shoot")
+		
 
 		# set moon to not be slow anymore after charge button is released
 		_moon_slowed = false
@@ -77,7 +80,6 @@ func _unhandled_input(event):
 		# reset pressed duration
 		_duration_pressed = 0
 
-		
 		camera.target = moon
 	
 	if Input.is_action_just_pressed("reset"):

@@ -1,12 +1,14 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://scenes/Planet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/objects/Planet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/TestLevel.gd" type="Script" id=2]
-[ext_resource path="res://scenes/planet.svg" type="Texture" id=3]
+[ext_resource path="res://scenes/objects/planet.svg" type="Texture" id=3]
 [ext_resource path="res://scenes/moon.svg" type="Texture" id=4]
-[ext_resource path="res://scenes/blackhole.png" type="Texture" id=5]
+[ext_resource path="res://scenes/objects/blackhole.png" type="Texture" id=5]
 [ext_resource path="res://scenes/MoonCamera.gd" type="Script" id=6]
 [ext_resource path="res://resources/shaders/star_sky.shader" type="Shader" id=7]
+[ext_resource path="res://scenes/gods/FortunaPlanet.gd" type="Script" id=8]
+[ext_resource path="res://scenes/gods/clover.png" type="Texture" id=9]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -29,8 +31,7 @@ void fragment() {
 	
 	
 	COLOR = texture(TEXTURE, rotate(uv, rotation) + offset);
-	// disable this because it doesn't look good on a non-black background
-	//COLOR.a = 1.0 - radius + 0.5 * sin(TIME * 2.0);
+	COLOR *= 2.0 + sin(TIME * 2.0);
 	
 }
 "
@@ -39,15 +40,18 @@ void fragment() {
 shader = SubResource( 1 )
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 164.286
+radius = 75.3838
 
 [sub_resource type="CircleShape2D" id=4]
+radius = 299.908
+
+[sub_resource type="CircleShape2D" id=5]
 radius = 23.468
 
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=6]
 _data = [ Vector2( 0, 1 ), 0.0, -3.04047, 0, 0, Vector2( 0.996914, 0 ), -0.0745684, 0.0, 0, 0 ]
 
-[sub_resource type="ShaderMaterial" id=6]
+[sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 7 )
 shader_param/octaves = 5
 shader_param/viewport_size = Vector2( 800, 600 )
@@ -56,10 +60,13 @@ shader_param/x_offset = 0.0
 [node name="TestLevel" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." groups=[
+"camera",
+]]
+pause_mode = 2
 z_index = 1
+rotating = true
 current = true
-smoothing_enabled = true
 script = ExtResource( 6 )
 
 [node name="Planet" parent="." instance=ExtResource( 1 )]
@@ -78,13 +85,14 @@ z_index = 1
 position = Vector2( 1133.69, -279.648 )
 z_index = 1
 
-[node name="BlackHole" type="Area2D" parent="."]
+[node name="BlackHole" type="Area2D" parent="." groups=[
+"objects",
+]]
 position = Vector2( 1772.89, -85.5263 )
 z_index = 1
-space_override = 1
-gravity_point = true
 gravity_vec = Vector2( 0, 0 )
-gravity = 1024.0
+gravity = 0.0
+linear_damp = 0.0
 
 [node name="blackhole" type="Sprite" parent="BlackHole"]
 material = SubResource( 2 )
@@ -93,29 +101,49 @@ texture = ExtResource( 5 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlackHole"]
 shape = SubResource( 3 )
 
-[node name="StartPlanet" type="Node2D" parent="."]
+[node name="GravityArea" type="Area2D" parent="BlackHole"]
 z_index = 1
+space_override = 3
+gravity_point = true
+gravity_vec = Vector2( 0, 0 )
+gravity = 1024.0
+linear_damp = 0.5
 
-[node name="Moon" type="RigidBody2D" parent="StartPlanet"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlackHole/GravityArea"]
+shape = SubResource( 4 )
+
+[node name="Moon" type="RigidBody2D" parent="."]
 position = Vector2( 100, 0 )
 mode = 1
 
-[node name="planet" type="Sprite" parent="StartPlanet/Moon"]
+[node name="planet" type="Sprite" parent="Moon"]
 texture = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StartPlanet/Moon"]
-shape = SubResource( 4 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moon"]
+shape = SubResource( 5 )
 
-[node name="ParticleTrail" type="CPUParticles2D" parent="StartPlanet/Moon"]
+[node name="ParticleTrail" type="CPUParticles2D" parent="Moon"]
 amount = 32
 local_coords = false
 texture = ExtResource( 4 )
 gravity = Vector2( 0, 0 )
-scale_amount_curve = SubResource( 5 )
+scale_amount_curve = SubResource( 6 )
 color = Color( 1, 1, 1, 0.0627451 )
 
-[node name="planet" type="Sprite" parent="StartPlanet"]
+[node name="FortunaPlanet" type="Node2D" parent="."]
+pause_mode = 2
+z_index = 1
+script = ExtResource( 8 )
+
+[node name="planet" type="Sprite" parent="FortunaPlanet"]
 texture = ExtResource( 3 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="FortunaPlanet"]
+emitting = false
+local_coords = false
+texture = ExtResource( 9 )
+direction = Vector2( 0, 1 )
+initial_velocity = 50.0
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -173,11 +201,12 @@ layer = -100
 
 [node name="StarsAndNebulas" type="ColorRect" parent="Background"]
 light_mask = 0
-material = SubResource( 6 )
+material = SubResource( 7 )
 margin_left = -1498.56
 margin_top = -1316.74
 margin_right = 4062.44
 margin_bottom = 2124.26
+mouse_filter = 2
 color = Color( 0.00392157, 0.00392157, 0.00392157, 1 )
 __meta__ = {
 "_edit_group_": true,
