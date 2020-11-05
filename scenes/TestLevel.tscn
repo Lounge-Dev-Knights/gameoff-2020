@@ -77,7 +77,7 @@ z_index = 1
 position = Vector2( 1133.69, -279.648 )
 z_index = 1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="BlackHole" type="Area2D" parent="."]
 position = Vector2( 1772.89, -85.5263 )
 z_index = 1
 space_override = 1
@@ -85,11 +85,11 @@ gravity_point = true
 gravity_vec = Vector2( 0, 0 )
 gravity = 1024.0
 
-[node name="blackhole" type="Sprite" parent="Area2D"]
+[node name="blackhole" type="Sprite" parent="BlackHole"]
 material = SubResource( 2 )
 texture = ExtResource( 5 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlackHole"]
 shape = SubResource( 3 )
 
 [node name="StartPlanet" type="Node2D" parent="."]
@@ -182,4 +182,4 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
-[connection signal="body_entered" from="Area2D" to="." method="blackhole_hit"]
+[connection signal="body_entered" from="BlackHole" to="." method="blackhole_hit"]
