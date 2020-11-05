@@ -12,4 +12,4 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if target != null:
-		position = position.linear_interpolate(target.position, 0.05)
+		position = position.linear_interpolate(target.position, delta * 5)

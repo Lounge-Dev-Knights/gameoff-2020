@@ -6,7 +6,7 @@ const MIN_SHOOT_VELOCITY = 200
 const MAX_SHOOT_VELOCITY = 10000
 var start_angle: float
 
-onready var moon = $StartPlanet/Moon
+onready var moon = $Moon
 onready var camera = $Camera2D
 
 var _duration_pressed = 0
@@ -17,11 +17,13 @@ var _moon_slowed = false
 func _ready():
 	randomize()
 	start_angle = randf() * 2 * PI
-	Input.set_custom_mouse_cursor(preload("res://scenes/fortuna_cursor.png"))
+	Input.set_custom_mouse_cursor(preload("res://scenes/gods/fortuna_cursor.png"), 0, Vector2(16, 16))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if camera.offset.length() > 0.01:
+		camera.offset = camera.offset.linear_interpolate(Vector2(), delta)
 	if moon.mode == RigidBody2D.MODE_STATIC:
 		var speed
 		# slow mo effect before shooting
@@ -71,8 +73,7 @@ func _unhandled_input(event):
 				# reset pressed duration
 		_duration_pressed = 0
 		
-
-		
+	
 		camera.target = moon
 	
 	if Input.is_action_just_pressed("reset"):
