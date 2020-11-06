@@ -1,18 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/level_editor/LevelEditor.gd" type="Script" id=1]
+[ext_resource path="res://scenes/BaseLevel.tscn" type="PackedScene" id=2]
 
 [node name="LevelEditor" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="Level" type="Node2D" parent="."]
-
-[node name="Camera2D" type="Camera2D" parent="Level"]
+[node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
-[node name="objects" type="Node2D" parent="Level"]
-
-[node name="stars" type="Node2D" parent="Level"]
+[node name="BaseLevel" parent="." instance=ExtResource( 2 )]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -31,36 +28,36 @@ margin_bottom = 593.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/VBoxContainer"]
 margin_right = 81.0
-margin_bottom = 514.0
+margin_bottom = 490.0
 size_flags_vertical = 3
 
-[node name="LevelName" type="Label" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+[node name="LevelName" type="LineEdit" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_right = 81.0
-margin_bottom = 14.0
+margin_bottom = 24.0
 text = "Level name"
 
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
-margin_top = 18.0
+margin_top = 28.0
 margin_right = 81.0
-margin_bottom = 22.0
+margin_bottom = 32.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="AddStar" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
-margin_top = 26.0
+margin_top = 36.0
 margin_right = 81.0
-margin_bottom = 46.0
+margin_bottom = 56.0
 text = "Add star"
 
 [node name="AddPlanet" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
-margin_top = 50.0
+margin_top = 60.0
 margin_right = 81.0
-margin_bottom = 70.0
+margin_bottom = 80.0
 text = "Add planet"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/PanelContainer/VBoxContainer"]
-margin_top = 518.0
+margin_top = 494.0
 margin_right = 81.0
 margin_bottom = 586.0
 
@@ -75,10 +72,40 @@ margin_right = 81.0
 margin_bottom = 44.0
 text = "Open"
 
-[node name="Save" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer2"]
+[node name="Export" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer2"]
 margin_top = 48.0
 margin_right = 81.0
 margin_bottom = 68.0
+text = "Export"
+
+[node name="Save" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer2"]
+margin_top = 72.0
+margin_right = 81.0
+margin_bottom = 92.0
 text = "Save"
+
+[node name="FileDialog" type="FileDialog" parent="CanvasLayer"]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -217.0
+margin_top = -65.0
+margin_right = 217.0
+margin_bottom = 65.0
+rect_min_size = Vector2( 300, 200 )
+popup_exclusive = true
+window_title = "Open a File"
+resizable = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.json" )
+current_dir = "/home/dardan/code/gameoff-2020"
+current_path = "/home/dardan/code/gameoff-2020/"
+[connection signal="text_changed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/LevelName" to="." method="_on_LevelName_text_changed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddStar" to="." method="_on_AddStar_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddPlanet" to="." method="_on_AddPlanet_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer2/Open" to="." method="_on_Open_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer2/Export" to="." method="_on_Export_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer2/Save" to="." method="_on_Save_pressed"]

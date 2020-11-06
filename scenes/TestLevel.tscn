@@ -11,7 +11,7 @@
 [ext_resource path="res://scenes/gods/clover.png" type="Texture" id=9]
 [ext_resource path="res://scenes/Star.tscn" type="PackedScene" id=10]
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 7 )
 shader_param/octaves = 5
 shader_param/viewport_size = Vector2( 800, 600 )
@@ -53,6 +53,7 @@ z_index = 1
 position = Vector2( 242.535, -111.503 )
 
 [node name="BlackHole" parent="." instance=ExtResource( 5 )]
+position = Vector2( 2000, 0 )
 
 [node name="Moon" parent="." instance=ExtResource( 4 )]
 
@@ -127,7 +128,7 @@ layer = -100
 
 [node name="StarsAndNebulas" type="ColorRect" parent="Background"]
 light_mask = 0
-material = SubResource( 7 )
+material = SubResource( 1 )
 margin_left = -1498.56
 margin_top = -1316.74
 margin_right = 4062.44
