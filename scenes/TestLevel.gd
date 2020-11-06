@@ -93,7 +93,7 @@ func _unhandled_input(event):
 
 func load_level(level_data: Dictionary) -> void:
 	load_objects(level_data["objects"])
-	# load_stars(level_data["stars"])
+	load_stars(level_data["stars"])
 	
 	var hole_data = level_data["black_hole"]
 	black_hole.position.x = hole_data["pos_x"]
@@ -124,9 +124,10 @@ func load_stars(stars_data: Array) -> void:
 		s.queue_free()
 	
 	for star in stars_data:
-		# instance star
-		# add to stars
-		pass
+		var instance = preload("res://scenes/Star.tscn").instance()
+		instance.position.x = star["pos_x"]
+		instance.position.y = star["pos_y"]
+		stars.add_child(instance)
 
 
 func blackhole_hit(body):

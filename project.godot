@@ -32,6 +32,14 @@ reset={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="moon"
+2d_physics/layer_2="objects"
+2d_physics/layer_3="stars"
+2d_physics/layer_4="black_hole"
+2d_physics/layer_5="gravity_affected"
+
 [physics]
 
 2d/default_gravity=0
