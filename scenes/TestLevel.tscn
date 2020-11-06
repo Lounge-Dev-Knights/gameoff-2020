@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scenes/objects/Planet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/TestLevel.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://scenes/gods/FortunaPlanet.gd" type="Script" id=8]
 [ext_resource path="res://scenes/gods/clover.png" type="Texture" id=9]
 [ext_resource path="res://resources/shaders/earth.shader" type="Shader" id=10]
+[ext_resource path="res://scenes/Explosion.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -52,13 +53,13 @@ radius = 23.468
 [sub_resource type="Curve" id=6]
 _data = [ Vector2( 0, 1 ), 0.0, -3.04047, 0, 0, Vector2( 0.996914, 0 ), -0.0745684, 0.0, 0, 0 ]
 
-[sub_resource type="ShaderMaterial" id=8]
+[sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 10 )
 shader_param/resolution = null
 shader_param/octaves = 3
 shader_param/offset = Vector2( 0.5, 0.5 )
 
-[sub_resource type="ShaderMaterial" id=7]
+[sub_resource type="ShaderMaterial" id=8]
 shader = ExtResource( 7 )
 shader_param/octaves = 5
 shader_param/viewport_size = Vector2( 800, 600 )
@@ -137,13 +138,15 @@ gravity = Vector2( 0, 0 )
 scale_amount_curve = SubResource( 6 )
 color = Color( 1, 1, 1, 0.0627451 )
 
+[node name="Explosion" parent="Moon" instance=ExtResource( 11 )]
+
 [node name="FortunaPlanet" type="Node2D" parent="."]
 pause_mode = 2
 z_index = 1
 script = ExtResource( 8 )
 
 [node name="planet" type="Sprite" parent="FortunaPlanet"]
-material = SubResource( 8 )
+material = SubResource( 7 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 3 )
 
@@ -210,7 +213,7 @@ layer = -100
 
 [node name="StarsAndNebulas" type="ColorRect" parent="Background"]
 light_mask = 0
-material = SubResource( 7 )
+material = SubResource( 8 )
 margin_left = -1498.56
 margin_top = -1316.74
 margin_right = 4062.44
@@ -221,4 +224,8 @@ __meta__ = {
 "_edit_group_": true,
 "_edit_use_anchors_": false
 }
+[connection signal="body_entered" from="Planet" to="." method="planet_hit"]
+[connection signal="body_entered" from="Planet2" to="." method="planet_hit"]
+[connection signal="body_entered" from="Planet3" to="." method="planet_hit"]
+[connection signal="body_entered" from="Planet4" to="." method="planet_hit"]
 [connection signal="body_entered" from="BlackHole" to="." method="blackhole_hit"]
