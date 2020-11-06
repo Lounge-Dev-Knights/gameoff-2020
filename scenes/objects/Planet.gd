@@ -1,5 +1,7 @@
 extends Area2D
 
+const type = "Planet"
+
 
 const COLORS = [
 	Color.cyan,
