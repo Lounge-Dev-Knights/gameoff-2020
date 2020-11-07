@@ -103,6 +103,10 @@ func blackhole_hit(body):
 func planet_hit(body):
 	moon_sprite.hide()
 	moon_particles.hide()
+	
+	# change color to white to not influence explosion color
+	moon.modulate = Color(1,1,1,1)
+	
 	moon_explosion.emitting = true
 	moon.linear_velocity = Vector2(0,0)
 	moon.angular_velocity = 0
