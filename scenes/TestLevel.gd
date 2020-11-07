@@ -83,51 +83,8 @@ func _unhandled_input(event):
 		camera.target = moon
 	
 	if Input.is_action_just_pressed("reset"):
-		# get_tree().reload_current_scene()
-		var file = File.new()
-		file.open("res://scenes/levels/test_level.json", File.READ)
-		var level_data = parse_json(file.get_as_text())
-		load_level(level_data)
-
-
-
-func load_level(level_data: Dictionary) -> void:
-	load_objects(level_data["objects"])
-	load_stars(level_data["stars"])
-	
-	var hole_data = level_data["black_hole"]
-	black_hole.position.x = hole_data["pos_x"]
-	black_hole.position.y = hole_data["pos_y"]
-
-
-func load_objects(objects_data: Array) -> void:
-	var objects = $objects
-	
-	# remove existing
-	for o in objects.get_children():
-		o.queue_free()
-	
-	for object in objects_data:
-		match object["type"]:
-			"Planet":
-				var p = preload("res://scenes/objects/Planet.tscn").instance()
-				p.position.x = object["pos_x"]
-				p.position.y = object["pos_y"]
-				objects.add_child(p)
-	
-
-
-func load_stars(stars_data: Array) -> void:
-	var stars = $stars
-	
-	for s in stars.get_children():
-		s.queue_free()
-	
-	for star in stars_data:
-		var instance = preload("res://scenes/Star.tscn").instance()
-		instance.position.x = star["pos_x"]
-		instance.position.y = star["pos_y"]
-		stars.add_child(instance)
+		get_tree().reload_current_scene()
+		
 
 
 func blackhole_hit(body):

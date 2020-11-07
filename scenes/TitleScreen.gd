@@ -9,7 +9,7 @@ func _ready():
 
 
 func _on_TestLevel_pressed():
-	get_tree().change_scene("res://scenes/TestLevel.tscn")
+	get_tree().change_scene("res://scenes/Game.tscn")
 
 
 func _on_LevelEditor_pressed():
