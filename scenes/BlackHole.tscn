@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/objects/blackhole.png" type="Texture" id=1]
 
@@ -37,6 +37,22 @@ radius = 75.3838
 [sub_resource type="CircleShape2D" id=4]
 radius = 251.108
 
+[sub_resource type="Animation" id=5]
+resource_name = "spawn"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("blackhole:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1, 1 ) ]
+}
+
 [node name="BlackHole" type="Area2D" groups=[
 "objects",
 ]]
@@ -64,3 +80,7 @@ collision_mask = 2147483664
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GravityArea"]
 shape = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "spawn"
+anims/spawn = SubResource( 5 )

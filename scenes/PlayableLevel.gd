@@ -13,8 +13,10 @@ func load_data(level_data: Dictionary) -> void:
 
 
 func peek_level():
-	tween.interpolate_property(camera, "position", camera.position, $BlackHole.position, 3.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 0.0)
-	tween.interpolate_property(camera, "position", $BlackHole.position, camera.position, 2.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 4.0)
+	tween.stop_all()
+	
+	tween.interpolate_property(camera, "position", Vector2(), $BlackHole.position, 3.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 0.0)
+	tween.interpolate_property(camera, "position", $BlackHole.position, Vector2(), 2.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 4.0)
 	
 	tween.start()
 
