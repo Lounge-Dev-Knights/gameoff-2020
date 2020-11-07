@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/level_editor/LevelEditor.gd" type="Script" id=1]
 [ext_resource path="res://scenes/BaseLevel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/level_editor/EditorCamera.gd" type="Script" id=3]
+[ext_resource path="res://scenes/EditableLevel.gd" type="Script" id=4]
 
 [node name="LevelEditor" type="Node2D"]
 script = ExtResource( 1 )
@@ -11,7 +12,8 @@ script = ExtResource( 1 )
 current = true
 script = ExtResource( 3 )
 
-[node name="BaseLevel" parent="." instance=ExtResource( 2 )]
+[node name="EditableLevel" parent="." instance=ExtResource( 2 )]
+script = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
