@@ -33,13 +33,6 @@ func _physics_process(delta):
 func _unhandled_input(event):
 	if Input.is_action_just_released("drag"):
 		_stop_drag()
-		
-	if Input.is_action_just_pressed("zoom_in"):
-		var position = (event as InputEventMouseButton).position
-		zoom_at_point(0.9, position)
-	if Input.is_action_just_pressed("zoom_out"):
-		var position = (event as InputEventMouseButton).position
-		zoom_at_point(1.1, position)
 
 
 # check if cursor points to a node and start dragging
@@ -57,19 +50,10 @@ func _stop_drag():
 	save()
 
 
-func zoom_at_point(zoom_change, point):
-		var c0 = camera.global_position # camera position
-		var v0 = camera.get_viewport().size # vieport size
-		var c1 # next camera position
-		var z0 = camera.zoom # current zoom value
-		var z1 = z0 * zoom_change # next zoom value
-
-		c1 = c0 + (-0.5*v0 + point)*(z0 - z1)
-		camera.zoom = z1
-		camera.global_position = c1
 
 
-
+# saves the current level in the user directory as a json file
+# Filename is user://levels/{level_name}.json
 func save():
 	var data = level.save_data()
 	data["level_name"] = level_name
@@ -80,7 +64,7 @@ func save():
 	
 	
 	var file_name = USER_LEVELS_PATH + level_name + ".json"
-	print(file_name)
+	
 	var file = File.new()
 	var err = file.open(file_name, File.WRITE)
 	if err == OK:
@@ -104,6 +88,7 @@ func _on_AddPlanet_pressed():
 
 func _on_Export_pressed():
 	pass
+
 
 
 func _on_LevelName_text_changed(new_text):

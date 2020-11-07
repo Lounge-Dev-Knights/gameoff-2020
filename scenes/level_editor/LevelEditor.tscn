@@ -2,16 +2,16 @@
 
 [ext_resource path="res://scenes/level_editor/LevelEditor.gd" type="Script" id=1]
 [ext_resource path="res://scenes/BaseLevel.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/EditableLevel.gd" type="Script" id=3]
+[ext_resource path="res://scenes/level_editor/EditorCamera.gd" type="Script" id=3]
 
 [node name="LevelEditor" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-
-[node name="EditableLevel" parent="." instance=ExtResource( 2 )]
 script = ExtResource( 3 )
+
+[node name="BaseLevel" parent="." instance=ExtResource( 2 )]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -36,7 +36,7 @@ size_flags_vertical = 3
 [node name="LevelName" type="LineEdit" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_right = 81.0
 margin_bottom = 24.0
-placeholder_text = "Level name"
+text = "Level name"
 
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_top = 28.0
@@ -103,8 +103,8 @@ resizable = true
 mode = 0
 access = 1
 filters = PoolStringArray( "*.json" )
-current_dir = "user://levels"
-current_path = "user://levels/"
+current_dir = "user://home/dardan/code/gameoff-2020"
+current_path = "user://home/dardan/code/gameoff-2020/"
 [connection signal="text_changed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/LevelName" to="." method="_on_LevelName_text_changed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddStar" to="." method="_on_AddStar_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddPlanet" to="." method="_on_AddPlanet_pressed"]
