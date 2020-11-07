@@ -87,9 +87,10 @@ void fragment()
   float poles = smoothstep(.0, .15,abs(.5-landId.y)*.004);
   vec3 hsb = vec3(mix(.2, 1.0, 1.-land), 1.-poles*planet-atmosphere-(smoothstep(.3,.35,d)-smoothstep(.35,0.5,d)), planet+poles*planet);
   vec4 color = vec4(rgb(hsb),1.);
-  // make all black transparent
+  
+// make all black transparent
   if(color == vec4(0,0,0,1)) {
-  color = vec4(0,0,0,0);
+  	color = vec4(0,0,0,0);
   }
   COLOR = color;
 }

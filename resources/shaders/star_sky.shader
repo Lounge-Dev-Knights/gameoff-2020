@@ -149,10 +149,11 @@ vec4 mainImage(vec2 fragCoord)
 	vec3 result = vec3(0.);
 	vec3 nebulaColor1 = hsv2rgb(vec3(.5, 0.5, .25));
 	vec3 nebulaColor2 = hsv2rgb(vec3(.7, 1., .25));
-
-	result += fractalNebula(coord + vec2(.1, .1), nebulaColor1, 1.);
-	result += fractalNebula(coord + vec2(0., .2), nebulaColor2, .5);
-	result += stars(coord, 4., 0.06, 0.6) * vec3(.9, .9, .95);
+	
+	// disable nebula for performance reasons
+	// result += fractalNebula(coord + vec2(.1, .1), nebulaColor1, 1.);
+	// result += fractalNebula(coord + vec2(0., .2), nebulaColor2, .5);
+	result += stars(coord, 6., 0.06, 0.6) * vec3(.9, .9, .95);
 	
 	return vec4(result, 1.);
 }
