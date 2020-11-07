@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/objects/Planet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/TestLevel.gd" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/gods/clover.png" type="Texture" id=9]
 [ext_resource path="res://resources/shaders/earth.shader" type="Shader" id=10]
 [ext_resource path="res://scenes/Explosion.tscn" type="PackedScene" id=11]
+[ext_resource path="res://resources/shaders/planet.shader" type="Shader" id=12]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -46,6 +47,14 @@ radius = 75.3838
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 299.908
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 12 )
+shader_param/resolution = null
+shader_param/offset = Vector2( 0.5, 0.5 )
+shader_param/base_color = 0.2
+shader_param/random_modifier = 2.0
+shader_param/greyscale = true
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 23.468
@@ -123,6 +132,7 @@ position = Vector2( 100, 0 )
 mode = 1
 
 [node name="planet" type="Sprite" parent="Moon"]
+material = SubResource( 9 )
 texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Moon"]
