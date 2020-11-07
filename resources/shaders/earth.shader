@@ -1,8 +1,10 @@
+// adapted from https://www.shadertoy.com/view/tdSXW3
 shader_type canvas_item;
 
 uniform vec2 resolution;
-uniform int octaves = 3;
 uniform vec2 offset = vec2(0.5,0.5);
+
+const int octaves = 3;
 
 // functions from the Book of Shaders
 vec3 random3(vec3 c) {

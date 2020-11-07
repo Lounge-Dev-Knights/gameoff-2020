@@ -56,12 +56,10 @@ _data = [ Vector2( 0, 1 ), 0.0, -3.04047, 0, 0, Vector2( 0.996914, 0 ), -0.07456
 [sub_resource type="ShaderMaterial" id=7]
 shader = ExtResource( 10 )
 shader_param/resolution = null
-shader_param/octaves = 3
 shader_param/offset = Vector2( 0.5, 0.5 )
 
 [sub_resource type="ShaderMaterial" id=8]
 shader = ExtResource( 7 )
-shader_param/octaves = 5
 shader_param/viewport_size = Vector2( 800, 600 )
 shader_param/x_offset = 0.0
 

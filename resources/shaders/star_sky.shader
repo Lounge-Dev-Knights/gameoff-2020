@@ -1,8 +1,8 @@
-// Code "borrowed" from: https://github.com/andrew-wilkes/godotia
+// Code taken from: https://github.com/andrew-wilkes/godotia
 // Much of this code was adapted from: https://www.shadertoy.com/view/MtB3zW
 shader_type canvas_item;
 
-uniform int octaves = 5;
+const int octaves = 5;
 uniform vec2 viewport_size = vec2(800.0, 600.0);
 uniform float x_offset = 0.;
 
