@@ -8,7 +8,7 @@ func _ready():
 	var file = File.new()
 	file.open("res://scenes/levels/test_level.json", File.READ)
 	var level_data = parse_json(file.get_as_text())
-	level.load_level(level_data)
+	level.load_data(level_data)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,6 +25,8 @@ func load_level():
 	var dialog = FileDialog.new()
 	dialog.mode = FileDialog.MODE_OPEN_FILE
 	dialog.resizable = true
+	dialog.access = FileDialog.ACCESS_USERDATA
+	dialog.current_dir = "user://levels"
 	
 	$CanvasLayer.add_child(dialog)
 	dialog.popup_centered()
@@ -34,5 +36,5 @@ func load_level():
 	file.open(path, File.READ)
 	var level_data = parse_json(file.get_as_text())
 	dialog.queue_free()
-	level.load_level(level_data)
+	level.load_data(level_data)
 	

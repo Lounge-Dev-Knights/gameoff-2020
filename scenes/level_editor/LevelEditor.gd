@@ -4,8 +4,7 @@ extends Node2D
 const USER_LEVELS_PATH = "user://levels/"
 
 
-onready var stars = $Level/stars
-onready var objects = $Level/objects
+
 onready var camera = $Camera2D
 onready var level = $BaseLevel
 
@@ -54,6 +53,7 @@ func _start_drag():
 
 func _stop_drag():
 	drag_object = null
+	save()
 
 
 func zoom_at_point(zoom_change, point):
@@ -66,6 +66,23 @@ func zoom_at_point(zoom_change, point):
 		c1 = c0 + (-0.5*v0 + point)*(z0 - z1)
 		camera.zoom = z1
 		camera.global_position = c1
+
+
+
+func save():
+	var data = level.save_data()
+	data["level_name"] = level_name.text
+	
+	var dir = Directory.new()
+	if not dir.dir_exists(USER_LEVELS_PATH):
+		dir.make_dir_recursive(USER_LEVELS_PATH)
+	
+	var file = File.new()
+	var err = file.open(USER_LEVELS_PATH + level_name.text + ".json", File.WRITE)
+	print(err)
+	file.store_string(to_json(data))
+	file.close()
+
 
 
 func _on_AddStar_pressed():
@@ -88,7 +105,8 @@ func _on_LevelName_text_changed(new_text):
 	var old_name = level_name.text
 	
 	var dir = Directory.new()
-	dir.rename(USER_LEVELS_PATH + old_name + ".json", USER_LEVELS_PATH + old_name + ".json")
+	dir.rename(USER_LEVELS_PATH + old_name + ".json", USER_LEVELS_PATH + new_text + ".json")
+	print("file renamed")
 
 
 func _on_Save_pressed():
@@ -96,12 +114,20 @@ func _on_Save_pressed():
 
 
 func _on_Open_pressed():
-	get_tree().paused = true
 	$CanvasLayer/FileDialog.popup_centered()
 	var path = yield($CanvasLayer/FileDialog, "file_selected")
 	var file = File.new()
 	file.open(path, File.READ)
 	var data = parse_json(file.get_as_text())
-	get_tree().paused = false
+	file.close()
 	
-	level.load_level(data)
+	level.load_data(data)
+	level_name.text = data["level_name"]
+
+
+func _on_FileDialog_about_to_show():
+	get_tree().paused = true
+
+
+func _on_FileDialog_popup_hide():
+	get_tree().paused = false

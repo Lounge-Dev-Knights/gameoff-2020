@@ -11,12 +11,32 @@ onready var objects = $objects
 func _ready():
 	pass # Replace with function body.
 
-func save_level() -> Dictionary:
-	get_class()
-	return {}
+func save_data() -> Dictionary:
+	var data = {}
+	data["black_hole"] = {
+		"pos_x": black_hole.position.x,
+		"pos_y": black_hole.position.y
+	}
+	data["objects"] = []
+	for object in objects.get_children():
+		data["objects"].append({
+			"type": object.type,
+			"pos_x": object.position.x,
+			"pos_y": object.position.y,
+		})
+	
+	data["stars"] = []
+	for star in stars.get_children():
+		data["stars"].append({
+			"pos_x": star.position.x,
+			"pos_y": star.position.y
+		})
+	
+	
+	return data
 
 
-func load_level(level_data: Dictionary) -> void:
+func load_data(level_data: Dictionary) -> void:
 	load_objects(level_data["objects"])
 	load_stars(level_data["stars"])
 	

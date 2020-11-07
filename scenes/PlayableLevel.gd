@@ -6,8 +6,8 @@ onready var camera = $Camera2D
 
 
 
-func load_level(level_data: Dictionary) -> void:
-	.load_level(level_data)
+func load_data(level_data: Dictionary) -> void:
+	.load_data(level_data)
 	
 	call_deferred("peek_level")
 

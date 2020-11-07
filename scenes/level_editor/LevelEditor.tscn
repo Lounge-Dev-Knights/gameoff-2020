@@ -99,13 +99,15 @@ popup_exclusive = true
 window_title = "Open a File"
 resizable = true
 mode = 0
-access = 2
+access = 1
 filters = PoolStringArray( "*.json" )
-current_dir = "/home/dardan/code/gameoff-2020"
-current_path = "/home/dardan/code/gameoff-2020/"
+current_dir = "user://home/dardan/code/gameoff-2020"
+current_path = "user://home/dardan/code/gameoff-2020/"
 [connection signal="text_changed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/LevelName" to="." method="_on_LevelName_text_changed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddStar" to="." method="_on_AddStar_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddPlanet" to="." method="_on_AddPlanet_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer2/Open" to="." method="_on_Open_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer2/Export" to="." method="_on_Export_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer2/Save" to="." method="_on_Save_pressed"]
+[connection signal="about_to_show" from="CanvasLayer/FileDialog" to="." method="_on_FileDialog_about_to_show"]
+[connection signal="popup_hide" from="CanvasLayer/FileDialog" to="." method="_on_FileDialog_popup_hide"]
