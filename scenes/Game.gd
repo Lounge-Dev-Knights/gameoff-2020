@@ -2,11 +2,13 @@ extends Node2D
 
 onready var level = $PlayableLevel
 
+var level_path: String = "res://scenes/levels/test_level.json"
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var file = File.new()
-	file.open("res://scenes/levels/test_level.json", File.READ)
+	file.open(level_path, File.READ)
 	var level_data = parse_json(file.get_as_text())
 	level.load_data(level_data)
 
@@ -38,3 +40,7 @@ func load_level():
 	dialog.queue_free()
 	level.load_data(level_data)
 	
+
+
+func _on_Back_pressed():
+	SceneLoader.goto_scene("res://scenes/TitleScreen.tscn")

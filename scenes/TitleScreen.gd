@@ -9,11 +9,11 @@ func _ready():
 
 
 func _on_TestLevel_pressed():
-	get_tree().change_scene("res://scenes/Game.tscn")
+	SceneLoader.goto_scene("res://scenes/Game.tscn")
 
 
 func _on_LevelEditor_pressed():
-	get_tree().change_scene("res://scenes/level_editor/LevelEditor.tscn")
+	SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
 
 
 func _on_Quit_pressed():

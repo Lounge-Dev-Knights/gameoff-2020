@@ -8,17 +8,22 @@ const USER_LEVELS_PATH = "user://levels/"
 onready var camera = $Camera2D
 onready var level = $EditableLevel
 
-onready var level_name_input = $CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/LevelName
 
+
+var level_path: String
 
 # node that is beeing dragged
 var drag_object: Node2D
 var selected_objects: Array = []
 
-var level_name: String
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var dir = Directory.new()
+	if dir.file_exists(level_path):
+		load_level(level_path)
+		
 	level.get_node("BlackHole").add_to_group("draggable")
 
 
@@ -51,30 +56,42 @@ func _stop_drag():
 
 
 
-
 # saves the current level in the user directory as a json file
 # Filename is user://levels/{level_name}.json
 func save():
 	var data = level.save_data()
-	data["level_name"] = level_name
+	
 	
 	var dir = Directory.new()
 	if not dir.dir_exists(USER_LEVELS_PATH):
 		dir.make_dir_recursive(USER_LEVELS_PATH)
 	
 	
-	var file_name = USER_LEVELS_PATH + level_name + ".json"
-	
 	var file = File.new()
-	var err = file.open(file_name, File.WRITE)
+	var err = file.open(level_path, File.WRITE)
 	if err == OK:
-		print("Saved " + file_name)
+		print("Saved " + level_path)
 		file.store_string(to_json(data))
+		
+		var preview_path = level_path.substr(0, level_path.length() - ".json".length()) + ".png"
+		var preview_image = level.get_viewport().get_texture().get_data()
+		var size = min(preview_image.get_width(), preview_image.get_height())
+		preview_image.crop(size, size)
+		preview_image.resize(128, 128)
+		print("save image")
+		preview_image.save_png(preview_path)
 	else:
-		print("Saving %s failed with code %d" % [file_name, err])
+		print("Saving %s failed with code %d" % [level_path, err])
+	file.close()
+
+
+func load_level(path: String):
+	var file = File.new()
+	file.open(path, File.READ)
+	var data = parse_json(file.get_as_text())
 	file.close()
 	
-
+	level.load_data(data)
 
 
 
@@ -86,53 +103,6 @@ func _on_AddPlanet_pressed():
 	var planet = level.add_object("Planet", camera.position)
 
 
-func _on_Export_pressed():
-	pass
 
-
-
-func _on_LevelName_text_changed(new_text):
-	
-	var dir = Directory.new()
-	var from = USER_LEVELS_PATH + level_name + ".json"
-	var to = USER_LEVELS_PATH + new_text + ".json"
-	
-	if dir.file_exists(to):
-		print("File %s already exists" % to)
-	elif dir.file_exists(from):
-		var error = dir.rename(from, to)
-		if error == OK:
-			print("Renamed %s -> %s" % [from, to])
-			level_name = new_text
-		else:
-			print("Error renaming the file: " + str(error))
-	else:
-		level_name = new_text
-		save()
-	
-	
-
-
-func _on_Save_pressed():
-	pass # Replace with function body.
-
-
-func _on_Open_pressed():
-	$CanvasLayer/FileDialog.popup_centered()
-	var path = yield($CanvasLayer/FileDialog, "file_selected")
-	var file = File.new()
-	file.open(path, File.READ)
-	var data = parse_json(file.get_as_text())
-	file.close()
-	
-	level.load_data(data)
-	level_name = data["level_name"]
-	level_name_input.text = data["level_name"]
-
-
-func _on_FileDialog_about_to_show():
-	get_tree().paused = true
-
-
-func _on_FileDialog_popup_hide():
-	get_tree().paused = false
+func _on_BackToMenu_pressed():
+	SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
