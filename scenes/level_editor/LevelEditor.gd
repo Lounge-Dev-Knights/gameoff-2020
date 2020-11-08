@@ -76,6 +76,10 @@ func save():
 		var preview_path = level_path.substr(0, level_path.length() - ".json".length()) + ".png"
 		var preview_image = level.get_viewport().get_texture().get_data()
 		var size = min(preview_image.get_width(), preview_image.get_height())
+		var rect = Rect2((preview_image.get_width() - size) / 2, (preview_image.get_height() - size) / 2,
+				size, size)
+		preview_image.flip_y()
+		preview_image.blit_rect(preview_image, rect, Vector2())
 		preview_image.crop(size, size)
 		preview_image.resize(128, 128)
 		print("save image")
