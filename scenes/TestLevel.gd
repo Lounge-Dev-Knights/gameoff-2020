@@ -10,12 +10,15 @@ onready var moon = $Moon
 onready var camera = $Camera2D
 onready var moon_sprite = $Moon/planet
 onready var moon_particles = $Moon/ParticleTrail
+onready var moon_explosion = $Moon/Explosion
 onready var timer = $CameraFixedTimer
 onready var black_hole = $BlackHole
+
 
 var _duration_pressed = 0
 var _moon_slowed = false
 var _moon_disappearing = false
+var _moon_stopped = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -57,7 +60,7 @@ func _process(delta):
 		
 func _unhandled_input(event):
 	
-	if Input.is_action_just_released("shoot") and moon.mode == RigidBody2D.MODE_STATIC:
+	if Input.is_action_just_released("shoot") and moon.mode == RigidBody2D.MODE_STATIC and not _moon_stopped:
 		print("shoot")
 		
 
@@ -92,7 +95,20 @@ func blackhole_hit(body):
 	_moon_disappearing = true
 	moon_particles.hide()
 	
-	# senter camera to black hole to prevent camera bounce
+	# center camera to black hole to prevent camera bounce
 	camera.target = black_hole
 	
 	$HUD/Success.show()
+
+
+func planet_hit(body):
+	moon_sprite.hide()
+	moon_particles.hide()
+	
+	# change color to white to not influence explosion color
+	moon.modulate = Color(1,1,1,1)
+	
+	moon_explosion.emitting = true
+	moon.linear_velocity = Vector2(0,0)
+	moon.angular_velocity = 0
+	moon.sleeping = true

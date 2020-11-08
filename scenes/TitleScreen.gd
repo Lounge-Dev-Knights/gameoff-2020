@@ -6,10 +6,11 @@ func _ready():
 	
 	pass
 
-
+func _on_Play_pressed():
+	SceneLoader.goto_scene("res://scenes/Game.tscn")
 
 func _on_TestLevel_pressed():
-	SceneLoader.goto_scene("res://scenes/Game.tscn")
+	SceneLoader.goto_scene("res://scenes/TestLevel.tscn")
 
 
 func _on_LevelEditor_pressed():
@@ -18,3 +19,6 @@ func _on_LevelEditor_pressed():
 
 func _on_Quit_pressed():
 	get_tree().quit()
+
+
+

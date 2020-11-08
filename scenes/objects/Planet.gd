@@ -15,7 +15,11 @@ const COLORS = [
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	modulate = COLORS[randi() % COLORS.size()]
+	# randomize shader color
+	$planet.material.set_shader_param("base_color", randf())
+	
+	# randomize shader texture
+	$planet.material.set_shader_param("random_modifier", randf())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

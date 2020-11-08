@@ -20,22 +20,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TestLevel" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="Play" type="Button" parent="CanvasLayer/VBoxContainer"]
 margin_right = 88.0
 margin_bottom = 20.0
-text = "Test level"
+text = "Play"
 
-[node name="LevelEditor" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="TestLevel" type="Button" parent="CanvasLayer/VBoxContainer"]
 margin_top = 24.0
 margin_right = 88.0
 margin_bottom = 44.0
-text = "Level editor"
+text = "Test level"
 
-[node name="Quit" type="Button" parent="CanvasLayer/VBoxContainer"]
+[node name="LevelEditor" type="Button" parent="CanvasLayer/VBoxContainer"]
 margin_top = 48.0
 margin_right = 88.0
 margin_bottom = 68.0
+text = "Level editor"
+
+[node name="Quit" type="Button" parent="CanvasLayer/VBoxContainer"]
+margin_top = 72.0
+margin_right = 88.0
+margin_bottom = 92.0
 text = "Quit"
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/TestLevel" to="." method="_on_TestLevel_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/LevelEditor" to="." method="_on_LevelEditor_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]

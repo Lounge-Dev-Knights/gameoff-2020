@@ -1,0 +1,15 @@
+Soundeffects needed
+
+In Lvl:
+Shooting 
+Collission with planet
+Hitting wurmhole
+Moon flying?
+pause
+Lvl music
+
+Out of Lvl:
+Changin god (each god his own?)
+changin lvl
+pressing menu button
+menu music
