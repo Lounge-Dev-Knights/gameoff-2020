@@ -37,12 +37,15 @@ func save_data() -> Dictionary:
 
 
 func load_data(level_data: Dictionary) -> void:
+	moon.reset()
+	
 	load_objects(level_data["objects"])
 	load_stars(level_data["stars"])
 	
 	var hole_data = level_data["black_hole"]
 	black_hole.position = Vector2(hole_data["pos_x"], hole_data["pos_y"])
 	black_hole.get_node("AnimationPlayer").play("spawn")
+
 
 
 func add_object(type: String, pos: Vector2 = Vector2(0, 0)) -> Node2D:
@@ -53,7 +56,6 @@ func add_object(type: String, pos: Vector2 = Vector2(0, 0)) -> Node2D:
 			instance = preload("res://scenes/objects/Planet.tscn").instance()
 	
 	instance.position = pos
-	
 	objects.add_child(instance)
 	
 	return instance
@@ -71,7 +73,7 @@ func load_objects(objects_data: Array) -> void:
 
 
 func add_star(pos: Vector2 = Vector2(0, 0)) -> Node2D:
-	var instance = preload("res://scenes/Star.tscn").instance()
+	var instance = preload("res://scenes/objects/Star.tscn").instance()
 	instance.position = pos
 	stars.add_child(instance)
 	return instance

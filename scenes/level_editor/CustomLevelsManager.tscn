@@ -83,12 +83,14 @@ __meta__ = {
 [node name="NewLevel" type="ToolButton" parent="MarginContainer/HBoxContainer/CustomLevels/HBoxContainer"]
 margin_right = 76.0
 margin_bottom = 72.0
+hint_tooltip = "New level"
 icon = ExtResource( 2 )
 
 [node name="Import" type="ToolButton" parent="MarginContainer/HBoxContainer/CustomLevels/HBoxContainer"]
 margin_left = 80.0
 margin_right = 156.0
 margin_bottom = 72.0
+hint_tooltip = "Import level"
 icon = ExtResource( 3 )
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
@@ -155,16 +157,16 @@ margin_right = 400.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 400, 300 )
 access = 2
-current_dir = "/home/dardan/code/gameoff-2020"
-current_path = "/home/dardan/code/gameoff-2020/"
+current_dir = "/Users/Dardan/code/gameoff-2020"
+current_path = "/Users/Dardan/code/gameoff-2020/"
 
 [node name="ImportFileDialog" type="FileDialog" parent="."]
 margin_right = 400.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 400, 300 )
 access = 2
-current_dir = "/home/dardan/code/gameoff-2020"
-current_path = "/home/dardan/code/gameoff-2020/"
+current_dir = "/Users/Dardan/code/gameoff-2020"
+current_path = "/Users/Dardan/code/gameoff-2020/"
 
 [node name="RenameFileDialog" type="ConfirmationDialog" parent="."]
 margin_left = 7.0

@@ -1,11 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/objects/Planet.gd" type="Script" id=1]
 [ext_resource path="res://scenes/objects/planet.svg" type="Texture" id=2]
 [ext_resource path="res://resources/shaders/planet.shader" type="Shader" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 51.7784
+radius = 32.0674
 
 [sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
@@ -18,6 +18,22 @@ shader_param/greyscale = null
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 731.5
+
+[sub_resource type="Animation" id=4]
+resource_name = "spawn"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("planet:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 1e-05, 1e-05 ), Vector2( 1, 1 ) ]
+}
 
 [node name="Planet" type="Area2D" groups=[
 "objects",
@@ -47,3 +63,5 @@ shape = SubResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "spawn"
+anims/spawn = SubResource( 4 )
+[connection signal="body_entered" from="." to="." method="_on_Planet_body_entered"]
