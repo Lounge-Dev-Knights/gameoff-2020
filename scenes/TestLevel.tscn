@@ -128,7 +128,7 @@ margin_right = 118.0
 margin_bottom = 32.0
 text = "Press R to reload."
 
-[node name="ToolButton" type="ToolButton" parent="HUD"]
+[node name="Back" type="ToolButton" parent="HUD"]
 margin_right = 12.0
 margin_bottom = 22.0
 hint_tooltip = "Back"
@@ -158,3 +158,4 @@ __meta__ = {
 [connection signal="body_entered" from="BlackHole" to="." method="blackhole_hit"]
 [connection signal="started_moving" from="Moon" to="." method="_on_Moon_started_moving"]
 [connection signal="started_orbiting" from="Moon" to="." method="_on_Moon_started_orbiting"]
+[connection signal="pressed" from="HUD/Back" to="." method="_on_Back_pressed"]

@@ -36,7 +36,7 @@ shader = SubResource( 1 )
 radius = 75.3838
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 251.108
+radius = 542.091
 
 [sub_resource type="Animation" id=5]
 resource_name = "spawn"

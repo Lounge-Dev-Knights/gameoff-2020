@@ -55,3 +55,7 @@ func _on_Moon_started_moving() -> void:
 
 func _on_Moon_started_orbiting(center: Node2D) -> void:
 	camera.target = center
+
+
+func _on_Back_pressed():
+	SceneLoader.goto_scene("res://scenes/TitleScreen.tscn")
