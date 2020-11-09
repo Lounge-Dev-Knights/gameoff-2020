@@ -81,7 +81,6 @@ func add_star(pos: Vector2 = Vector2(0, 0)) -> Node2D:
 
 
 func load_stars(stars_data: Array) -> void:
-	var stars = $stars
 	
 	for s in stars.get_children():
 		s.queue_free()
