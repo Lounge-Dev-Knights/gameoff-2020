@@ -21,6 +21,7 @@ run/main_scene="res://scenes/TitleScreen.tscn"
 [autoload]
 
 SceneLoader="*res://SceneLoader.gd"
+SoundEngine="*res://SoundEngine.tscn"
 
 [input]
 
