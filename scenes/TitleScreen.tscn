@@ -44,7 +44,12 @@ margin_bottom = 92.0
 text = "Quit"
 
 [node name="Timer" type="Timer" parent="."]
+[connection signal="focus_entered" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/TestLevel" to="." method="_on_TestLevel_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/TestLevel" to="." method="_on_TestLevel_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/LevelEditor" to="." method="_on_LevelEditor_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/LevelEditor" to="." method="_on_LevelEditor_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/Quit" to="." method="_on_Quit_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
