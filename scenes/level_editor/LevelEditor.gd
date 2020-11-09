@@ -38,6 +38,9 @@ func _physics_process(delta):
 func _unhandled_input(event):
 	if Input.is_action_just_released("drag"):
 		_stop_drag()
+		
+	if Input.is_action_just_pressed("remove"):
+		_remove_object()
 
 
 # check if cursor points to a node and start dragging
@@ -54,7 +57,14 @@ func _stop_drag():
 	drag_object = null
 	save()
 
-
+# check if cursor points to a node and delete it
+func _remove_object():
+	var state = get_world_2d().direct_space_state
+	var intersections = state.intersect_point(get_global_mouse_position(), 32, [], 0x7FFFFFFF, true, true)
+	for intersection in intersections:
+		var collider: Node2D = intersection["collider"]
+		if collider.is_in_group("removeable"):
+			collider.queue_free()
 
 # saves the current level in the user directory as a json file
 # Filename is user://levels/{level_name}.json
