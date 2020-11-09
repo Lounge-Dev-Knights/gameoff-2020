@@ -7,4 +7,4 @@ func _ready():
 
 
 func _on_BlackHole_body_entered(body):
-	body.dissappear(self)
+	body.disappear(self)
