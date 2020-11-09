@@ -46,6 +46,7 @@ func load_data(level_data: Dictionary) -> void:
 	
 	moon.orbit(null)
 
+
 func add_object(type: String, pos: Vector2 = Vector2(0, 0)) -> Node2D:
 	var instance
 	
@@ -54,7 +55,6 @@ func add_object(type: String, pos: Vector2 = Vector2(0, 0)) -> Node2D:
 			instance = preload("res://scenes/objects/Planet.tscn").instance()
 	
 	instance.position = pos
-	
 	objects.add_child(instance)
 	
 	return instance

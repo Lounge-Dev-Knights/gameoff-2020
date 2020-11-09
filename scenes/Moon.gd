@@ -20,9 +20,10 @@ var orbit_center: Node2D
 var orbit_radius: float = START_RADIUS
 var orbit_speed: float = START_ANGULAR_SPEED
 
+var enabled = true
 
-var _duration_pressed = 0
-var _moon_slowed = false
+
+var _start_charging: int
 var _moon_disappearing = false
 var _moon_stopped = false
 
@@ -38,17 +39,10 @@ func _process(delta: float) -> void:
 		
 		if orbit_center != null:
 			position += orbit_center.position
-
-	if Input.is_action_pressed("shoot"):
-		_duration_pressed += 1
-		
-		# slow down moon in place while "loading up" shot.
-		modulate = Color(1, 1-0.01*_duration_pressed, 1-0.01*_duration_pressed, 1)
-		
-		Engine.time_scale = 0.1
-		
-		emit_signal("started_moving")
-		
+	
+	if _start_charging != 0:
+		modulate.g -= 20 * delta
+		modulate.b -= 20 * delta
 	
 	# if moon is disappearing, scale moon down linearly
 	if _moon_disappearing:
@@ -56,12 +50,16 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_released("shoot") and mode == RigidBody2D.MODE_STATIC and not _moon_stopped:
-		print("shoot")
+	if enabled and Input.is_action_just_pressed("shoot") and mode == RigidBody2D.MODE_STATIC:
+		_start_charging = OS.get_ticks_msec()
+		Engine.time_scale = 0.1
 		
-
+		emit_signal("started_moving")
+		
+	if enabled and _start_charging != 0 and Input.is_action_just_released("shoot") and mode == RigidBody2D.MODE_STATIC and not _moon_stopped:
+		
 		# set moon to not be slow anymore after charge button is released
-		_moon_slowed = false
+		Engine.time_scale = 1.0
 		
 		var orbit_position = position
 		if orbit_center != null:
@@ -69,6 +67,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		var direction = orbit_position.normalized().rotated(PI / 2)
 		
+		var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
 		# velocity is multiplied by duration key is pressed, to "charge up" shot
 		var charged_velocity = MIN_SHOOT_VELOCITY * (_duration_pressed / 20)
 		
@@ -81,11 +80,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		mode = RigidBody2D.MODE_RIGID
 		
 		# reset pressed duration
-		_duration_pressed = 0
-		
-		Engine.time_scale = 1.0
-		
-		
+		_start_charging = 0
+
 
 func explode() -> void:
 	moon_sprite.hide()
