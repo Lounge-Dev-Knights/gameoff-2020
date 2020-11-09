@@ -15,7 +15,7 @@ func add_object(type: String, pos: Vector2 = Vector2(0, 0)) -> Node2D:
 	object.add_to_group("draggable")
 	object.add_to_group("removeable")
 	return object
-	
+
 # OVERRIDE from BaseLevel
 func _ready():
 	self.moon.queue_free()
