@@ -24,3 +24,5 @@ func load_level(reload: bool = false):
 
 func _on_Back_pressed():
 	SceneLoader.goto_scene("res://scenes/TitleScreen.tscn")
+	SoundEngine.play_sound("MenuButtonSound")
+

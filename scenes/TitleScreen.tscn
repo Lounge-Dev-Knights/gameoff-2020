@@ -42,6 +42,8 @@ margin_top = 72.0
 margin_right = 88.0
 margin_bottom = 92.0
 text = "Quit"
+
+[node name="Timer" type="Timer" parent="."]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/TestLevel" to="." method="_on_TestLevel_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/LevelEditor" to="." method="_on_LevelEditor_pressed"]

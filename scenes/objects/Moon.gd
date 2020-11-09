@@ -3,6 +3,9 @@ extends RigidBody2D
 
 signal started_moving
 signal started_orbiting
+signal moving
+signal stationary
+signal wurmhole
 
 
 const START_RADIUS = 100
@@ -61,6 +64,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		# set moon to not be slow anymore after charge button is released
 		Engine.time_scale = 1.0
 		
+		emit_signal("moving")
+		
 		var orbit_position = position
 		if orbit_center != null:
 			orbit_position -= orbit_center.position
@@ -87,11 +92,15 @@ func reset():
 	position = Vector2()
 	orbit(null)
 	$AnimationPlayer.play("spawn")
+	SoundEngine.play_sound("Reset")
+	emit_signal("stationary")
 
 
 func explode() -> void:
 	$AnimationPlayer.play("explode")
 	$ParticleTrail.hide()
+	SoundEngine.play_sound("MoonImpact")
+	emit_signal("stationary")
 	
 	linear_velocity = Vector2(0,0)
 	angular_velocity = 0
@@ -108,4 +117,17 @@ func orbit(center: Node2D, radius: float = 100.0) -> void:
 func dissappear(in_node: Node2D) -> void:
 	orbit(in_node, position.distance_to(in_node.position))
 	$AnimationPlayer.play("dissappear")
+	emit_signal("wurmhole")
+	SoundEngine.play_sound("Wurmhole")
 
+
+func _on_Moon_moving():
+	$MoonFlying.play()
+
+func _on_Moon_stationary():
+	yield(get_tree().create_timer(0.2), "timeout")
+	$MoonFlying.stop()
+
+func _on_Moon_wurmhole():
+	yield(get_tree().create_timer(1), "timeout")
+	$MoonFlying.stop()
