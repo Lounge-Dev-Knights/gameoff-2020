@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/BaseLevel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/MoonCamera.gd" type="Script" id=2]
+[ext_resource path="res://scenes/PlayableLevel.gd" type="Script" id=3]
+
+[node name="PlayableLevel" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="." index="4"]
+rotating = true
+current = true
+script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="." index="5"]
+[connection signal="started_moving" from="Moon" to="." method="_on_Moon_started_moving"]
+[connection signal="started_orbiting" from="Moon" to="." method="_on_Moon_started_orbiting"]

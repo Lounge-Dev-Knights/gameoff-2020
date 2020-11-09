@@ -11,7 +11,7 @@ var base_seed: int = 0
 var trauma : float = 0.0
 
 var peek_offset = Vector2()
-var peek_active = true
+var peek_active = false
 
 func _ready():
 	randomize()
@@ -22,7 +22,7 @@ func _ready():
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		if peek_active:
-			peek_offset = (get_viewport().get_mouse_position() - get_viewport_rect().size / 2) / 14
+			peek_offset = (get_viewport().get_mouse_position() - get_viewport_rect().size / 2)
 		else:
 			peek_offset = Vector2()
 			

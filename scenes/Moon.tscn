@@ -31,6 +31,7 @@ offsets = PoolRealArray( 0.00583658, 0.215953, 0.466926, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 0.808594, 0, 1, 1, 0.339844, 0, 1, 1, 0, 0, 1 )
 
 [node name="Moon" type="RigidBody2D"]
+collision_layer = 17
 mode = 1
 script = ExtResource( 1 )
 
