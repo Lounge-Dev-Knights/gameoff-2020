@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/star.svg-b381157b5e389e82bd7e1608c47df142.stex"
+path="res://.import/star.svg-30cd6546ef9d9de61226bb33c1725eaf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/star.svg"
-dest_files=[ "res://.import/star.svg-b381157b5e389e82bd7e1608c47df142.stex" ]
+source_file="res://scenes/objects/star.svg"
+dest_files=[ "res://.import/star.svg-30cd6546ef9d9de61226bb33c1725eaf.stex" ]
 
 [params]
 

@@ -73,7 +73,7 @@ func load_objects(objects_data: Array) -> void:
 
 
 func add_star(pos: Vector2 = Vector2(0, 0)) -> Node2D:
-	var instance = preload("res://scenes/Star.tscn").instance()
+	var instance = preload("res://scenes/objects/Star.tscn").instance()
 	instance.position = pos
 	stars.add_child(instance)
 	return instance
