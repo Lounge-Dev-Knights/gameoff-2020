@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/objects/blackhole.png" type="Texture" id=1]
+[ext_resource path="res://scenes/BlackHole.gd" type="Script" id=2]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -60,6 +61,7 @@ z_index = 1
 gravity_vec = Vector2( 0, 0 )
 gravity = 0.0
 linear_damp = 0.9
+script = ExtResource( 2 )
 
 [node name="blackhole" type="Sprite" parent="."]
 material = SubResource( 2 )
@@ -84,3 +86,4 @@ shape = SubResource( 4 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "spawn"
 anims/spawn = SubResource( 5 )
+[connection signal="body_entered" from="." to="." method="_on_BlackHole_body_entered"]

@@ -12,13 +12,13 @@ func _ready():
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("reset"):
-		load_level()
+		load_level(true)
 
-func load_level():
+func load_level(reload: bool = false):
 	var file = File.new()
 	file.open(level_path, File.READ)
 	var level_data = parse_json(file.get_as_text())
-	level.load_data(level_data)
+	level.load_data(level_data, reload)
 	
 
 

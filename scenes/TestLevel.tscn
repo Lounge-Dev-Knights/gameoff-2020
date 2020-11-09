@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
+[ext_resource path="res://scenes/level_editor/ArrowLeft.svg" type="Texture" id=1]
 [ext_resource path="res://scenes/TestLevel.gd" type="Script" id=2]
 [ext_resource path="res://scenes/objects/planet.svg" type="Texture" id=3]
 [ext_resource path="res://scenes/Moon.tscn" type="PackedScene" id=4]
@@ -95,8 +96,10 @@ __meta__ = {
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="HUD"]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -52.0
+margin_right = 138.0
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
@@ -124,6 +127,15 @@ margin_top = 18.0
 margin_right = 118.0
 margin_bottom = 32.0
 text = "Press R to reload."
+
+[node name="ToolButton" type="ToolButton" parent="HUD"]
+margin_right = 12.0
+margin_bottom = 22.0
+hint_tooltip = "Back"
+icon = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

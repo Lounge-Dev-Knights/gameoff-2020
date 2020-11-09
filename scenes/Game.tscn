@@ -14,6 +14,7 @@ script = ExtResource( 2 )
 [node name="Back" type="ToolButton" parent="CanvasLayer"]
 margin_right = 12.0
 margin_bottom = 22.0
+hint_tooltip = "Back"
 icon = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false

@@ -37,14 +37,15 @@ func save_data() -> Dictionary:
 
 
 func load_data(level_data: Dictionary) -> void:
+	moon.reset()
+	
 	load_objects(level_data["objects"])
 	load_stars(level_data["stars"])
 	
 	var hole_data = level_data["black_hole"]
 	black_hole.position = Vector2(hole_data["pos_x"], hole_data["pos_y"])
 	black_hole.get_node("AnimationPlayer").play("spawn")
-	
-	moon.orbit(null)
+
 
 
 func add_object(type: String, pos: Vector2 = Vector2(0, 0)) -> Node2D:

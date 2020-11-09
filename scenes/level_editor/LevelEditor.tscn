@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/level_editor/LevelEditor.gd" type="Script" id=1]
 [ext_resource path="res://scenes/BaseLevel.tscn" type="PackedScene" id=2]
@@ -43,17 +43,20 @@ size_flags_vertical = 3
 [node name="AddStar" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_right = 81.0
 margin_bottom = 20.0
+hint_tooltip = "Add Star"
 text = "Add star"
 
 [node name="AddPlanet" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_top = 24.0
 margin_right = 81.0
 margin_bottom = 44.0
+hint_tooltip = "Add planet"
 text = "Add planet"
 
 [node name="BackToMenu" type="ToolButton" parent="CanvasLayer"]
 margin_right = 12.0
 margin_bottom = 22.0
+hint_tooltip = "Back"
 icon = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false

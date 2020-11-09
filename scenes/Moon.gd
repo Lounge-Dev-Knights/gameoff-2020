@@ -69,7 +69,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
 		# velocity is multiplied by duration key is pressed, to "charge up" shot
-		var charged_velocity = MIN_SHOOT_VELOCITY * (_duration_pressed / 20)
+		var charged_velocity = MIN_SHOOT_VELOCITY * (1 + _duration_pressed)
 		
 		# velocity is clamped to not let moon fly too fast nor too slow
 		charged_velocity = clamp(charged_velocity, MIN_SHOOT_VELOCITY, MAX_SHOOT_VELOCITY)
@@ -83,21 +83,29 @@ func _unhandled_input(event: InputEvent) -> void:
 		_start_charging = 0
 
 
+func reset():
+	position = Vector2()
+	orbit(null)
+	$AnimationPlayer.play("spawn")
+
+
 func explode() -> void:
-	moon_sprite.hide()
+	$AnimationPlayer.play("explode")
 	$ParticleTrail.hide()
-	# change color to white to not influence explosion color
-	modulate = Color(1,1,1,1)
 	
-	$Explosion.emitting = true
 	linear_velocity = Vector2(0,0)
 	angular_velocity = 0
 	sleeping = true
 
 
 func orbit(center: Node2D, radius: float = 100.0) -> void:
-	mode = RigidBody2D.MODE_STATIC
+	set_deferred("mode", RigidBody2D.MODE_STATIC)
 	orbit_center = center
 	orbit_radius = radius
 	emit_signal("started_orbiting", center)
-	
+
+
+func dissappear(in_node: Node2D) -> void:
+	orbit(in_node, position.distance_to(in_node.position))
+	$AnimationPlayer.play("dissappear")
+
