@@ -47,6 +47,8 @@ func _process(delta: float) -> void:
 		
 		Engine.time_scale = 0.1
 		
+		emit_signal("started_moving")
+		
 	
 	# if moon is disappearing, scale moon down linearly
 	if _moon_disappearing:
@@ -83,7 +85,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		Engine.time_scale = 1.0
 		
-		emit_signal("started_moving")
 		
 
 func explode() -> void:

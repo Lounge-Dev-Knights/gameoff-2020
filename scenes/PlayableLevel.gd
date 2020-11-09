@@ -23,7 +23,7 @@ func peek_level():
 
 
 func _on_Moon_started_moving() -> void:
-	print("started moving")
+	$Tween.stop_all()
 	camera.target = $Moon
 
 
