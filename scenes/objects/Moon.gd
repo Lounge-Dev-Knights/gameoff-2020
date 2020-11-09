@@ -109,6 +109,7 @@ func reset():
 
 
 func explode() -> void:
+	get_tree().call_group("cameras", "add_trauma", 1.0)
 	$AnimationPlayer.play("explode")
 	$ParticleTrail.hide()
 	SoundEngine.play_sound("MoonImpact")
