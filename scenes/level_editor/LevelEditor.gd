@@ -14,6 +14,7 @@ var level_path: String
 
 # node that is beeing dragged
 var drag_object: Node2D
+var drag_origin: Vector2
 var selected_objects: Array = []
 
 
@@ -48,12 +49,27 @@ func _start_drag():
 		var collider: Node2D = intersection["collider"]
 		if collider.is_in_group("draggable"):
 			drag_object = collider
-
+			drag_origin = get_global_mouse_position()
 
 func _stop_drag():
+	if (drag_origin.distance_to(get_global_mouse_position()) < 5.0):
+		select([drag_object])
+	
 	drag_object = null
 	save()
 
+func select(objects: Array):
+	if objects.size() == 1 and selected_objects.size() == 1 and objects[0] == selected_objects[0]:
+		objects = []
+	
+	for s in selected_objects:
+		s.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	selected_objects = []
+	
+	for o in objects:
+		selected_objects.append(o)
+		o.modulate = Color(10.0, 10.0, 10.0, 10.0)
+		
 
 
 # saves the current level in the user directory as a json file

@@ -42,7 +42,7 @@ radius = 542.091
 resource_name = "spawn"
 length = 0.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("blackhole:scale")
+tracks/0/path = NodePath("texture:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -63,7 +63,7 @@ gravity = 0.0
 linear_damp = 0.9
 script = ExtResource( 1 )
 
-[node name="blackhole" type="Sprite" parent="."]
+[node name="texture" type="Sprite" parent="."]
 material = SubResource( 2 )
 texture = ExtResource( 2 )
 

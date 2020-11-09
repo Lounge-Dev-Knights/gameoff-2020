@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/objects/star.svg" type="Texture" id=1]
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Area2D
 
 
@@ -10,14 +10,13 @@ func _on_Star_body_entered(body):
 	queue_free()
 "
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=2]
 
-[sub_resource type="StreamTexture" id=3]
+[sub_resource type="StreamTexture" id=8]
 flags = 4
 load_path = "res://.import/star.svg-b381157b5e389e82bd7e1608c47df142.stex"
 
-[sub_resource type="Animation" id=4]
-resource_name = "spawn"
+[sub_resource type="Animation" id=5]
 tracks/0/type = "value"
 tracks/0/path = NodePath("CPUParticles2D:emitting")
 tracks/0/interp = 1
@@ -33,12 +32,12 @@ tracks/0/keys = {
 
 [node name="Star" type="Area2D"]
 collision_layer = 4
-script = SubResource( 5 )
+script = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 6 )
+shape = SubResource( 2 )
 
-[node name="star" type="Sprite" parent="."]
+[node name="texture" type="Sprite" parent="."]
 modulate = Color( 0.67451, 0.839216, 0, 1 )
 texture = ExtResource( 1 )
 
@@ -48,7 +47,7 @@ amount = 16
 one_shot = true
 explosiveness = 0.89
 lifetime_randomness = 0.75
-texture = SubResource( 3 )
+texture = SubResource( 8 )
 direction = Vector2( 0, 0 )
 spread = 180.0
 gravity = Vector2( 0, 0 )
@@ -58,5 +57,5 @@ damping = 20.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "spawn"
-anims/spawn = SubResource( 4 )
+anims/spawn = SubResource( 5 )
 [connection signal="body_entered" from="." to="." method="_on_Star_body_entered"]
