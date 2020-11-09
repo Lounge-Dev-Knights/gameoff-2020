@@ -3,6 +3,11 @@ extends Node
 const POOL_SIZE = 8
 
 const sounds = {
+	"MenuButtonSound":preload("res://Sounds/MenuButtonSound.wav"),
+	"MoonImpact":preload("res://Sounds/MoonImpact.wav"),
+	"Wurmhole":preload("res://Sounds/wurmhole.wav")
+	
+	
 }
 
 # Called when the node enters the scene tree for the first time.
