@@ -161,3 +161,4 @@ anims/spawn = SubResource( 9 )
 stream = ExtResource( 5 )
 [connection signal="moving" from="." to="." method="_on_Moon_moving"]
 [connection signal="stationary" from="." to="." method="_on_Moon_stationary"]
+[connection signal="wurmhole" from="." to="." method="_on_Moon_wurmhole"]

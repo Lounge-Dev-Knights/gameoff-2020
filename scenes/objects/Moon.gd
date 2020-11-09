@@ -5,6 +5,7 @@ signal started_moving
 signal started_orbiting
 signal moving
 signal stationary
+signal wurmhole
 
 
 const START_RADIUS = 100
@@ -91,6 +92,7 @@ func reset():
 	position = Vector2()
 	orbit(null)
 	$AnimationPlayer.play("spawn")
+	SoundEngine.play_sound("Reset")
 	emit_signal("stationary")
 
 
@@ -110,13 +112,12 @@ func orbit(center: Node2D, radius: float = 100.0) -> void:
 	orbit_center = center
 	orbit_radius = radius
 	emit_signal("started_orbiting", center)
-	emit_signal("stationary")
 
 
 func dissappear(in_node: Node2D) -> void:
 	orbit(in_node, position.distance_to(in_node.position))
 	$AnimationPlayer.play("dissappear")
-	emit_signal("stationary")
+	emit_signal("wurmhole")
 	SoundEngine.play_sound("Wurmhole")
 
 
@@ -124,4 +125,9 @@ func _on_Moon_moving():
 	$MoonFlying.play()
 
 func _on_Moon_stationary():
+	yield(get_tree().create_timer(0.2), "timeout")
+	$MoonFlying.stop()
+
+func _on_Moon_wurmhole():
+	yield(get_tree().create_timer(1), "timeout")
 	$MoonFlying.stop()
