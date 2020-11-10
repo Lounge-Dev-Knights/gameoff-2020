@@ -5,6 +5,7 @@ onready var tween = $Tween
 onready var camera = $Camera2D
 
 
+
 func _unhandled_input(event):
 	if tween.is_active() and Input.is_action_just_pressed("shoot"):
 		show_start()
@@ -12,6 +13,7 @@ func _unhandled_input(event):
 
 func load_data(level_data: Dictionary, reload: bool = false) -> void:
 	.load_data(level_data)
+	$Fortuna.reset()
 	
 	if reload:
 		show_start()
@@ -40,12 +42,30 @@ func show_start():
 	
 	$Moon.enabled = true
 	tween.start()
+	
+
+func success():
+	$Fortuna.enabled = false
+	$Fortuna.reset()
 
 
 func _on_Moon_started_moving() -> void:
 	$Tween.stop_all()
 	camera.target = $Moon
+	
+	$Fortuna.enabled = true
 
 
 func _on_Moon_started_orbiting(center: Node2D) -> void:
 	camera.target = center
+	
+	$Fortuna.enabled = false
+
+
+
+func _on_BlackHole_body_entered(body):
+	success()
+
+
+func _on_Moon_stationary():
+	$Fortuna.enabled = false
