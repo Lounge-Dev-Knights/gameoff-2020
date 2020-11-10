@@ -7,9 +7,6 @@ const sounds = {
 	"MoonImpact":preload("res://Sounds/MoonImpact.wav"),
 	"Wurmhole":preload("res://Sounds/wurmhole.wav"),
 	"Reset":preload("res://Sounds/Reset.wav"),
-	"MenuButtonHoverSound":preload("res://Sounds/MenuButtonHoverSound.wav"),
-	
-	
 }
 
 # Called when the node enters the scene tree for the first time.
