@@ -1,0 +1,35 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform vec3 scale = vec3(1.0);
+
+uniform vec3 albedo = vec3(1.0, 0.0, 0.0);
+uniform float outline_width = 0.03;
+
+void fragment() {
+	if (texture(TEXTURE, UV).a < 0.5) {
+		float alpha = 0.0;
+		
+		alpha += texture(TEXTURE, UV + vec2(0, -outline_width)).a;
+		alpha += texture(TEXTURE, UV + vec2(0, 0)).a;
+		alpha += texture(TEXTURE, UV + vec2(0, outline_width)).a;
+		alpha += texture(TEXTURE, UV + vec2(-outline_width, -outline_width)).a;
+		alpha += texture(TEXTURE, UV + vec2(-outline_width, 0)).a;
+		alpha += texture(TEXTURE, UV + vec2(-outline_width, outline_width)).a;
+		alpha += texture(TEXTURE, UV + vec2(outline_width, -outline_width)).a;
+		alpha += texture(TEXTURE, UV + vec2(outline_width, 0)).a;
+		alpha += texture(TEXTURE, UV + vec2(outline_width, outline_width)).a;
+		
+		COLOR = vec4(albedo, alpha);
+	}
+	
+}"
+
+[resource]
+shader = SubResource( 1 )
+shader_param/scale = Vector3( 1, 1, 1 )
+shader_param/albedo = Vector3( 1, 0, 0 )
+shader_param/outline_width = 0.03

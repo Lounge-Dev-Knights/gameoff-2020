@@ -85,6 +85,7 @@ margin_right = 76.0
 margin_bottom = 72.0
 hint_tooltip = "New level"
 icon = ExtResource( 2 )
+flat = false
 
 [node name="Import" type="ToolButton" parent="MarginContainer/HBoxContainer/CustomLevels/HBoxContainer"]
 margin_left = 80.0
@@ -92,6 +93,7 @@ margin_right = 156.0
 margin_bottom = 72.0
 hint_tooltip = "Import level"
 icon = ExtResource( 3 )
+flat = false
 
 [node name="PopupPanel" type="PopupPanel" parent="."]
 margin_left = 7.0
@@ -207,6 +209,7 @@ margin_right = 76.0
 margin_bottom = 72.0
 hint_tooltip = "Back to TitleScreen"
 icon = ExtResource( 4 )
+flat = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
