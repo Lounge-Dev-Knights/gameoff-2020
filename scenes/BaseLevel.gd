@@ -47,6 +47,8 @@ func load_data(level_data: Dictionary) -> void:
 	var hole_data = level_data["black_hole"]
 	black_hole.position = Vector2(hole_data["pos_x"], hole_data["pos_y"])
 	black_hole.get_node("AnimationPlayer").play("spawn")
+	start_planet.position = Vector2()
+	start_planet.get_node("AnimationPlayer").play("spawn")
 
 
 
