@@ -8,6 +8,7 @@ const sounds = {
 	"Wurmhole":preload("res://Sounds/wurmhole.wav"),
 	"Reset":preload("res://Sounds/Reset.wav"),
 	"Star":preload("res://Sounds/Star.wav"),
+	"MoonThrowing":preload("res://Sounds/MoonThrowing.wav"),
 }
 
 # Called when the node enters the scene tree for the first time.

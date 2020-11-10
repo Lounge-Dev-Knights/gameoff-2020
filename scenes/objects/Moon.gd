@@ -145,6 +145,7 @@ func disappear(in_node: Node2D) -> void:
 
 func _on_Moon_moving():
 	$MoonFlying.play()
+	SoundEngine.play_sound("MoonThrowing")
 
 func _on_Moon_stationary():
 	yield(get_tree().create_timer(0.2), "timeout")
