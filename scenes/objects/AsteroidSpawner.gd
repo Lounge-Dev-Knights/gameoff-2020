@@ -10,6 +10,7 @@ export(int, "Up", "Down", "Left", "Right") var direction
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_load_asteroid()
 	pass # Replace with function body.
 
 func _load_asteroid():

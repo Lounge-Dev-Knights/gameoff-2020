@@ -8,7 +8,7 @@ radius = 15.0
 
 [node name="Astroids" type="RigidBody2D"]
 collision_layer = 16
-collision_mask = 9
+collision_mask = 11
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

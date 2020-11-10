@@ -36,13 +36,14 @@ func _unhandled_input(event):
 
 func blackhole_hit(body):
 	# play disappearing "animation"
-	moon._moon_disappearing = true
-	moon_particles.hide()
+	if body == moon:
+		moon._moon_disappearing = true
+		moon_particles.hide()
 	
-	# center camera to black hole to prevent camera bounce
-	camera.target = black_hole
+		# center camera to black hole to prevent camera bounce
+		camera.target = black_hole
 	
-	$HUD/Success.show()
+		$HUD/Success.show()
 
 
 func planet_hit(body):
