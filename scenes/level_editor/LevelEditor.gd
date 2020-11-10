@@ -14,8 +14,10 @@ var level_path: String
 
 # node that is beeing dragged
 var drag_object: Node2D
+var drag_origin: Vector2
 var selected_objects: Array = []
 
+var context_object: Node2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -31,18 +33,40 @@ func _physics_process(delta):
 	if drag_object != null:
 		drag_object.position = get_global_mouse_position()
 		
-	if Input.is_action_just_pressed("drag"):
-		_start_drag()
+	
 
 
 func _unhandled_input(event):
+	if Input.is_action_just_pressed("drag"):
+		_start_drag()
+		
 	if Input.is_action_just_released("drag"):
 		_stop_drag()
+		
+	if Input.is_action_just_pressed("context"):
+		_show_context()
+
+
+# check if cursor points to a node and start dragging
+func _show_context():	
+	var state = get_world_2d().direct_space_state
+	
+	var intersections = state.intersect_point(get_global_mouse_position(), 32, [], 0x7FFFFFFF, true, true)
+	for intersection in intersections:
+		var collider: Node2D = intersection["collider"]
+		# check if is draggable and not black hole
+		if collider.is_in_group("draggable") and "type" in collider:
+			context_object = collider
+			$CanvasLayer/PopupMenu.popup_centered()
+			$CanvasLayer/PopupMenu.rect_position = get_viewport().get_mouse_position()
 
 
 # check if cursor points to a node and start dragging
 func _start_drag():
+	drag_origin = get_global_mouse_position()
+	
 	var state = get_world_2d().direct_space_state
+	
 	var intersections = state.intersect_point(get_global_mouse_position(), 32, [], 0x7FFFFFFF, true, true)
 	for intersection in intersections:
 		var collider: Node2D = intersection["collider"]
@@ -51,9 +75,29 @@ func _start_drag():
 
 
 func _stop_drag():
+	if (drag_origin.distance_to(get_global_mouse_position()) < 5.0):
+		if drag_object != null:
+			select([drag_object])
+			print(drag_object)
+		else:
+			print("no select")
+			select([])
+	
 	drag_object = null
 	save()
 
+
+func select(objects: Array):
+	if objects.size() == 1 and selected_objects.size() == 1 and objects[0] == selected_objects[0]:
+		objects = []
+	
+	for s in selected_objects:
+		s.modulate = Color(1.0, 1.0, 1.0, 1.0)
+	selected_objects = []
+	
+	for o in objects:
+		selected_objects.append(o)
+		o.modulate = Color(10.0, 10.0, 10.0, 10.0)
 
 
 # saves the current level in the user directory as a json file
@@ -110,3 +154,13 @@ func _on_AddPlanet_pressed():
 
 func _on_BackToMenu_pressed():
 	SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
+
+
+func _on_PopupMenu_mouse_exited():
+	$CanvasLayer/PopupMenu.hide()
+
+
+func _on_PopupMenu_id_pressed(id):
+	if id == 0:
+		context_object.queue_free()
+		context_object = null
