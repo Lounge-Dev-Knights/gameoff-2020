@@ -127,12 +127,15 @@ tracks/1/keys = {
 }
 
 [node name="Moon" type="RigidBody2D"]
+modulate = Color( 0, 0, 0, 1 )
+z_index = 1
 collision_layer = 17
 mode = 1
 script = ExtResource( 3 )
 
 [node name="planet" type="Sprite" parent="."]
 material = SubResource( 1 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

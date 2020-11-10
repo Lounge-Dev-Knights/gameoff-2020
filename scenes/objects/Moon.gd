@@ -151,5 +151,5 @@ func _on_Moon_stationary():
 	$MoonFlying.stop()
 
 func _on_Moon_wurmhole():
-	yield(get_tree().create_timer(1), "timeout")
+	yield(get_tree().create_timer(0.5), "timeout")
 	$MoonFlying.stop()

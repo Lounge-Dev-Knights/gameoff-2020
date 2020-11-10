@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/TitleScreen.gd" type="Script" id=1]
+[ext_resource path="res://Sounds/MenuButtonHoverSound.wav" type="AudioStream" id=2]
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -44,7 +45,16 @@ margin_bottom = 92.0
 text = "Quit"
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="MenuButtonHoverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+bus = "Bus2"
+[connection signal="focus_entered" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/TestLevel" to="." method="_on_TestLevel_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/TestLevel" to="." method="_on_TestLevel_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/LevelEditor" to="." method="_on_LevelEditor_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/LevelEditor" to="." method="_on_LevelEditor_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/Quit" to="." method="_on_Quit_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
