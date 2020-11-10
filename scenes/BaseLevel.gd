@@ -89,3 +89,4 @@ func load_stars(stars_data: Array) -> void:
 	
 	for star in stars_data:
 		add_star(Vector2(star["pos_x"], star["pos_y"]))
+

@@ -23,6 +23,10 @@ var orbit_center: Node2D
 var orbit_radius: float = START_RADIUS
 var orbit_speed: float = START_ANGULAR_SPEED
 
+var orbit_target: Vector2
+var orbit_current_radius: float
+
+
 var enabled = true
 
 
@@ -38,10 +42,17 @@ func _process(delta: float) -> void:
 	if mode == RigidBody2D.MODE_STATIC:
 		start_angle += orbit_speed * delta
 		
-		position = Vector2(orbit_radius, 0).rotated(start_angle)
+		
+		orbit_current_radius = lerp(orbit_current_radius, orbit_radius, delta)
+		orbit_speed = lerp(orbit_speed, sign(orbit_speed) * START_ANGULAR_SPEED, delta)
+		
+		orbit_target = Vector2(orbit_current_radius, 0).rotated(start_angle)
+		
 		
 		if orbit_center != null:
-			position += orbit_center.position
+			orbit_target += orbit_center.position
+		
+		position = position.linear_interpolate(orbit_target, 0.5)
 	
 	if _start_charging != 0:
 		modulate.g -= 20 * delta
@@ -90,6 +101,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func reset():
 	position = Vector2()
+	orbit_speed = START_ANGULAR_SPEED
 	orbit(null)
 	$AnimationPlayer.play("spawn")
 	SoundEngine.play_sound("Reset")
@@ -97,6 +109,7 @@ func reset():
 
 
 func explode() -> void:
+	get_tree().call_group("cameras", "add_trauma", 1.0)
 	$AnimationPlayer.play("explode")
 	$ParticleTrail.hide()
 	SoundEngine.play_sound("MoonImpact")
@@ -109,14 +122,23 @@ func explode() -> void:
 
 func orbit(center: Node2D, radius: float = 100.0) -> void:
 	set_deferred("mode", RigidBody2D.MODE_STATIC)
+	if center != null:
+		start_angle = (position - center.position).angle()
+		
+		var distance = (position - center.position).normalized()
+		var velocity_norm = linear_velocity / 100
+		
+		orbit_speed = (velocity_norm).dot(distance.rotated(PI / 2))
+		
+	
 	orbit_center = center
 	orbit_radius = radius
 	emit_signal("started_orbiting", center)
 
 
-func dissappear(in_node: Node2D) -> void:
-	orbit(in_node, position.distance_to(in_node.position))
-	$AnimationPlayer.play("dissappear")
+func disappear(in_node: Node2D) -> void:
+	orbit(in_node, 0)
+	$AnimationPlayer.play("disappear")
 	emit_signal("wurmhole")
 	SoundEngine.play_sound("Wurmhole")
 
