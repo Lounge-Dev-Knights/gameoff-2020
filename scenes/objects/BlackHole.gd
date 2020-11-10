@@ -7,6 +7,5 @@ func _ready():
 
 
 func _on_BlackHole_body_entered(body):
-	if body.has_method("dissappear"):
-		body.dissappear(self)
-		
+	if body.has_method("disappear"):
+		body.disappear(self)

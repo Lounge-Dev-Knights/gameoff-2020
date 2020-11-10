@@ -60,14 +60,22 @@ hint_tooltip = "Add planet"
 text = "Add planet"
 
 [node name="BackToMenu" type="ToolButton" parent="CanvasLayer"]
-margin_right = 12.0
-margin_bottom = 22.0
+margin_right = 76.0
+margin_bottom = 72.0
 hint_tooltip = "Back"
 shortcut = SubResource( 2 )
 icon = ExtResource( 5 )
+flat = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PopupMenu" type="PopupMenu" parent="CanvasLayer"]
+margin_right = 20.0
+margin_bottom = 20.0
+items = [ "Delete", null, 0, false, false, 0, 0, null, "", false ]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddStar" to="." method="_on_AddStar_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddPlanet" to="." method="_on_AddPlanet_pressed"]
 [connection signal="pressed" from="CanvasLayer/BackToMenu" to="." method="_on_BackToMenu_pressed"]
+[connection signal="id_pressed" from="CanvasLayer/PopupMenu" to="." method="_on_PopupMenu_id_pressed"]
+[connection signal="mouse_exited" from="CanvasLayer/PopupMenu" to="." method="_on_PopupMenu_mouse_exited"]

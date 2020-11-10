@@ -5,6 +5,7 @@ onready var moon = $Moon
 onready var black_hole = $BlackHole
 onready var stars = $stars
 onready var objects = $objects
+onready var start_planet = $StartPlanet
 
 
 # Called when the node enters the scene tree for the first time.
@@ -38,6 +39,7 @@ func save_data() -> Dictionary:
 
 func load_data(level_data: Dictionary) -> void:
 	moon.reset()
+	moon.orbit($start_planet)
 	
 	load_objects(level_data["objects"])
 	load_stars(level_data["stars"])
@@ -87,3 +89,4 @@ func load_stars(stars_data: Array) -> void:
 	
 	for star in stars_data:
 		add_star(Vector2(star["pos_x"], star["pos_y"]))
+

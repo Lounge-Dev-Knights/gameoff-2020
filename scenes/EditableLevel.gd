@@ -13,3 +13,8 @@ func add_object(type: String, pos: Vector2 = Vector2(0, 0)) -> Node2D:
 	var object = .add_object(type, pos)
 	object.add_to_group("draggable")
 	return object
+
+# OVERRIDE from BaseLevel
+func _ready():
+	self.moon.queue_free()
+	self.start_planet.add_to_group("draggable")
