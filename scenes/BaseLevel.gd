@@ -54,8 +54,10 @@ func add_object(type: String, pos: Vector2 = Vector2(0, 0)) -> Node2D:
 	var instance
 	
 	match type:
-		"Planet", _:
+		"Planet":
 			instance = preload("res://scenes/objects/Planet.tscn").instance()
+		"Waypoint":
+			instance = preload("res://scenes/objects/Waypoint.tscn").instance()
 	
 	instance.position = pos
 	objects.add_child(instance)
