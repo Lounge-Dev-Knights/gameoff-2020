@@ -5,7 +5,6 @@ extends "res://scenes/BaseLevel.gd"
 func add_star(pos: Vector2 = Vector2(0, 0)) -> Node2D:
 	var star = .add_star(pos)
 	star.add_to_group("draggable")
-	star.add_to_group("removeable")
 	star.monitoring = false
 	return star
 
@@ -13,7 +12,6 @@ func add_star(pos: Vector2 = Vector2(0, 0)) -> Node2D:
 func add_object(type: String, pos: Vector2 = Vector2(0, 0)) -> Node2D:
 	var object = .add_object(type, pos)
 	object.add_to_group("draggable")
-	object.add_to_group("removeable")
 	return object
 
 # OVERRIDE from BaseLevel
