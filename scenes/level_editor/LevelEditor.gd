@@ -27,7 +27,7 @@ func _ready():
 		load_level(level_path)
 		
 	level.get_node("BlackHole").add_to_group("draggable")
-
+	
 
 func _physics_process(delta):
 	if drag_object != null:
@@ -164,3 +164,8 @@ func _on_PopupMenu_id_pressed(id):
 	if id == 0:
 		context_object.queue_free()
 		context_object = null
+
+
+func _on_AddAsteroidSpawner_pressed():
+	var asteroidSpawner = level.add_object("AsteroidSpawner", camera.position)
+

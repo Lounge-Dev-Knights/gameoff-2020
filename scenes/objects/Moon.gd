@@ -33,34 +33,36 @@ var enabled = true
 var _start_charging: int
 var _moon_disappearing = false
 var _moon_stopped = false
+var _moon_destroyed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_angle = randf() * 2 * PI
 
 func _process(delta: float) -> void:
-	if mode == RigidBody2D.MODE_STATIC:
-		start_angle += orbit_speed * delta
+	if not _moon_destroyed:
+		if mode == RigidBody2D.MODE_STATIC:
+			start_angle += orbit_speed * delta
+			
+			
+			orbit_current_radius = lerp(orbit_current_radius, orbit_radius, delta)
+			orbit_speed = lerp(orbit_speed, sign(orbit_speed) * START_ANGULAR_SPEED, delta)
+			
+			orbit_target = Vector2(orbit_current_radius, 0).rotated(start_angle)
+			
+			
+			if orbit_center != null:
+				orbit_target += orbit_center.position
+			
+			position = position.linear_interpolate(orbit_target, 0.5)
 		
+		if _start_charging != 0:
+			modulate.g -= 20 * delta
+			modulate.b -= 20 * delta
 		
-		orbit_current_radius = lerp(orbit_current_radius, orbit_radius, delta)
-		orbit_speed = lerp(orbit_speed, sign(orbit_speed) * START_ANGULAR_SPEED, delta)
-		
-		orbit_target = Vector2(orbit_current_radius, 0).rotated(start_angle)
-		
-		
-		if orbit_center != null:
-			orbit_target += orbit_center.position
-		
-		position = position.linear_interpolate(orbit_target, 0.5)
-	
-	if _start_charging != 0:
-		modulate.g -= 20 * delta
-		modulate.b -= 20 * delta
-	
-	# if moon is disappearing, scale moon down linearly
-	if _moon_disappearing:
-		moon_sprite.scale = moon_sprite.scale / 1.05
+		# if moon is disappearing, scale moon down linearly
+		if _moon_disappearing:
+			moon_sprite.scale = moon_sprite.scale / 1.05
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -100,24 +102,30 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func reset():
+	_moon_destroyed = false
 	position = Vector2()
 	orbit_speed = START_ANGULAR_SPEED
 	orbit(null)
 	$AnimationPlayer.play("spawn")
 	SoundEngine.play_sound("Reset")
 	emit_signal("stationary")
-
+	$CollisionShape2D.disabled = false
+	sleeping = false
 
 func explode() -> void:
-	get_tree().call_group("cameras", "add_trauma", 1.0)
+	get_tree().call_group("cameras", "add_trauma", 1.0)  #Screen shake
 	$AnimationPlayer.play("explode")
 	$ParticleTrail.hide()
 	SoundEngine.play_sound("MoonImpact")
 	emit_signal("stationary")
-	
 	linear_velocity = Vector2(0,0)
 	angular_velocity = 0
 	sleeping = true
+	mode = RigidBody2D.MODE_STATIC
+	_moon_destroyed = true
+	$CollisionShape2D.disabled = true
+
+	
 
 
 func orbit(center: Node2D, radius: float = 100.0) -> void:

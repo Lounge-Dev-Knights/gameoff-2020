@@ -38,26 +38,33 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 88.0
-margin_bottom = 51.0
+margin_right = 109.0
+margin_bottom = 75.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/VBoxContainer"]
-margin_right = 81.0
-margin_bottom = 44.0
+margin_right = 102.0
+margin_bottom = 68.0
 size_flags_vertical = 3
 
 [node name="AddStar" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
-margin_right = 81.0
+margin_right = 102.0
 margin_bottom = 20.0
 hint_tooltip = "Add Star"
 text = "Add star"
 
 [node name="AddPlanet" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_top = 24.0
-margin_right = 81.0
+margin_right = 102.0
 margin_bottom = 44.0
 hint_tooltip = "Add planet"
 text = "Add planet"
+
+[node name="AddAsteroidSpawner" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+margin_top = 48.0
+margin_right = 102.0
+margin_bottom = 68.0
+hint_tooltip = "Add planet"
+text = "Add Asteroids"
 
 [node name="BackToMenu" type="ToolButton" parent="CanvasLayer"]
 margin_right = 76.0
@@ -76,6 +83,7 @@ margin_bottom = 20.0
 items = [ "Delete", null, 0, false, false, 0, 0, null, "", false ]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddStar" to="." method="_on_AddStar_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddPlanet" to="." method="_on_AddPlanet_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddAsteroidSpawner" to="." method="_on_AddAsteroidSpawner_pressed"]
 [connection signal="pressed" from="CanvasLayer/BackToMenu" to="." method="_on_BackToMenu_pressed"]
 [connection signal="id_pressed" from="CanvasLayer/PopupMenu" to="." method="_on_PopupMenu_id_pressed"]
 [connection signal="mouse_exited" from="CanvasLayer/PopupMenu" to="." method="_on_PopupMenu_mouse_exited"]
