@@ -70,7 +70,7 @@ text = "Quit"
 
 [node name="MenuButtonHoverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
-bus = "Bus2"
+volume_db = -18.0
 [connection signal="focus_entered" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_pressed"]

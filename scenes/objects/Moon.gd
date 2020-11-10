@@ -4,7 +4,8 @@ extends RigidBody2D
 signal started_moving
 signal started_orbiting
 signal moving
-signal stationary
+signal reset
+signal exploded
 signal wurmhole
 
 
@@ -37,6 +38,7 @@ var _moon_stopped = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_angle = randf() * 2 * PI
+	$MoonRevolving.play()
 
 func _process(delta: float) -> void:
 	if mode == RigidBody2D.MODE_STATIC:
@@ -105,7 +107,7 @@ func reset():
 	orbit(null)
 	$AnimationPlayer.play("spawn")
 	SoundEngine.play_sound("Reset")
-	emit_signal("stationary")
+	emit_signal("reset")
 
 
 func explode() -> void:
@@ -113,7 +115,7 @@ func explode() -> void:
 	$AnimationPlayer.play("explode")
 	$ParticleTrail.hide()
 	SoundEngine.play_sound("MoonImpact")
-	emit_signal("stationary")
+	emit_signal("exploded")
 	
 	linear_velocity = Vector2(0,0)
 	angular_velocity = 0
@@ -134,7 +136,7 @@ func orbit(center: Node2D, radius: float = 100.0) -> void:
 	orbit_center = center
 	orbit_radius = radius
 	emit_signal("started_orbiting", center)
-
+	print("started_orbiting")
 
 func disappear(in_node: Node2D) -> void:
 	orbit(in_node, 0)
@@ -142,12 +144,19 @@ func disappear(in_node: Node2D) -> void:
 	emit_signal("wurmhole")
 	SoundEngine.play_sound("Wurmhole")
 
+func _on_Moon_started_moving():
+	$MoonRevolving.stop()
 
 func _on_Moon_moving():
 	$MoonFlying.play()
 	SoundEngine.play_sound("MoonThrowing")
 
-func _on_Moon_stationary():
+func _on_Moon_reset():
+	yield(get_tree().create_timer(0.2), "timeout")
+	$MoonFlying.stop()
+	$MoonRevolving.play()
+
+func _on_Moon_exploded():
 	yield(get_tree().create_timer(0.2), "timeout")
 	$MoonFlying.stop()
 
