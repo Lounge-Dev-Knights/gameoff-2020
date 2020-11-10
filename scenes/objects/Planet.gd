@@ -13,4 +13,5 @@ func _ready():
 
 
 func _on_Planet_body_entered(body):
-	body.explode()
+	if body.has_method("explode"):
+		body.explode()

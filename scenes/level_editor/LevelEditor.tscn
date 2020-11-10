@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/level_editor/LevelEditor.gd" type="Script" id=1]
 [ext_resource path="res://scenes/BaseLevel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/level_editor/EditorCamera.gd" type="Script" id=3]
 [ext_resource path="res://scenes/EditableLevel.gd" type="Script" id=4]
 [ext_resource path="res://scenes/level_editor/ArrowLeft.svg" type="Texture" id=5]
+
+[sub_resource type="InputEventAction" id=1]
+action = "ui_cancel"
+
+[sub_resource type="ShortCut" id=2]
+shortcut = SubResource( 1 )
 
 [node name="LevelEditor" type="Node2D"]
 script = ExtResource( 1 )
@@ -57,6 +63,7 @@ text = "Add planet"
 margin_right = 12.0
 margin_bottom = 22.0
 hint_tooltip = "Back"
+shortcut = SubResource( 2 )
 icon = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
