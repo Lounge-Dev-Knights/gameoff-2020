@@ -17,7 +17,7 @@ shader_param/random_modifier = null
 shader_param/greyscale = null
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 731.5
+radius = 800.0
 
 [sub_resource type="Animation" id=4]
 resource_name = "spawn"
@@ -38,6 +38,7 @@ tracks/0/keys = {
 [node name="Planet" type="Area2D" groups=[
 "objects",
 ]]
+space_override = 1
 collision_layer = 2
 script = ExtResource( 1 )
 
@@ -46,6 +47,7 @@ shape = SubResource( 1 )
 
 [node name="texture" type="Sprite" parent="."]
 material = SubResource( 2 )
+scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 2 )
 
 [node name="GravityArea" type="Area2D" parent="."]
@@ -53,8 +55,8 @@ space_override = 1
 gravity_point = true
 gravity_distance_scale = 0.005
 gravity_vec = Vector2( 0, 0 )
-gravity = 512.0
-linear_damp = 0.0
+gravity = 384.0
+linear_damp = 0.05
 collision_layer = 0
 collision_mask = 16
 

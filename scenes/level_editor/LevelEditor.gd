@@ -151,6 +151,9 @@ func _on_AddPlanet_pressed():
 	var planet = level.add_object("Planet", camera.position)
 
 
+func _on_AddWaypoint_pressed():
+	var planet = level.add_object("Waypoint", camera.position)
+
 
 func _on_BackToMenu_pressed():
 	SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")

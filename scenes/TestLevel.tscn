@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://scenes/level_editor/ArrowLeft.svg" type="Texture" id=1]
 [ext_resource path="res://scenes/TestLevel.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scenes/objects/Planet.tscn" type="PackedScene" id=11]
 [ext_resource path="res://resources/shaders/earth.shader" type="Shader" id=12]
 [ext_resource path="res://scenes/objects/ESCMenu.tscn" type="PackedScene" id=13]
+[ext_resource path="res://scenes/objects/Waypoint.tscn" type="PackedScene" id=14]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 12 )
@@ -74,6 +75,9 @@ z_index = 1
 [node name="Planet4" parent="objects" instance=ExtResource( 11 )]
 position = Vector2( 1133.69, -279.648 )
 z_index = 1
+
+[node name="Waypoint" parent="objects" instance=ExtResource( 14 )]
+position = Vector2( -358.665, 7.28571 )
 
 [node name="stars" type="Node2D" parent="."]
 
