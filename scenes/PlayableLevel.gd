@@ -11,12 +11,9 @@ func _unhandled_input(event):
 		show_start()
 
 
-var star_count = 0
 func load_data(level_data: Dictionary, reload: bool = false) -> void:
-	star_count = 0
 	.load_data(level_data)
 	$Fortuna.reset()
-	$StarCounter.num_stars = star_count
 	
 	if reload:
 		show_start()
@@ -25,13 +22,7 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 		
 	yield(tween, "tween_all_completed")
 	$Moon.reset(start_planet)
-
-
-func add_star(pos: Vector2 = Vector2(0, 0)) -> Node2D:
-	var star = .add_star(pos)
-	star.connect("collected", $StarCounter, "collect_star", [star, star_count])
-	star_count += 1
-	return star
+	
 
 
 func peek_level():
