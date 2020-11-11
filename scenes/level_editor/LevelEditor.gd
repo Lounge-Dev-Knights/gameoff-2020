@@ -45,7 +45,7 @@ func _unhandled_input(event):
 		
 	if Input.is_action_just_pressed("context"):
 		_show_context()
-
+	
 
 # check if cursor points to a node and start dragging
 func _show_context():	
