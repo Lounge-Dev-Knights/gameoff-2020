@@ -11,10 +11,9 @@ func _ready():
 
 
 func explode():
-
 	linear_velocity = linear_velocity*0
-	# mass = 0
-	gravity_scale = 0.1
+	
+	$CollisionShape2D.set_deferred("disabled", true)
 	#get_tree().call_group("cameras", "add_trauma", 0.15) #Screen shake
 	SoundEngine.play_sound("MoonImpact")
 	$AsteroidExplosion.play("AsteroidExplosion")

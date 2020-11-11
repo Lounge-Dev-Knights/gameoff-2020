@@ -43,7 +43,7 @@ func save_data() -> Dictionary:
 
 func load_data(level_data: Dictionary) -> void:
 	# reset moon
-	moon.reset(start_planet)
+	#moon.reset(start_planet)
 	
 	load_objects(level_data["objects"])
 	load_stars(level_data["stars"])

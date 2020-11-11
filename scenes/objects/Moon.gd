@@ -108,15 +108,17 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func reset(start_planet: Node2D = null):
 	_moon_destroyed = false
-	position = Vector2()
+	position = start_planet.position if start_planet != null else Vector2()
 	orbit(start_planet)
 	orbit_speed = START_ANGULAR_SPEED
+	
 	$AnimationPlayer.play("spawn")
+	
 	SoundEngine.play_sound("Reset")
 	emit_signal("reset")
 	emit_signal("stationary")
 	$CollisionShape2D.set_deferred("disabled", false)
-	sleeping = false
+	
 	enabled = true
 
 
@@ -127,9 +129,7 @@ func explode() -> void:
 	SoundEngine.play_sound("MoonImpact")
 	emit_signal("exploded")
 	emit_signal("stationary")
-	linear_velocity = Vector2(0,0)
-	angular_velocity = 0
-	sleeping = true
+	
 	set_deferred("mode", RigidBody2D.MODE_STATIC)
 	_moon_destroyed = true
 	$CollisionShape2D.set_deferred("disabled", true)
