@@ -128,7 +128,7 @@ func _on_ImportFileDialog_file_selected(path):
 
 
 func _on_Back_pressed():
-	SceneLoader.goto_scene("res://scenes/TitleScreen.tscn")
+	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn")
 
 
 func _on_PopupPanel_about_to_show():

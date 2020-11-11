@@ -25,7 +25,7 @@ func _on_EXCMenu_popup_hide():
 	get_tree().paused = false
 
 func _on_MainMenuButton_pressed():
-	SceneLoader.goto_scene("res://scenes/TitleScreen.tscn")
+	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn")
 
 func _on_ResumeButton_pressed():
 	self.hide()
