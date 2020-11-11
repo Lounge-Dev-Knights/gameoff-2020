@@ -45,7 +45,7 @@ func _unhandled_input(event):
 		
 	if Input.is_action_just_pressed("context"):
 		_show_context()
-
+	
 
 # check if cursor points to a node and start dragging
 func _show_context():	
@@ -169,6 +169,29 @@ func _on_PopupMenu_id_pressed(id):
 		context_object = null
 
 
-func _on_AddAsteroidSpawner_pressed():
-	var asteroidSpawner = level.add_object("AsteroidSpawner", camera.position)
+
+func _on_AddAsteroidSpawnerUP_pressed():
+	var add_prop ={
+		"direction": 0
+	}
+	var asteroidSpawnerUp = level.add_object("AsteroidSpawner", camera.position, add_prop)
+	
+
+func _on_AddAsteroidSpawnerDOWN_pressed():
+	var add_prop ={
+		"direction": 1
+	}
+	var asteroidSpawnerUp = level.add_object("AsteroidSpawner", camera.position, add_prop)
+
+func _on_AddAsteroidSpawnerLEFT_pressed():
+	var add_prop ={
+		"direction": 2
+	}
+	var asteroidSpawnerUp = level.add_object("AsteroidSpawner", camera.position, add_prop)
+
+func _on_AddAsteroidSpawnerRIGHT_pressed():
+	var add_prop ={
+		"direction": 3
+	}
+	var asteroidSpawnerUp = level.add_object("AsteroidSpawner", camera.position, add_prop)
 

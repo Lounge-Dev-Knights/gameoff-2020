@@ -1,16 +1,18 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/level_editor/LevelEditor.gd" type="Script" id=1]
 [ext_resource path="res://scenes/BaseLevel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/level_editor/EditorCamera.gd" type="Script" id=3]
 [ext_resource path="res://scenes/EditableLevel.gd" type="Script" id=4]
 [ext_resource path="res://scenes/level_editor/ArrowLeft.svg" type="Texture" id=5]
+[ext_resource path="res://scenes/level_editor/default_theme.tres" type="Theme" id=6]
+[ext_resource path="res://color_palette.png" type="Texture" id=7]
 
-[sub_resource type="InputEventAction" id=1]
+[sub_resource type="InputEventAction" id=3]
 action = "ui_cancel"
 
-[sub_resource type="ShortCut" id=2]
-shortcut = SubResource( 1 )
+[sub_resource type="ShortCut" id=4]
+shortcut = SubResource( 3 )
 
 [node name="LevelEditor" type="Node2D"]
 script = ExtResource( 1 )
@@ -24,60 +26,87 @@ script = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+[node name="PanelContainer" type="MarginContainer" parent="CanvasLayer"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = -29.0
-margin_right = 95.0
-margin_bottom = 29.0
+margin_top = -120.5
+margin_right = 272.0
+margin_bottom = 120.5
 grow_vertical = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme = ExtResource( 6 )
+custom_constants/margin_right = 20
+custom_constants/margin_top = 10
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 109.0
-margin_bottom = 75.0
+margin_left = 20.0
+margin_top = 10.0
+margin_right = 278.0
+margin_bottom = 237.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/VBoxContainer"]
-margin_right = 102.0
-margin_bottom = 68.0
+margin_right = 258.0
+margin_bottom = 227.0
 size_flags_vertical = 3
 
 [node name="AddStar" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
-margin_right = 102.0
-margin_bottom = 20.0
+margin_right = 258.0
+margin_bottom = 29.0
 hint_tooltip = "Add Star"
 text = "Add star"
 
 [node name="AddWaypoint" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
-margin_top = 24.0
-margin_right = 102.0
-margin_bottom = 44.0
+margin_top = 33.0
+margin_right = 258.0
+margin_bottom = 62.0
 hint_tooltip = "Add Star"
 text = "Add waypoint"
 
 [node name="AddPlanet" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
-margin_top = 48.0
-margin_right = 98.0
-margin_bottom = 68.0
+margin_top = 66.0
+margin_right = 258.0
+margin_bottom = 95.0
 hint_tooltip = "Add planet"
 text = "Add planet"
 
-[node name="AddAsteroidSpawner" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
-margin_top = 48.0
-margin_right = 102.0
-margin_bottom = 68.0
+[node name="AddAsteroidSpawnerUP" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+margin_top = 99.0
+margin_right = 258.0
+margin_bottom = 128.0
 hint_tooltip = "Add planet"
-text = "Add Asteroids"
+text = "Add Asteroids UP"
+
+[node name="AddAsteroidSpawnerDOWN" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+margin_top = 132.0
+margin_right = 258.0
+margin_bottom = 161.0
+hint_tooltip = "Add planet"
+text = "Add Asteroids Down"
+
+[node name="AddAsteroidSpawnerLEFT" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+margin_top = 165.0
+margin_right = 258.0
+margin_bottom = 194.0
+hint_tooltip = "Add planet"
+text = "Add Asteroids Left"
+
+[node name="AddAsteroidSpawnerRIGHT" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+margin_top = 198.0
+margin_right = 258.0
+margin_bottom = 227.0
+hint_tooltip = "Add planet"
+text = "Add Asteroids Right"
+
+[node name="color_palette" type="Sprite" parent="CanvasLayer/PanelContainer"]
+position = Vector2( 532.859, 235.161 )
+texture = ExtResource( 7 )
 
 [node name="BackToMenu" type="ToolButton" parent="CanvasLayer"]
 margin_right = 76.0
 margin_bottom = 72.0
 hint_tooltip = "Back"
-shortcut = SubResource( 2 )
+shortcut = SubResource( 4 )
 icon = ExtResource( 5 )
 flat = false
 __meta__ = {
@@ -91,7 +120,10 @@ items = [ "Delete", null, 0, false, false, 0, 0, null, "", false ]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddStar" to="." method="_on_AddStar_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddWaypoint" to="." method="_on_AddWaypoint_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddPlanet" to="." method="_on_AddPlanet_pressed"]
-[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddAsteroidSpawner" to="." method="_on_AddAsteroidSpawner_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddAsteroidSpawnerUP" to="." method="_on_AddAsteroidSpawnerUP_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddAsteroidSpawnerDOWN" to="." method="_on_AddAsteroidSpawnerDOWN_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddAsteroidSpawnerLEFT" to="." method="_on_AddAsteroidSpawnerLEFT_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddAsteroidSpawnerRIGHT" to="." method="_on_AddAsteroidSpawnerRIGHT_pressed"]
 [connection signal="pressed" from="CanvasLayer/BackToMenu" to="." method="_on_BackToMenu_pressed"]
 [connection signal="id_pressed" from="CanvasLayer/PopupMenu" to="." method="_on_PopupMenu_id_pressed"]
 [connection signal="mouse_exited" from="CanvasLayer/PopupMenu" to="." method="_on_PopupMenu_mouse_exited"]
