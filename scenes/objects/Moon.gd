@@ -42,7 +42,9 @@ func _ready():
 	start_angle = randf() * 2 * PI
 	$MoonRevolving.play()
 
+
 func _process(delta: float) -> void:
+	
 	if not _moon_destroyed:
 		if mode == RigidBody2D.MODE_STATIC:
 			start_angle += orbit_speed * delta
@@ -98,7 +100,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		# multiply direction vector with charged velocity to get the ball flying
 		linear_velocity = direction * charged_velocity
 
-		mode = RigidBody2D.MODE_RIGID
+		set_deferred("mode", RigidBody2D.MODE_RIGID)
 
 		# reset pressed duration
 		_start_charging = 0
@@ -113,8 +115,10 @@ func reset(start_planet: Node2D = null):
 	SoundEngine.play_sound("Reset")
 	emit_signal("reset")
 	emit_signal("stationary")
-	$CollisionShape2D.disabled = false
+	$CollisionShape2D.set_deferred("disabled", false)
 	sleeping = false
+	enabled = true
+
 
 func explode() -> void:
 	get_tree().call_group("cameras", "add_trauma", 1.0)  #Screen shake
@@ -126,9 +130,10 @@ func explode() -> void:
 	linear_velocity = Vector2(0,0)
 	angular_velocity = 0
 	sleeping = true
-	mode = RigidBody2D.MODE_STATIC
+	set_deferred("mode", RigidBody2D.MODE_STATIC)
 	_moon_destroyed = true
-	$CollisionShape2D.disabled = true
+	$CollisionShape2D.set_deferred("disabled", true)
+	enabled = false
 
 
 
