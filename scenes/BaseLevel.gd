@@ -18,6 +18,10 @@ func save_data() -> Dictionary:
 		"pos_x": black_hole.position.x,
 		"pos_y": black_hole.position.y
 	}
+	data["start_planet"] = {
+		"pos_x": start_planet.position.x,
+		"pos_y": start_planet.position.y
+	}
 	data["objects"] = []
 	for object in objects.get_children():
 		data["objects"].append({
@@ -38,19 +42,25 @@ func save_data() -> Dictionary:
 
 
 func load_data(level_data: Dictionary) -> void:
-	moon.reset()
-	moon.orbit($start_planet)
-
 	load_objects(level_data["objects"])
 	load_stars(level_data["stars"])
 
 	var hole_data = level_data["black_hole"]
 	black_hole.position = Vector2(hole_data["pos_x"], hole_data["pos_y"])
 	black_hole.get_node("AnimationPlayer").play("spawn")
-	start_planet.position = Vector2()
-	start_planet.get_node("AnimationPlayer").play("spawn")
 
+	if level_data.has("start_planet"):
+		var start_planet_data = level_data["start_planet"]
+		start_planet.position = Vector2(start_planet_data["pos_x"], start_planet_data["pos_y"])
+		start_planet.get_node("AnimationPlayer").play("spawn")
 
+	# reset moon and let it orbit start planet
+	moon.enabled = false
+	moon.reset()
+	moon.orbit(start_planet)
+	# set orbit_speed > 0 so orbiting works
+	moon.orbit_speed += 1
+	moon.enabled = true
 
 func add_object(type: String, pos: Vector2 = Vector2(0, 0)) -> Node2D:
 	var instance

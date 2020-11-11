@@ -25,8 +25,8 @@ func peek_level():
 	tween.stop_all()
 	tween.remove_all()
 	
-	tween.interpolate_property(camera, "position", Vector2(), $BlackHole.position, 1.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 0.0)
-	tween.interpolate_property(camera, "position", $BlackHole.position, Vector2(), 1.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 2.0)
+	tween.interpolate_property(camera, "position", $StartPlanet.position, $BlackHole.position, 1.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 0.0)
+	tween.interpolate_property(camera, "position", $BlackHole.position, $StartPlanet.position, 1.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 2.0)
 	
 	$Moon.enabled = false
 	tween.start()
@@ -38,7 +38,7 @@ func show_start():
 	tween.stop_all()
 	tween.remove_all()
 	
-	tween.interpolate_property(camera, "position", camera.position, Vector2(), 1.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 0.0)
+	tween.interpolate_property(camera, "position", camera.position, $StartPlanet.position, 1.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 0.0)
 	
 	$Moon.enabled = true
 	tween.start()
@@ -57,7 +57,8 @@ func _on_Moon_started_moving() -> void:
 
 
 func _on_Moon_started_orbiting(center: Node2D) -> void:
-	camera.target = center
+	if $Moon.enabled:
+		camera.target = center
 	
 	$Fortuna.enabled = false
 

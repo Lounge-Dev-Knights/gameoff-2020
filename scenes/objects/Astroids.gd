@@ -28,6 +28,5 @@ func disappear(node = Node2D):
 	$Tween.interpolate_property(self,"global_position",global_position, node.position, 2,Tween.TRANS_CUBIC,Tween.EASE_OUT,0)
 	$Tween.start()
 	yield($Tween,"tween_all_completed")
-	print("ASstroid HAS BEEN EXTERMINATED")
 
 	
