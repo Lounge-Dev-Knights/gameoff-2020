@@ -27,8 +27,8 @@ func _unhandled_input(event):
 # drags the camera around
 func drag_camera():
 	var ref = get_viewport().get_mouse_position()
-	global_position.x += (ref.x - fixed_toggle_point.x) / 20
-	global_position.y += (ref.y - fixed_toggle_point.y) / 20
+	global_position.x += -(ref.x - fixed_toggle_point.x) / 10
+	global_position.y += -(ref.y - fixed_toggle_point.y) / 10
 
 # zoom in/out with the center at a certain point (e.g. mouse position)
 func zoom_at_point(zoom_change, point):
