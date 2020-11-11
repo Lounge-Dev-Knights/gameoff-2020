@@ -112,33 +112,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Settings" type="Button" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
-margin_left = 156.522
-margin_top = 382.841
-margin_right = 194.522
-margin_bottom = 402.841
-text = "Settingus"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LevelEditor" type="Button" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
-margin_left = 137.477
-margin_top = 357.016
-margin_right = 258.477
-margin_bottom = 377.016
-text = "Levulus Editorius"
-
-[node name="Exit" type="Button" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
-margin_left = 799.414
-margin_top = 382.852
-margin_right = 887.414
-margin_bottom = 402.852
-text = "Exitus"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Clouds" type="TextureRect" parent="CanvasLayer/VBoxContainer2/CenterContainer"]
 material = SubResource( 7 )
 margin_right = 1024.0
@@ -149,6 +122,42 @@ rect_min_size = Vector2( 1024, 500 )
 texture = ExtResource( 4 )
 expand = true
 stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer"]
+margin_left = 114.164
+margin_top = 449.627
+margin_right = 235.164
+margin_bottom = 493.627
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" type="Button" parent="CanvasLayer/VBoxContainer3"]
+margin_right = 121.0
+margin_bottom = 20.0
+text = "Settingus"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelEditor" type="Button" parent="CanvasLayer/VBoxContainer3"]
+margin_top = 24.0
+margin_right = 121.0
+margin_bottom = 44.0
+text = "Levulus Editorius"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Exit" type="Button" parent="CanvasLayer"]
+margin_left = 800.978
+margin_top = 473.246
+margin_right = 888.978
+margin_bottom = 493.246
+text = "Exitus"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -182,10 +191,12 @@ text = "Test level"
 [node name="MenuButtonHoverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -18.0
-[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/LevelEditor" to="." method="_on_LevelEditor_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/LevelEditor" to="." method="_on_LevelEditor_pressed"]
-[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit" to="." method="_on_Quit_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit" to="." method="_on_Quit_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer3/Settings" to="." method="_on_Settings_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer3/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer3/LevelEditor" to="." method="_on_LevelEditor_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer3/LevelEditor" to="." method="_on_LevelEditor_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Exit" to="." method="_on_Exit_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/Exit" to="." method="_on_Exit_pressed"]
 [connection signal="focus_entered" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_focus_entered"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
