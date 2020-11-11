@@ -13,8 +13,7 @@ signal wurmhole
 const START_RADIUS = 100
 const START_ANGULAR_SPEED = 1 * PI
 const MIN_SHOOT_VELOCITY = 200
-const MAX_SHOOT_VELOCITY = 10000
-
+const MAX_SHOOT_VELOCITY = 2000
 
 onready var moon_sprite = $planet
 
@@ -71,6 +70,8 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
+	
 	if enabled and Input.is_action_just_pressed("shoot") and mode == RigidBody2D.MODE_STATIC:
 		_start_charging = OS.get_ticks_msec()
 		Engine.time_scale = 0.1
@@ -90,9 +91,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		var direction = orbit_position.normalized().rotated(PI / 2)
 
-		var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
+		#var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
+		
 		# velocity is multiplied by duration key is pressed, to "charge up" shot
-		var charged_velocity = MIN_SHOOT_VELOCITY * (1 + _duration_pressed)
+		var charged_velocity = MIN_SHOOT_VELOCITY * (1 + 2*_duration_pressed)
 
 		# velocity is clamped to not let moon fly too fast nor too slow
 		charged_velocity = clamp(charged_velocity, MIN_SHOOT_VELOCITY, MAX_SHOOT_VELOCITY)
@@ -104,6 +106,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		# reset pressed duration
 		_start_charging = 0
+	
+	var _duration_charging = (OS.get_ticks_msec()-_start_charging) / 1000.0
+	if Input. is_action_pressed("shoot"):
+		$MoonCharging.adjust(_duration_charging)
+	else: 
+		$MoonCharging.adjust(00)
 
 
 func reset(start_planet: Node2D = null):
@@ -162,9 +170,11 @@ func disappear(in_node: Node2D) -> void:
 
 func _on_Moon_started_moving():
 	$MoonRevolving.stop()
+	$MoonCharging.play()
 
 
 func _on_Moon_moving():
+	$MoonCharging.stop()
 	$MoonFlying.play()
 	SoundEngine.play_sound("MoonThrowing")
 

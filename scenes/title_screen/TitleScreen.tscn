@@ -48,11 +48,11 @@ width = 1024
 height = 600
 noise = SubResource( 4 )
 
-[sub_resource type="StyleBoxTexture" id=20]
+[sub_resource type="StyleBoxTexture" id=6]
 texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 600, 467 )
 
-[sub_resource type="StyleBoxTexture" id=21]
+[sub_resource type="StyleBoxTexture" id=7]
 texture = ExtResource( 8 )
 region_rect = Rect2( 0, 0, 600, 476 )
 
@@ -68,15 +68,15 @@ font_data = ExtResource( 5 )
 [sub_resource type="Theme" id=11]
 default_font = SubResource( 10 )
 
-[sub_resource type="StyleBoxTexture" id=18]
+[sub_resource type="StyleBoxTexture" id=12]
 texture = ExtResource( 7 )
 region_rect = Rect2( 0, 0, 380, 88 )
 
-[sub_resource type="StyleBoxTexture" id=19]
+[sub_resource type="StyleBoxTexture" id=13]
 texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 380, 88 )
 
-[sub_resource type="Shader" id=12]
+[sub_resource type="Shader" id=14]
 code = "shader_type canvas_item;
 
 void vertex() {
@@ -84,20 +84,20 @@ void vertex() {
 	VERTEX.y += (1.0 + sin(TIME / 2.0)) * 5.0;
 }"
 
-[sub_resource type="ShaderMaterial" id=13]
-shader = SubResource( 12 )
-
-[sub_resource type="DynamicFont" id=14]
-font_data = ExtResource( 5 )
-
-[sub_resource type="Theme" id=15]
-default_font = SubResource( 14 )
+[sub_resource type="ShaderMaterial" id=15]
+shader = SubResource( 14 )
 
 [sub_resource type="DynamicFont" id=16]
 font_data = ExtResource( 5 )
 
 [sub_resource type="Theme" id=17]
 default_font = SubResource( 16 )
+
+[sub_resource type="DynamicFont" id=18]
+font_data = ExtResource( 5 )
+
+[sub_resource type="Theme" id=19]
+default_font = SubResource( 18 )
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -162,8 +162,8 @@ margin_left = 162.095
 margin_top = 337.929
 margin_right = 254.095
 margin_bottom = 408.929
-custom_styles/hover = SubResource( 20 )
-custom_styles/normal = SubResource( 21 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/normal = SubResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -192,14 +192,14 @@ margin_top = 361.49
 margin_right = 924.561
 margin_bottom = 409.49
 theme = SubResource( 11 )
-custom_styles/hover = SubResource( 18 )
-custom_styles/normal = SubResource( 19 )
+custom_styles/hover = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Clouds" type="TextureRect" parent="CanvasLayer/VBoxContainer2/CenterContainer"]
-material = SubResource( 13 )
+material = SubResource( 15 )
 margin_right = 1024.0
 margin_bottom = 500.0
 grow_horizontal = 2
@@ -229,14 +229,14 @@ __meta__ = {
 [node name="Play" type="Button" parent="CanvasLayer/VBoxContainer"]
 margin_right = 116.0
 margin_bottom = 23.0
-theme = SubResource( 15 )
+theme = SubResource( 17 )
 text = "Play"
 
 [node name="TestLevel" type="Button" parent="CanvasLayer/VBoxContainer"]
 margin_top = 27.0
 margin_right = 116.0
 margin_bottom = 50.0
-theme = SubResource( 17 )
+theme = SubResource( 19 )
 text = "Test level"
 
 [node name="Timer" type="Timer" parent="."]

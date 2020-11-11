@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/BaseLevel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/MoonCamera.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://icon.png" type="Texture" id=4]
 [ext_resource path="res://scenes/gods/Fortuna.gd" type="Script" id=5]
 [ext_resource path="res://scenes/gods/clover.png" type="Texture" id=6]
+[ext_resource path="res://scenes/StarCounter.gd" type="Script" id=7]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.60636, 0.0, 0, 0 ]
@@ -97,6 +98,23 @@ percent_visible = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="StarCounter" type="CanvasLayer" parent="." index="8"]
+script = ExtResource( 7 )
+
+[node name="stars" type="HBoxContainer" parent="StarCounter" index="0"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 40.0
+grow_horizontal = 2
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="StarCounter" index="1"]
 [connection signal="started_moving" from="Moon" to="." method="_on_Moon_started_moving"]
 [connection signal="started_orbiting" from="Moon" to="." method="_on_Moon_started_orbiting"]
 [connection signal="stationary" from="Moon" to="." method="_on_Moon_stationary"]
