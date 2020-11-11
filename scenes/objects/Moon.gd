@@ -143,12 +143,10 @@ func orbit(center: Node2D, radius: float = 100.0) -> void:
 		var velocity_norm = linear_velocity / 100
 
 		orbit_speed = (velocity_norm).dot(distance.rotated(PI / 2))
-		print("back to orbiting")
 
 	orbit_center = center
 	orbit_radius = radius
 	emit_signal("started_orbiting", center)
-	print("started_orbiting")
 
 func disappear(in_node: Node2D) -> void:
 	orbit(in_node, 0)

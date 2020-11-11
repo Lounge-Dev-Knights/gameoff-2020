@@ -25,6 +25,7 @@ func _get_idle_player():
 
 func play_sound(sound_name: String):
 	var audio_player: AudioStreamPlayer = _get_idle_player()
-	audio_player.stream = sounds[sound_name]
-	audio_player.play()
+	if audio_player != null:
+		audio_player.stream = sounds[sound_name]
+		audio_player.play()
 	
