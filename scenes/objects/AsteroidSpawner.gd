@@ -43,7 +43,8 @@ func _load_asteroid():
 	
 		
 	#ass.linear_velocity = Vector2(rand_range(-1,2)*velocityFactor/100, rand_range(10,15)*velocityFactor/100)
-
+func get_additional_properties():
+	return {"direction": direction}
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
