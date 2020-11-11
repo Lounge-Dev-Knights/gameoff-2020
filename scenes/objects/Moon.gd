@@ -104,11 +104,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		_start_charging = 0
 
 
-func reset():
+func reset(start_planet: Node2D = null):
 	_moon_destroyed = false
 	position = Vector2()
+	orbit(start_planet)
 	orbit_speed = START_ANGULAR_SPEED
-	orbit(null)
 	$AnimationPlayer.play("spawn")
 	SoundEngine.play_sound("Reset")
 	emit_signal("reset")
@@ -147,30 +147,35 @@ func orbit(center: Node2D, radius: float = 100.0) -> void:
 	orbit_radius = radius
 	emit_signal("started_orbiting", center)
 
+
 func disappear(in_node: Node2D) -> void:
 	orbit(in_node, 0)
 	$AnimationPlayer.play("disappear")
 	emit_signal("wurmhole")
 	SoundEngine.play_sound("Wurmhole")
 
+
 func _on_Moon_started_moving():
 	$MoonRevolving.stop()
+
 
 func _on_Moon_moving():
 	$MoonFlying.play()
 	SoundEngine.play_sound("MoonThrowing")
+
 
 func _on_Moon_reset():
 	yield(get_tree().create_timer(0.2), "timeout")
 	$MoonFlying.stop()
 	$MoonRevolving.play()
 
+
 func _on_Moon_exploded():
 	yield(get_tree().create_timer(0.2), "timeout")
 	$MoonFlying.stop()
 
+
 func _on_Moon_wurmhole():
 	yield(get_tree().create_timer(0.5), "timeout")
 	$MoonFlying.stop()
-
 
