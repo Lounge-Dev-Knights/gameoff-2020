@@ -3,8 +3,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	pass
+	get_viewport().connect("size_changed", self, "_viewport_size_changed")
 
 func _on_Play_pressed():
 	SceneLoader.goto_scene("res://scenes/Game.tscn")
@@ -33,3 +32,8 @@ func _on_Quit_pressed():
 
 func _on_Quit_mouse_entered():
 	$MenuButtonHoverSound.play()
+
+
+func _viewport_size_changed():
+	var size = get_viewport_rect()
+	$CanvasLayer/Control/CPUParticles2D.emission_rect_extents = size.size / 2

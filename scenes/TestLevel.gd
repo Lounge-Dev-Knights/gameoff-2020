@@ -59,7 +59,7 @@ func _on_Moon_started_orbiting(center: Node2D) -> void:
 
 
 func _on_Back_pressed():
-	SceneLoader.goto_scene("res://scenes/TitleScreen.tscn")
+	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn")
 
 
 func _on_Button_pressed():
