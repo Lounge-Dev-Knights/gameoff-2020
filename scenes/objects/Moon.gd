@@ -6,6 +6,7 @@ signal started_orbiting
 signal moving
 signal reset
 signal exploded
+signal stationary
 signal wurmhole
 
 
@@ -111,7 +112,6 @@ func reset():
 	$AnimationPlayer.play("spawn")
 	SoundEngine.play_sound("Reset")
 	emit_signal("reset")
-
 	emit_signal("stationary")
 	$CollisionShape2D.disabled = false
 	sleeping = false
@@ -122,7 +122,6 @@ func explode() -> void:
 	$ParticleTrail.hide()
 	SoundEngine.play_sound("MoonImpact")
 	emit_signal("exploded")
-
 	emit_signal("stationary")
 	linear_velocity = Vector2(0,0)
 	angular_velocity = 0
@@ -173,3 +172,5 @@ func _on_Moon_exploded():
 func _on_Moon_wurmhole():
 	yield(get_tree().create_timer(0.5), "timeout")
 	$MoonFlying.stop()
+
+
