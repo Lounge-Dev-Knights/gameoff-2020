@@ -49,9 +49,10 @@ func load_data(level_data: Dictionary) -> void:
 	black_hole.position = Vector2(hole_data["pos_x"], hole_data["pos_y"])
 	black_hole.get_node("AnimationPlayer").play("spawn")
 
-	var start_planet_data = level_data["start_planet"]
-	start_planet.position = Vector2(start_planet_data["pos_x"], start_planet_data["pos_y"])
-	start_planet.get_node("AnimationPlayer").play("spawn")
+	if level_data.has("start_planet"):
+		var start_planet_data = level_data["start_planet"]
+		start_planet.position = Vector2(start_planet_data["pos_x"], start_planet_data["pos_y"])
+		start_planet.get_node("AnimationPlayer").play("spawn")
 
 	# reset moon and let it orbit start planet
 	moon.enabled = false
