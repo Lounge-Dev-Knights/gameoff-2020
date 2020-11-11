@@ -1,10 +1,14 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/title_screen/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_screen/title_screen.png" type="Texture" id=2]
 [ext_resource path="res://Sounds/MenuButtonHoverSound.wav" type="AudioStream" id=3]
 [ext_resource path="res://scenes/title_screen/clouds.png" type="Texture" id=4]
 [ext_resource path="res://resources/font/WeissLapidar.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://resources/font/Button_Exitus_normal.png" type="Texture" id=6]
+[ext_resource path="res://resources/font/Button_Exitus_mouse_over.png" type="Texture" id=7]
+[ext_resource path="res://resources/font/Button_Settings_normal.png" type="Texture" id=8]
+[ext_resource path="res://resources/font/Button_Settings_mouse_over.png" type="Texture" id=9]
 
 [sub_resource type="Curve" id=1]
 max_value = 2.0
@@ -44,11 +48,13 @@ width = 1024
 height = 600
 noise = SubResource( 4 )
 
-[sub_resource type="DynamicFont" id=6]
-font_data = ExtResource( 5 )
+[sub_resource type="StyleBoxTexture" id=20]
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 600, 467 )
 
-[sub_resource type="Theme" id=7]
-default_font = SubResource( 6 )
+[sub_resource type="StyleBoxTexture" id=21]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 600, 476 )
 
 [sub_resource type="DynamicFont" id=8]
 font_data = ExtResource( 5 )
@@ -61,6 +67,14 @@ font_data = ExtResource( 5 )
 
 [sub_resource type="Theme" id=11]
 default_font = SubResource( 10 )
+
+[sub_resource type="StyleBoxTexture" id=18]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 380, 88 )
+
+[sub_resource type="StyleBoxTexture" id=19]
+texture = ExtResource( 6 )
+region_rect = Rect2( 0, 0, 380, 88 )
 
 [sub_resource type="Shader" id=12]
 code = "shader_type canvas_item;
@@ -143,28 +157,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
-margin_left = 114.164
-margin_top = 349.627
-margin_right = 235.164
-margin_bottom = 393.627
+[node name="Settings" type="Button" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
+margin_left = 162.095
+margin_top = 337.929
+margin_right = 254.095
+margin_bottom = 408.929
+custom_styles/hover = SubResource( 20 )
+custom_styles/normal = SubResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Settings" type="Button" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building/VBoxContainer3"]
-margin_right = 181.0
-margin_bottom = 23.0
-theme = SubResource( 7 )
-text = "Settingus"
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
+margin_left = 830.608
+margin_top = -77.5484
+margin_right = 1011.61
+margin_bottom = -33.5484
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LevelEditor" type="Button" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building/VBoxContainer3"]
-margin_top = 27.0
 margin_right = 181.0
-margin_bottom = 50.0
+margin_bottom = 23.0
 theme = SubResource( 9 )
 text = "Levulus Editorius"
 __meta__ = {
@@ -172,12 +187,13 @@ __meta__ = {
 }
 
 [node name="Exit" type="Button" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
-margin_left = 800.978
-margin_top = 373.246
-margin_right = 888.978
-margin_bottom = 393.246
+margin_left = 740.561
+margin_top = 361.49
+margin_right = 924.561
+margin_bottom = 409.49
 theme = SubResource( 11 )
-text = "Exitus"
+custom_styles/hover = SubResource( 18 )
+custom_styles/normal = SubResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -228,8 +244,8 @@ text = "Test level"
 [node name="MenuButtonHoverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -18.0
-[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/VBoxContainer3/Settings" to="." method="_on_Settings_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/VBoxContainer3/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Settings" to="." method="_on_Settings_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/VBoxContainer3/LevelEditor" to="." method="_on_LevelEditor_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/VBoxContainer3/LevelEditor" to="." method="_on_LevelEditor_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit" to="." method="_on_Exit_mouse_entered"]
