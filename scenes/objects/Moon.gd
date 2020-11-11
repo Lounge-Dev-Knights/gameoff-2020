@@ -69,10 +69,6 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
-	if Input. is_action_pressed("shoot"):
-		$MoonCharging.adjust(_duration_pressed)
-	else: 
-		$MoonCharging.adjust(00)
 	
 	if enabled and Input.is_action_just_pressed("shoot") and mode == RigidBody2D.MODE_STATIC:
 		_start_charging = OS.get_ticks_msec()
@@ -111,6 +107,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		# reset pressed duration
 		_start_charging = 0
+	
+	var _duration_charging = (OS.get_ticks_msec()-_start_charging) / 1000.0
+	if Input. is_action_pressed("shoot"):
+		$MoonCharging.adjust(_duration_charging)
+	else: 
+		$MoonCharging.adjust(00)
+
 
 func reset():
 	_moon_destroyed = false
