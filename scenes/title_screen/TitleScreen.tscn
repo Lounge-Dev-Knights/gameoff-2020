@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/title_screen/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_screen/title_screen.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://resources/font/Button_Settings_normal.png" type="Texture" id=8]
 [ext_resource path="res://resources/font/Button_Settings_mouse_over.png" type="Texture" id=9]
 [ext_resource path="res://scenes/level_editor/default_theme.tres" type="Theme" id=10]
+[ext_resource path="res://Sounds/MoonRevolving.ogg" type="AudioStream" id=11]
 
 [sub_resource type="Curve" id=1]
 max_value = 2.0
@@ -296,6 +297,10 @@ __meta__ = {
 stream = ExtResource( 3 )
 volume_db = -14.604
 bus = "Sound Vol"
+
+[node name="SoundVolCheck" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+bus = "Sound Vol"
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Settings" to="." method="_on_Settings_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/VBoxContainer3/LevelEditor" to="." method="_on_LevelEditor_mouse_entered"]
@@ -307,4 +312,6 @@ bus = "Sound Vol"
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer/TestLevel" to="." method="_on_TestLevel_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/TestLevel" to="." method="_on_TestLevel_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/Volume/Sound/Sound" to="." method="_on_Sound_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/Volume/Sound/Sound" to="." method="_on_Sound_mouse_exited"]
 [connection signal="value_changed" from="CanvasLayer/Volume/Sound/Sound" to="." method="_on_Sound_value_changed"]

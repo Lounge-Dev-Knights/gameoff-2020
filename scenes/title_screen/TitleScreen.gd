@@ -48,4 +48,9 @@ func _viewport_size_changed():
 
 func _on_Sound_value_changed(value):
 	var sound_vol = AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Vol"),value)
-	print(sound_vol)
+
+func _on_Sound_mouse_entered():
+	$SoundVolCheck.play()
+
+func _on_Sound_mouse_exited():
+	$SoundVolCheck.stop()

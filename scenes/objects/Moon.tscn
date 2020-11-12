@@ -195,6 +195,6 @@ script = ExtResource( 7 )
 [connection signal="exploded" from="." to="." method="_on_Moon_exploded"]
 [connection signal="moving" from="." to="." method="_on_Moon_moving"]
 [connection signal="reset" from="." to="." method="_on_Moon_reset"]
-[connection signal="started_moving" from="." to="MoonCharging" method="_on_Moon_started_moving"]
 [connection signal="started_moving" from="." to="." method="_on_Moon_started_moving"]
+[connection signal="started_moving" from="." to="MoonCharging" method="_on_Moon_started_moving"]
 [connection signal="wurmhole" from="." to="." method="_on_Moon_wurmhole"]
