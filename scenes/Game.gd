@@ -52,4 +52,4 @@ func _on_PlayableLevel_success():
 
 
 func _on_Button_mouse_entered():
-	SoundEngine.play_sound("MenuHoverSound")
+	SoundEngine.play_sound("MenuButtonHoverSound")
