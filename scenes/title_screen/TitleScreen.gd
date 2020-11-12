@@ -51,4 +51,3 @@ func _on_Sound_mouse_entered():
 
 func _on_Sound_mouse_exited():
 	$SoundVolCheck.stop()
->>>>>>> main
