@@ -20,7 +20,7 @@ func collect_star(star: Node2D, index: int = 0) -> void:
 	# get target position and start animation
 	var star_outline: TextureRect = stars.get_child(index)
 	var destination = star_outline.get_global_transform_with_canvas().get_origin() + star_outline.rect_size / 2.0
-	tween.interpolate_property(star, "position", pos, destination, 2, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	tween.interpolate_property(star, "position", pos, destination, 0.5, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.start()
 	
 	while true:

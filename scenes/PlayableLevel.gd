@@ -23,6 +23,8 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 	$Fortuna.reset()
 	$StarCounter.num_stars = star_count
 	
+	$AnimationPlayer.play("setup")
+	
 	if reload:
 		show_start()
 	else:
