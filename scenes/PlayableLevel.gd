@@ -23,6 +23,8 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 	$Fortuna.reset()
 	$StarCounter.num_stars = star_count
 	
+	$AnimationPlayer.play("setup")
+	
 	if reload:
 		show_start()
 	else:
@@ -94,3 +96,7 @@ func _on_Moon_stationary():
 
 func _on_BlackHole_body_exited(body):
 	print("blackhole exit")
+
+
+func _on_Moon_exploded():
+	emit_signal("failure")

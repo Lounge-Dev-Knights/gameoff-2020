@@ -1,9 +1,6 @@
 extends Node2D
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	get_viewport().connect("size_changed", self, "_viewport_size_changed")
 
 func _on_Play_pressed():
 	SceneLoader.goto_scene("res://scenes/Game.tscn")
@@ -54,3 +51,4 @@ func _on_Sound_mouse_entered():
 
 func _on_Sound_mouse_exited():
 	$SoundVolCheck.stop()
+>>>>>>> main

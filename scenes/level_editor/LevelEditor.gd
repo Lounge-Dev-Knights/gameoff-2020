@@ -195,3 +195,19 @@ func _on_AddAsteroidSpawnerRIGHT_pressed():
 	}
 	var asteroidSpawnerUp = level.add_object("AsteroidSpawner", camera.position, add_prop)
 
+
+
+func _on_AddTinyPlanet_pressed():
+	var planet = level.add_object("TinyPlanet", camera.position)
+
+
+func _on_AddMediumPlanet_pressed():
+	var planet = level.add_object("MediumPlanet", camera.position)
+
+
+func _on_AddLargePlanet_pressed():
+	var planet = level.add_object("LargePlanet", camera.position)
+
+
+func _on_AddGiantPlanet_pressed():
+	var planet = level.add_object("GiantPlanet", camera.position)
