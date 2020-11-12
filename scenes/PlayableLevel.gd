@@ -1,6 +1,10 @@
 extends "res://scenes/BaseLevel.gd"
 
 
+signal success
+signal failure
+
+
 onready var tween = $Tween
 onready var camera = $Camera2D
 
@@ -60,6 +64,7 @@ func show_start():
 func success():
 	$Fortuna.enabled = false
 	$Fortuna.reset()
+	emit_signal("success")
 
 
 func _on_Moon_started_moving() -> void:
@@ -78,8 +83,13 @@ func _on_Moon_started_orbiting(center: Node2D) -> void:
 
 
 func _on_BlackHole_body_entered(body):
+	print("blackhole")
 	success()
 
 
 func _on_Moon_stationary():
 	$Fortuna.enabled = false
+
+
+func _on_BlackHole_body_exited(body):
+	print("blackhole exit")

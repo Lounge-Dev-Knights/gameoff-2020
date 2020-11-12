@@ -126,8 +126,8 @@ func reset(start_planet: Node2D = null):
 	SoundEngine.play_sound("Reset")
 	emit_signal("reset")
 	emit_signal("stationary")
-	$CollisionShape2D.set_deferred("disabled", false)
 	
+	$CollisionShape2D.set_deferred("disabled", false)
 	enabled = true
 
 
@@ -164,6 +164,7 @@ func orbit(center: Node2D, radius: float = 100.0) -> void:
 
 func disappear(in_node: Node2D) -> void:
 	orbit(in_node, 0)
+	$CollisionShape2D.set_deferred("disabled", true)
 	$AnimationPlayer.play("disappear")
 	emit_signal("wurmhole")
 	SoundEngine.play_sound("Wurmhole")

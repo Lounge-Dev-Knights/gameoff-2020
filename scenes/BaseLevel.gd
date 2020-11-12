@@ -98,7 +98,6 @@ func add_asteroid_spawner(type: String,direction: int, pos: Vector2 = Vector2(0,
 	return instance
 
 func load_objects(objects_data: Array) -> void:
-	var objects = $objects
 	# remove existing
 	for o in objects.get_children():
 		o.queue_free()

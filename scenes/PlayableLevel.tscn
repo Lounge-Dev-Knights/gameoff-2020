@@ -121,4 +121,5 @@ __meta__ = {
 [connection signal="started_orbiting" from="Moon" to="." method="_on_Moon_started_orbiting"]
 [connection signal="stationary" from="Moon" to="." method="_on_Moon_stationary"]
 [connection signal="body_entered" from="BlackHole" to="." method="_on_BlackHole_body_entered"]
+[connection signal="body_exited" from="BlackHole" to="." method="_on_BlackHole_body_exited"]
 [connection signal="pressed" from="Fortuna/CanvasLayer/MarginContainer/Portrait" to="Fortuna" method="_on_Portrait_pressed"]

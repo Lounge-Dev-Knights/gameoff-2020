@@ -1,6 +1,10 @@
 extends Node2D
 
+
 onready var level = $PlayableLevel
+onready var retry_panel = $CanvasLayer/RetryPanel
+onready var success_panel = $CanvasLayer/SuccessPanel
+
 
 var level_path: String = "res://scenes/levels/test_level.json"
 
@@ -26,3 +30,22 @@ func _on_Back_pressed():
 	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn")
 	SoundEngine.play_sound("MenuButtonSound")
 
+
+func _on_Reset_pressed():
+	retry_panel.hide()
+	success_panel.hide()
+	load_level(true)
+	SoundEngine.play_sound("MenuButtonSound")
+
+
+func _on_Titlescreen_pressed():
+	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn")
+	SoundEngine.play_sound("MenuButtonSound")
+
+
+func _on_PlayableLevel_failure():
+	$CanvasLayer/RetryPanel.popup_centered()
+
+
+func _on_PlayableLevel_success():
+	$CanvasLayer/SuccessPanel.popup_centered()

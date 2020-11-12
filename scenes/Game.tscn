@@ -26,4 +26,81 @@ icon = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="SuccessPanel" type="PopupPanel" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -45.5
+margin_top = -94.0
+margin_right = 45.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SuccessPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 87.0
+margin_bottom = 90.0
+
+[node name="Label" type="Label" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
+margin_right = 83.0
+margin_bottom = 14.0
+
+[node name="Next" type="Button" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
+margin_top = 18.0
+margin_right = 83.0
+margin_bottom = 38.0
+text = "Next"
+
+[node name="Retry" type="Button" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
+margin_top = 42.0
+margin_right = 83.0
+margin_bottom = 62.0
+text = "Retry"
+
+[node name="Titlescreen" type="Button" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
+margin_top = 66.0
+margin_right = 83.0
+margin_bottom = 86.0
+text = "Titlescreen"
+
+[node name="RetryPanel" type="PopupPanel" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -45.5
+margin_top = -70.0
+margin_right = 45.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/RetryPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 87.0
+margin_bottom = 66.0
+
+[node name="Label" type="Label" parent="CanvasLayer/RetryPanel/VBoxContainer"]
+margin_right = 83.0
+margin_bottom = 14.0
+
+[node name="Retry" type="Button" parent="CanvasLayer/RetryPanel/VBoxContainer"]
+margin_top = 18.0
+margin_right = 83.0
+margin_bottom = 38.0
+text = "Retry"
+
+[node name="Titlescreen" type="Button" parent="CanvasLayer/RetryPanel/VBoxContainer"]
+margin_top = 42.0
+margin_right = 83.0
+margin_bottom = 62.0
+text = "Titlescreen"
+[connection signal="failure" from="PlayableLevel" to="." method="_on_PlayableLevel_failure"]
+[connection signal="success" from="PlayableLevel" to="." method="_on_PlayableLevel_success"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="CanvasLayer/SuccessPanel/VBoxContainer/Retry" to="." method="_on_Reset_pressed"]
+[connection signal="pressed" from="CanvasLayer/SuccessPanel/VBoxContainer/Titlescreen" to="." method="_on_Titlescreen_pressed"]
+[connection signal="pressed" from="CanvasLayer/RetryPanel/VBoxContainer/Retry" to="." method="_on_Reset_pressed"]
+[connection signal="pressed" from="CanvasLayer/RetryPanel/VBoxContainer/Titlescreen" to="." method="_on_Titlescreen_pressed"]
