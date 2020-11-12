@@ -40,8 +40,8 @@ func _ready():
 		var player = AudioStreamPlayer.new()
 		player.bus = "Sound Vol"
 		add_child(player)
-		
-		
+
+
 func _get_idle_player():
 	for player in get_children():
 		if not (player as AudioStreamPlayer).playing:

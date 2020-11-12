@@ -49,3 +49,7 @@ func _on_PlayableLevel_failure():
 
 func _on_PlayableLevel_success():
 	$CanvasLayer/SuccessPanel.popup_centered()
+
+
+func _on_Button_mouse_entered():
+	SoundEngine.play_sound("MenuHoverSound")

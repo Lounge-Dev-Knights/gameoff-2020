@@ -19,6 +19,7 @@ var star_count = 0
 func load_data(level_data: Dictionary, reload: bool = false) -> void:
 	star_count = 0
 	.load_data(level_data)
+	moon.position = start_planet.position
 	$Fortuna.reset()
 	$StarCounter.num_stars = star_count
 	

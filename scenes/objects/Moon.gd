@@ -10,7 +10,7 @@ signal stationary
 signal wurmhole
 
 
-const START_RADIUS = 100
+const START_RADIUS = 0
 const START_ANGULAR_SPEED = 1 * PI
 const MIN_SHOOT_VELOCITY = 200
 const MAX_SHOOT_VELOCITY = 2000
@@ -40,6 +40,7 @@ var _moon_destroyed = false
 func _ready():
 	start_angle = randf() * 2 * PI
 	$MoonRevolving.play()
+	$god.hide()
 
 
 func _process(delta: float) -> void:
@@ -47,7 +48,7 @@ func _process(delta: float) -> void:
 	if not _moon_destroyed:
 		if mode == RigidBody2D.MODE_STATIC:
 			start_angle += orbit_speed * delta
-
+			rotation = start_angle + PI / 2
 
 			orbit_current_radius = lerp(orbit_current_radius, orbit_radius, delta)
 			orbit_speed = lerp(orbit_speed, sign(orbit_speed) * START_ANGULAR_SPEED, delta)
@@ -146,8 +147,10 @@ func explode() -> void:
 	enabled = false
 
 
-func orbit(center: Node2D, radius: float = 100.0) -> void:
+func orbit(center: Node2D, radius: float = 150.0) -> void:
 	if center != orbit_center: 
+		
+		$god.show()
 		set_deferred("mode", RigidBody2D.MODE_STATIC)
 		if center != null:
 			start_angle = (position - center.position).angle()
@@ -180,6 +183,7 @@ func _on_Moon_moving():
 	$MoonCharging.stop()
 	$MoonFlying.play()
 	SoundEngine.play_sound("MoonThrowing")
+	$god.hide()
 
 
 func _on_Moon_reset():
