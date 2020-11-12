@@ -1,0 +1,83 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/Sky.gd" type="Script" id=1]
+
+
+
+[sub_resource type="Curve" id=1]
+max_value = 2.0
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.248276, 1.98182 ), 0.0, 0.0, 0, 0, Vector2( 0.417241, 2 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+uniform vec4 sky_color = vec4(0.0, 0.0, 1.0, 1.0);
+
+
+
+
+void fragment() {
+	float dist = 1.0 - pow(length(vec2(0.5, 1.0) - UV), 0.4);
+	COLOR = dist * sky_color;
+	
+	if (texture(TEXTURE, UV).g < 0.85) {
+		COLOR += vec4(0.0, 0.0, 0.0, 0.0);
+	} else {
+		COLOR += texture(TEXTURE, UV);
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/sky_color = Plane( 0, 0, 1, 1 )
+
+[sub_resource type="OpenSimplexNoise" id=4]
+octaves = 2
+period = 4.0
+persistence = 1.0
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=5]
+width = 1024
+height = 600
+noise = SubResource( 4 )
+
+[node name="Sky" type="CenterContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BlinkingStars" type="Control" parent="."]
+margin_left = 512.0
+margin_top = 300.0
+margin_right = 512.0
+margin_bottom = 300.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="BlinkingStars"]
+amount = 4
+emission_shape = 2
+emission_rect_extents = Vector2( 800, 300 )
+gravity = Vector2( 0, 0 )
+scale_amount = 2.0
+scale_amount_curve = SubResource( 1 )
+
+[node name="Background" type="TextureRect" parent="."]
+material = SubResource( 3 )
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 5 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
