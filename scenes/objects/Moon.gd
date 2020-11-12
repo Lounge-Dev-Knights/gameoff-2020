@@ -71,7 +71,6 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
-	
 	if enabled and Input.is_action_just_pressed("shoot") and mode == RigidBody2D.MODE_STATIC:
 		_start_charging = OS.get_ticks_msec()
 		Engine.time_scale = 0.1
@@ -98,6 +97,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		# velocity is clamped to not let moon fly too fast nor too slow
 		charged_velocity = clamp(charged_velocity, MIN_SHOOT_VELOCITY, MAX_SHOOT_VELOCITY)
+		print(charged_velocity)
 
 		# multiply direction vector with charged velocity to get the ball flying
 		linear_velocity = direction * charged_velocity
@@ -108,6 +108,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_start_charging = 0
 	
 	var _duration_charging = (OS.get_ticks_msec()-_start_charging) / 1000.0
+	print(_duration_charging)
 	if Input. is_action_pressed("shoot"):
 		$MoonCharging.adjust(_duration_charging)
 	else: 
