@@ -13,5 +13,5 @@ shader_param/offset = Vector2( 0.5, 0.5 )
 z_index = -1
 script = null
 
-[node name="planet" parent="." index="1"]
+[node name="texture" parent="." index="1"]
 material = SubResource( 1 )
