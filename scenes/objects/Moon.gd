@@ -116,6 +116,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func reset(start_planet: Node2D = null):
 	_moon_destroyed = false
+	orbit_center = null
 	position = start_planet.position if start_planet != null else Vector2()
 	orbit(start_planet)
 	orbit_speed = START_ANGULAR_SPEED
