@@ -15,3 +15,4 @@ script = null
 
 [node name="texture" parent="." index="1"]
 material = SubResource( 1 )
+scale = Vector2( 3, 3 )

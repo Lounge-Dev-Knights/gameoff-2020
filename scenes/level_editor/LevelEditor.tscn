@@ -42,11 +42,11 @@ custom_constants/margin_bottom = 10
 margin_left = 20.0
 margin_top = 10.0
 margin_right = 278.0
-margin_bottom = 237.0
+margin_bottom = 336.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/VBoxContainer"]
 margin_right = 258.0
-margin_bottom = 227.0
+margin_bottom = 326.0
 size_flags_vertical = 3
 
 [node name="AddStar" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
@@ -62,38 +62,59 @@ margin_bottom = 62.0
 hint_tooltip = "Add Star"
 text = "Add waypoint"
 
-[node name="AddPlanet" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+[node name="AddTinyPlanet" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_top = 66.0
 margin_right = 258.0
 margin_bottom = 95.0
 hint_tooltip = "Add planet"
-text = "Add planet"
+text = "Add tiny planet"
 
-[node name="AddAsteroidSpawnerUP" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+[node name="AddMediumPlanet" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_top = 99.0
 margin_right = 258.0
 margin_bottom = 128.0
 hint_tooltip = "Add planet"
-text = "Add Asteroids UP"
+text = "Add medium planet"
 
-[node name="AddAsteroidSpawnerDOWN" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+[node name="AddLargePlanet" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_top = 132.0
 margin_right = 258.0
 margin_bottom = 161.0
 hint_tooltip = "Add planet"
-text = "Add Asteroids Down"
+text = "Add large planet"
 
-[node name="AddAsteroidSpawnerLEFT" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+[node name="AddGiantPlanet" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_top = 165.0
 margin_right = 258.0
 margin_bottom = 194.0
 hint_tooltip = "Add planet"
-text = "Add Asteroids Left"
+text = "Add giant planet"
 
-[node name="AddAsteroidSpawnerRIGHT" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+[node name="AddAsteroidSpawnerUP" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
 margin_top = 198.0
 margin_right = 258.0
 margin_bottom = 227.0
+hint_tooltip = "Add planet"
+text = "Add Asteroids UP"
+
+[node name="AddAsteroidSpawnerDOWN" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+margin_top = 231.0
+margin_right = 258.0
+margin_bottom = 260.0
+hint_tooltip = "Add planet"
+text = "Add Asteroids Down"
+
+[node name="AddAsteroidSpawnerLEFT" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+margin_top = 264.0
+margin_right = 258.0
+margin_bottom = 293.0
+hint_tooltip = "Add planet"
+text = "Add Asteroids Left"
+
+[node name="AddAsteroidSpawnerRIGHT" type="Button" parent="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer"]
+margin_top = 297.0
+margin_right = 258.0
+margin_bottom = 326.0
 hint_tooltip = "Add planet"
 text = "Add Asteroids Right"
 
@@ -114,7 +135,10 @@ margin_bottom = 20.0
 items = [ "Delete", null, 0, false, false, 0, 0, null, "", false ]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddStar" to="." method="_on_AddStar_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddWaypoint" to="." method="_on_AddWaypoint_pressed"]
-[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddPlanet" to="." method="_on_AddPlanet_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddTinyPlanet" to="." method="_on_AddTinyPlanet_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddMediumPlanet" to="." method="_on_AddMediumPlanet_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddLargePlanet" to="." method="_on_AddLargePlanet_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddGiantPlanet" to="." method="_on_AddGiantPlanet_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddAsteroidSpawnerUP" to="." method="_on_AddAsteroidSpawnerUP_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddAsteroidSpawnerDOWN" to="." method="_on_AddAsteroidSpawnerDOWN_pressed"]
 [connection signal="pressed" from="CanvasLayer/PanelContainer/VBoxContainer/VBoxContainer/AddAsteroidSpawnerLEFT" to="." method="_on_AddAsteroidSpawnerLEFT_pressed"]
