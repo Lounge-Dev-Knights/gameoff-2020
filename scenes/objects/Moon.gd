@@ -144,21 +144,21 @@ func explode() -> void:
 	enabled = false
 
 
-
-
 func orbit(center: Node2D, radius: float = 100.0) -> void:
-	set_deferred("mode", RigidBody2D.MODE_STATIC)
-	if center != null:
-		start_angle = (position - center.position).angle()
-
-		var distance = (position - center.position).normalized()
-		var velocity_norm = linear_velocity / 100
-
-		orbit_speed = (velocity_norm).dot(distance.rotated(PI / 2))
-
-	orbit_center = center
-	orbit_radius = radius
-	emit_signal("started_orbiting", center)
+	if center != orbit_center: 
+		set_deferred("mode", RigidBody2D.MODE_STATIC)
+		if center != null:
+			start_angle = (position - center.position).angle()
+			
+			var distance = (position - center.position).normalized()
+			var velocity_norm = linear_velocity / 100
+			
+			orbit_speed = (velocity_norm).dot(distance.rotated(PI / 2))
+			print("back to orbiting")
+		
+		orbit_center = center
+		orbit_radius = radius
+		emit_signal("started_orbiting", center)
 
 
 func disappear(in_node: Node2D) -> void:

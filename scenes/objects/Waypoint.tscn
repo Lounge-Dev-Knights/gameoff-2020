@@ -7,10 +7,10 @@
 radius = 32.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 225.388
+radius = 800.0
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 173.571
+radius = 200.0
 
 [node name="Waypoint" type="Area2D"]
 script = ExtResource( 1 )
@@ -23,6 +23,8 @@ texture = ExtResource( 2 )
 
 [node name="GravityArea" type="Area2D" parent="."]
 gravity_point = true
+gravity_distance_scale = 0.005
+gravity_vec = Vector2( 0, 0 )
 gravity = 384.0
 linear_damp = 0.05
 

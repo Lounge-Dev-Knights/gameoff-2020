@@ -20,4 +20,4 @@ func _ready():
 
 func _on_MoonCatcher_body_entered(body):
 	if body.has_method("orbit"):
-		body.orbit(self, 100)
+		body.orbit(self, 200)
