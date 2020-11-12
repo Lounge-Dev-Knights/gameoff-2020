@@ -117,6 +117,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func reset(start_planet: Node2D = null):
 	_moon_destroyed = false
+	_moon_stopped = false
 	orbit_center = null
 	position = start_planet.position if start_planet != null else Vector2()
 	orbit(start_planet)
@@ -166,6 +167,7 @@ func orbit(center: Node2D, radius: float = 150.0) -> void:
 
 
 func disappear(in_node: Node2D) -> void:
+	_moon_stopped = true
 	orbit(in_node, 0)
 	$CollisionShape2D.set_deferred("disabled", true)
 	$AnimationPlayer.play("disappear")
