@@ -19,6 +19,16 @@ func collect_star(star: Node2D, index: int = 0) -> void:
 	
 	tween.interpolate_property(star, "position", pos, destination, 2, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	tween.start()
+	
+	while true:
+		var object = yield(tween, "tween_completed")
+		
+		if object[0] == star:
+			if star_outline != null:
+				star_outline.texture = preload("res://scenes/objects/star.svg")
+			star.queue_free()
+			return
+	
 
 
 func render_stars():
