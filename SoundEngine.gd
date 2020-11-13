@@ -4,7 +4,6 @@ const POOL_SIZE = 8
 
 const sounds = {
 	"MenuButtonSound":preload("res://Sounds/MenuButtonSound.wav"),
-	"MenuButtonHoverSound":preload("res://Sounds/MenuButtonSound.wav"),
 	"MoonImpact":preload("res://Sounds/MoonImpact.wav"),
 	"Wurmhole":preload("res://Sounds/wurmhole.wav"),
 	"Reset":preload("res://Sounds/Reset.wav"),
