@@ -1,7 +1,5 @@
 extends Node2D
 
-
-
 func _on_Play_pressed():
 	SceneLoader.goto_scene("res://scenes/Game.tscn")
 	SoundEngine.play_sound("MenuButtonSound")
