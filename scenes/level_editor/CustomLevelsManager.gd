@@ -14,6 +14,8 @@ var selected_level: String
 func _ready():
 	load_custom_levels()
 	
+	get_tree().connect("files_dropped", self, "_on_files_dropped")
+
 
 func get_levelname_from_path(path: String) -> String:
 	var regex = RegEx.new()
@@ -87,12 +89,13 @@ func download_level(level: String):
 
 
 
-func import_level(path: String) -> void:
+func import_level(file_path: String) -> void:
 	var dir = Directory.new()
-	var file_name = path.substr(path.find_last("/"))
+	# var file_name = file_path.substr(file_path.find_last("/"))
+	var file_name = file_path.get_file()
 	
-	var error = dir.copy(path, CUSTOM_LEVELS_PATH + file_name)
-	print("export %s to %s. Error: %d" % [path, CUSTOM_LEVELS_PATH + filename, error])
+	var error = dir.copy(file_path, CUSTOM_LEVELS_PATH + file_name)
+	print("export %s to %s. Error: %d" % [file_path, CUSTOM_LEVELS_PATH + file_name, error])
 	
 
 
@@ -169,3 +172,9 @@ func _on_RenameFileDialog_confirmed():
 
 func _on_ExportText_pressed():
 	pass # Replace with function body.
+
+func _on_files_dropped(files: Array, screen: int):
+	for f in files:
+		import_level(f)
+	
+	load_custom_levels()
