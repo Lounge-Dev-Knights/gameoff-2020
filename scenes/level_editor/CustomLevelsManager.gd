@@ -108,8 +108,13 @@ func import_level(file_path: String) -> void:
 
 func _on_CustomLevels_item_selected(index):
 	$PopupPanel.popup_centered_minsize()
-	$PopupPanel.rect_position = get_global_mouse_position()
+	$PopupPanel.rect_position = get_global_mouse_position() + Vector2(5, 5)
 	selected_level = CUSTOM_LEVELS_PATH + levels_list.get_item_text(index) + ".json"
+
+
+func _on_CustomLevels_item_activated(index):
+	selected_level = CUSTOM_LEVELS_PATH + levels_list.get_item_text(index) + ".json"
+	SceneLoader.goto_scene("res://scenes/Game.tscn", {"level_path": selected_level})
 
 
 func _on_Play_pressed() -> void:

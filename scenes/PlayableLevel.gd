@@ -86,8 +86,8 @@ func _on_Moon_started_orbiting(center: Node2D) -> void:
 
 
 func _on_BlackHole_body_entered(body):
-	print("blackhole")
-	success()
+	if body == moon:
+		success()
 
 
 func _on_Moon_stationary():

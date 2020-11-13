@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/level_editor/Import.svg" type="Texture" id=3]
 [ext_resource path="res://scenes/level_editor/ArrowLeft.svg" type="Texture" id=4]
 [ext_resource path="res://scenes/level_editor/RenameFileDialog.gd" type="Script" id=5]
-[ext_resource path="res://scenes/level_editor/default_theme.tres" type="Theme" id=6]
+[ext_resource path="res://resources/default_theme.tres" type="Theme" id=6]
 
 [sub_resource type="Animation" id=1]
 resource_name = "open_popup"
@@ -57,6 +57,7 @@ size_flags_horizontal = 3
 custom_constants/vseparation = 20
 custom_constants/hseparation = 40
 allow_reselect = true
+allow_rmb_select = true
 max_columns = 4
 same_column_width = true
 fixed_column_width = 128
@@ -101,8 +102,8 @@ rect_scale = Vector2( 1e-05, 1e-05 )
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 173.0
-margin_bottom = 215.0
+margin_right = 127.0
+margin_bottom = 233.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -161,16 +162,16 @@ margin_right = 400.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 400, 300 )
 access = 2
-current_dir = "/Users/Dardan/code/gameoff-2020"
-current_path = "/Users/Dardan/code/gameoff-2020/"
+current_dir = "/home/dardan/code/gameoff-2020"
+current_path = "/home/dardan/code/gameoff-2020/"
 
 [node name="ImportFileDialog" type="FileDialog" parent="."]
 margin_right = 400.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 400, 300 )
 access = 2
-current_dir = "/Users/Dardan/code/gameoff-2020"
-current_path = "/Users/Dardan/code/gameoff-2020/"
+current_dir = "/home/dardan/code/gameoff-2020"
+current_path = "/home/dardan/code/gameoff-2020/"
 
 [node name="RenameFileDialog" type="ConfirmationDialog" parent="."]
 margin_left = 7.0
@@ -184,9 +185,9 @@ script = ExtResource( 5 )
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="RenameFileDialog"]
 margin_left = 8.0
-margin_top = 27.0
+margin_top = 30.0
 margin_right = 192.0
-margin_bottom = 79.0
+margin_bottom = 88.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
@@ -218,6 +219,7 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/open_popup = SubResource( 1 )
+[connection signal="item_activated" from="MarginContainer/HBoxContainer/CustomLevels" to="." method="_on_CustomLevels_item_activated"]
 [connection signal="item_selected" from="MarginContainer/HBoxContainer/CustomLevels" to="." method="_on_CustomLevels_item_selected"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CustomLevels/HBoxContainer/NewLevel" to="." method="_on_NewLevel_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CustomLevels/HBoxContainer/Import" to="." method="_on_Import_pressed"]
