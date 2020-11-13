@@ -96,7 +96,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		var charged_velocity = MIN_SHOOT_VELOCITY * (1 + 2*_duration_pressed)
 
 		# velocity is clamped to not let moon fly too fast nor too slow
-		charged_velocity = clamp(charged_velocity, MIN_SHOOT_VELOCITY, MAX_SHOOT_VELOCITY)
+		charged_velocity = clamp(charged_velocity, MIN_SHOOT_VELOCITY, MAX_SHOOT_VELOCITY) * sign(orbit_speed)
 		print(charged_velocity)
 
 		# multiply direction vector with charged velocity to get the ball flying

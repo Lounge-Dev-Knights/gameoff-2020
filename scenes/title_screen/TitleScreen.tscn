@@ -9,7 +9,7 @@
 [ext_resource path="res://resources/font/Button_Exitus_mouse_over.png" type="Texture" id=7]
 [ext_resource path="res://resources/font/Button_Settings_normal.png" type="Texture" id=8]
 [ext_resource path="res://resources/font/Button_Settings_mouse_over.png" type="Texture" id=9]
-[ext_resource path="res://scenes/level_editor/default_theme.tres" type="Theme" id=10]
+[ext_resource path="res://resources/default_theme.tres" type="Theme" id=10]
 [ext_resource path="res://Sounds/MoonRevolving.ogg" type="AudioStream" id=11]
 [ext_resource path="res://scenes/Sky.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/title_screen/Volume.gd" type="Script" id=13]
@@ -200,13 +200,13 @@ margin_right = 171.0
 margin_bottom = 19.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Volume/Music"]
-margin_right = 62.0
+margin_right = 74.0
 margin_bottom = 19.0
 theme = ExtResource( 10 )
-text = "Music"
+text = "musica"
 
 [node name="Music" type="HSlider" parent="CanvasLayer/Volume/Music"]
-margin_left = 66.0
+margin_left = 78.0
 margin_right = 171.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
@@ -219,12 +219,12 @@ margin_right = 171.0
 margin_bottom = 42.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Volume/Sound"]
-margin_right = 70.0
+margin_right = 67.0
 margin_bottom = 19.0
-text = "Sound"
+text = "sonus"
 
 [node name="Sound" type="HSlider" parent="CanvasLayer/Volume/Sound"]
-margin_left = 74.0
+margin_left = 71.0
 margin_right = 171.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
