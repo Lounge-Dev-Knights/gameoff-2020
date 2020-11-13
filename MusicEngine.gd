@@ -5,7 +5,7 @@ const POOL_SIZE = 1
 const sounds = {
 	"Music": {
 		"stream": preload("res://Sounds/music_gameoff2020.wav"),
-		"volume": 0
+		"volume": -3
 		},
 	}
 
