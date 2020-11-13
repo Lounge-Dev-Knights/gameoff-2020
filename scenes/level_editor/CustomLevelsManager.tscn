@@ -102,8 +102,8 @@ rect_scale = Vector2( 1e-05, 1e-05 )
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 127.0
-margin_bottom = 233.0
+margin_right = 173.0
+margin_bottom = 215.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -185,9 +185,9 @@ script = ExtResource( 5 )
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="RenameFileDialog"]
 margin_left = 8.0
-margin_top = 30.0
+margin_top = 27.0
 margin_right = 192.0
-margin_bottom = 88.0
+margin_bottom = 79.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 __meta__ = {
