@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/title_screen/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_screen/title_screen.png" type="Texture" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://scenes/level_editor/default_theme.tres" type="Theme" id=10]
 [ext_resource path="res://Sounds/MoonRevolving.ogg" type="AudioStream" id=11]
 [ext_resource path="res://scenes/Sky.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/title_screen/Volume.gd" type="Script" id=13]
+[ext_resource path="res://resources/ConstellationMenu.tscn" type="PackedScene" id=14]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 9 )
@@ -179,12 +181,16 @@ margin_bottom = 50.0
 theme = SubResource( 14 )
 text = "Test level"
 
+[node name="ConstellationMenu" parent="CanvasLayer" instance=ExtResource( 14 )]
+
 [node name="Volume" type="VBoxContainer" parent="CanvasLayer"]
-margin_left = 436.0
-margin_top = 148.0
-margin_right = 607.0
-margin_bottom = 221.0
+visible = false
+margin_left = 130.53
+margin_top = 343.161
+margin_right = 301.53
+margin_bottom = 416.161
 theme = ExtResource( 10 )
+script = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
