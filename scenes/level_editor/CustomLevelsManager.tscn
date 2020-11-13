@@ -101,8 +101,8 @@ rect_scale = Vector2( 1e-05, 1e-05 )
 [node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
 margin_left = 5.0
 margin_top = 5.0
-margin_right = 119.0
-margin_bottom = 182.0
+margin_right = 173.0
+margin_bottom = 215.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

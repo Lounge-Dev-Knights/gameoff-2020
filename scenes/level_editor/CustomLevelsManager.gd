@@ -71,19 +71,26 @@ func export_level(level: String, destination: String):
 # javascript downloadcode from volzotan; https://stackoverflow.com/a/30800715
 # CC BY-SA 4.0 - https://creativecommons.org/licenses/by-sa/4.0/
 func download_level(level: String):
+	var file_name = level.get_file()
+	var file = File.new()
+	var error = file.open(level, File.READ)
+	# TODO evaluate error
+	
+	var level_data = file.get_as_text()
+	
 	var export_script = """
 			function downloadObjectAsJson(exportObj, exportName) {
 				var dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(exportObj);
 				var downloadAnchorNode = document.createElement('a');
 				downloadAnchorNode.setAttribute('href', dataStr);
-				downloadAnchorNode.setAttribute('download', exportName + '.json');
+				downloadAnchorNode.setAttribute('download', exportName);
 				document.body.appendChild(downloadAnchorNode); // required for firefox
 				downloadAnchorNode.click();
 				downloadAnchorNode.remove();
 			}
 			
 			downloadObjectAsJson('%s', '%s');
-		""" % [to_json({ "hello": "world"}), "test"]
+		""" % [level_data, file_name]
 		
 	JavaScript.eval(export_script)
 
