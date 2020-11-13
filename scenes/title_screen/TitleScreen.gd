@@ -47,3 +47,13 @@ func _viewport_size_changed():
 
 
 
+
+
+func _on_MenuItem2_Button_pressed():
+	SoundEngine.play_sound("MenuButtonSound")
+	pass # Replace with function body.
+
+
+func _on_MenuItem2_Button_mouse_entered():
+	$MenuButtonHoverSound.play()
+	pass # Replace with function body.
