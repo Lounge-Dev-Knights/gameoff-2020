@@ -474,6 +474,7 @@ bus = "Sound Vol"
 [connection signal="pressed" from="ScrollLevelMenu/CenterContainer/HBoxContainer/HBoxContainer2/MenuItem3 Button3" to="ScrollLevelMenu" method="_on_MenuItem3_Button_pressed"]
 [connection signal="mouse_entered" from="ScrollLevelMenu/CenterContainer/HBoxContainer/HBoxContainer2/MenuItem3 Button4" to="ScrollLevelMenu" method="_on_MenuItem3_Button_mouse_entered"]
 [connection signal="pressed" from="ScrollLevelMenu/CenterContainer/HBoxContainer/HBoxContainer2/MenuItem3 Button4" to="ScrollLevelMenu" method="_on_MenuItem3_Button_pressed"]
+[connection signal="value_changed" from="CanvasLayer/Volume/Music/Music" to="." method="_on_Music_value_changed"]
 [connection signal="mouse_entered" from="CanvasLayer/Volume/Sound/Sound" to="." method="_on_Sound_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/Volume/Sound/Sound" to="." method="_on_Sound_mouse_exited"]
 [connection signal="value_changed" from="CanvasLayer/Volume/Sound/Sound" to="." method="_on_Sound_value_changed"]

@@ -1,5 +1,8 @@
 extends Node2D
 
+func _ready():
+	MusicEngine.play_sound("Music")
+
 func _on_Play_pressed():
 	SceneLoader.goto_scene("res://scenes/Game.tscn")
 	SoundEngine.play_sound("MenuButtonSound")
@@ -58,3 +61,6 @@ func _on_Sound_mouse_entered():
 
 func _on_Sound_mouse_exited():
 	$SoundVolCheck.stop()
+
+func _on_Music_value_changed(value):
+	var sound_vol = AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music Vol"),value)

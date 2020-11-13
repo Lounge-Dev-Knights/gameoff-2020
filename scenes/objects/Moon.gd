@@ -175,7 +175,6 @@ func disappear(in_node: Node2D) -> void:
 	emit_signal("wurmhole")
 	SoundEngine.play_sound("Wurmhole")
 
-
 func _on_Moon_started_moving():
 	$MoonRevolving.stop()
 	$MoonCharging.play()
