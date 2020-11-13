@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://resources/shaders/planet.shader" type="Shader" id=1]
+[ext_resource path="res://scenes/objects/Planet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/objects/TinyPlanet.gd" type="Script" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 1 )
+shader_param/resolution = null
+shader_param/offset = Vector2( 0.5, 0.5 )
+shader_param/base_color = 0.2
+shader_param/random_modifier = null
+shader_param/greyscale = null
+
+[node name="TinyPlanet" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+
+[node name="texture" parent="." index="1"]
+material = SubResource( 1 )

@@ -75,6 +75,14 @@ func add_object(type: String, pos: Vector2 = Vector2(0, 0), additional_propertie
 	match type:
 		"Planet":
 			instance = preload("res://scenes/objects/Planet.tscn").instance()
+		"TinyPlanet":
+			instance = preload("res://scenes/objects/TinyPlanet.tscn").instance()
+		"MediumPlanet":
+			instance = preload("res://scenes/objects/MediumPlanet.tscn").instance()
+		"LargePlanet":
+			instance = preload("res://scenes/objects/LargePlanet.tscn").instance()
+		"GiantPlanet":
+			instance = preload("res://scenes/objects/GiantPlanet.tscn").instance()
 		"AsteroidSpawner":
 			instance = preload("res://scenes/objects/AsteroidSpawner.tscn").instance()
 		"Waypoint":
@@ -98,7 +106,6 @@ func add_asteroid_spawner(type: String,direction: int, pos: Vector2 = Vector2(0,
 	return instance
 
 func load_objects(objects_data: Array) -> void:
-	var objects = $objects
 	# remove existing
 	for o in objects.get_children():
 		o.queue_free()

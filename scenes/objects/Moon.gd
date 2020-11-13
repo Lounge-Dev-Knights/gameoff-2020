@@ -10,11 +10,10 @@ signal stationary
 signal wurmhole
 
 
-const START_RADIUS = 100
+const START_RADIUS = 0
 const START_ANGULAR_SPEED = 1 * PI
 const MIN_SHOOT_VELOCITY = 200
-const MAX_SHOOT_VELOCITY = 10000
-
+const MAX_SHOOT_VELOCITY = 2000
 
 onready var moon_sprite = $planet
 
@@ -41,6 +40,7 @@ var _moon_destroyed = false
 func _ready():
 	start_angle = randf() * 2 * PI
 	$MoonRevolving.play()
+	$god.hide()
 
 
 func _process(delta: float) -> void:
@@ -48,7 +48,7 @@ func _process(delta: float) -> void:
 	if not _moon_destroyed:
 		if mode == RigidBody2D.MODE_STATIC:
 			start_angle += orbit_speed * delta
-
+			rotation = start_angle + PI / 2
 
 			orbit_current_radius = lerp(orbit_current_radius, orbit_radius, delta)
 			orbit_speed = lerp(orbit_speed, sign(orbit_speed) * START_ANGULAR_SPEED, delta)
@@ -71,6 +71,7 @@ func _process(delta: float) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
 	if enabled and Input.is_action_just_pressed("shoot") and mode == RigidBody2D.MODE_STATIC:
 		_start_charging = OS.get_ticks_msec()
 		Engine.time_scale = 0.1
@@ -90,12 +91,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		var direction = orbit_position.normalized().rotated(PI / 2)
 
-		var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
+		#var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
+		
 		# velocity is multiplied by duration key is pressed, to "charge up" shot
-		var charged_velocity = MIN_SHOOT_VELOCITY * (1 + _duration_pressed)
+		var charged_velocity = MIN_SHOOT_VELOCITY * (1 + 2*_duration_pressed)
 
 		# velocity is clamped to not let moon fly too fast nor too slow
 		charged_velocity = clamp(charged_velocity, MIN_SHOOT_VELOCITY, MAX_SHOOT_VELOCITY)
+		print(charged_velocity)
 
 		# multiply direction vector with charged velocity to get the ball flying
 		linear_velocity = direction * charged_velocity
@@ -104,10 +107,19 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		# reset pressed duration
 		_start_charging = 0
+	
+	var _duration_charging = (OS.get_ticks_msec()-_start_charging) / 1000.0
+	print(_duration_charging)
+	if Input. is_action_pressed("shoot"):
+		$MoonCharging.adjust(_duration_charging)
+	else: 
+		$MoonCharging.adjust(00)
 
 
 func reset(start_planet: Node2D = null):
 	_moon_destroyed = false
+	_moon_stopped = false
+	orbit_center = null
 	position = start_planet.position if start_planet != null else Vector2()
 	orbit(start_planet)
 	orbit_speed = START_ANGULAR_SPEED
@@ -117,8 +129,8 @@ func reset(start_planet: Node2D = null):
 	SoundEngine.play_sound("Reset")
 	emit_signal("reset")
 	emit_signal("stationary")
-	$CollisionShape2D.set_deferred("disabled", false)
 	
+	$CollisionShape2D.set_deferred("disabled", false)
 	enabled = true
 
 
@@ -136,25 +148,29 @@ func explode() -> void:
 	enabled = false
 
 
-
-
-func orbit(center: Node2D, radius: float = 100.0) -> void:
-	set_deferred("mode", RigidBody2D.MODE_STATIC)
-	if center != null:
-		start_angle = (position - center.position).angle()
-
-		var distance = (position - center.position).normalized()
-		var velocity_norm = linear_velocity / 100
-
-		orbit_speed = (velocity_norm).dot(distance.rotated(PI / 2))
-
-	orbit_center = center
-	orbit_radius = radius
-	emit_signal("started_orbiting", center)
+func orbit(center: Node2D, radius: float = 150.0) -> void:
+	if center != orbit_center: 
+		
+		$god.show()
+		set_deferred("mode", RigidBody2D.MODE_STATIC)
+		if center != null:
+			start_angle = (position - center.position).angle()
+			
+			var distance = (position - center.position).normalized()
+			var velocity_norm = linear_velocity / 100
+			
+			orbit_speed = (velocity_norm).dot(distance.rotated(PI / 2))
+			print("back to orbiting")
+		
+		orbit_center = center
+		orbit_radius = radius
+		emit_signal("started_orbiting", center)
 
 
 func disappear(in_node: Node2D) -> void:
+	_moon_stopped = true
 	orbit(in_node, 0)
+	$CollisionShape2D.set_deferred("disabled", true)
 	$AnimationPlayer.play("disappear")
 	emit_signal("wurmhole")
 	SoundEngine.play_sound("Wurmhole")
@@ -162,11 +178,14 @@ func disappear(in_node: Node2D) -> void:
 
 func _on_Moon_started_moving():
 	$MoonRevolving.stop()
+	$MoonCharging.play()
 
 
 func _on_Moon_moving():
+	$MoonCharging.stop()
 	$MoonFlying.play()
 	SoundEngine.play_sound("MoonThrowing")
+	$god.hide()
 
 
 func _on_Moon_reset():

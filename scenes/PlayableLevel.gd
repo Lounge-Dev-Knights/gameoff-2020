@@ -1,6 +1,10 @@
 extends "res://scenes/BaseLevel.gd"
 
 
+signal success
+signal failure
+
+
 onready var tween = $Tween
 onready var camera = $Camera2D
 
@@ -11,9 +15,15 @@ func _unhandled_input(event):
 		show_start()
 
 
+var star_count = 0
 func load_data(level_data: Dictionary, reload: bool = false) -> void:
+	star_count = 0
 	.load_data(level_data)
+	moon.position = start_planet.position
 	$Fortuna.reset()
+	$StarCounter.num_stars = star_count
+	
+	$AnimationPlayer.play("setup")
 	
 	if reload:
 		show_start()
@@ -22,7 +32,13 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 		
 	yield(tween, "tween_all_completed")
 	$Moon.reset(start_planet)
-	
+
+
+func add_star(pos: Vector2 = Vector2(0, 0)) -> Node2D:
+	var star = .add_star(pos)
+	star.connect("collected", $StarCounter, "collect_star", [star, star_count])
+	star_count += 1
+	return star
 
 
 func peek_level():
@@ -51,6 +67,7 @@ func show_start():
 func success():
 	$Fortuna.enabled = false
 	$Fortuna.reset()
+	emit_signal("success")
 
 
 func _on_Moon_started_moving() -> void:
@@ -69,8 +86,17 @@ func _on_Moon_started_orbiting(center: Node2D) -> void:
 
 
 func _on_BlackHole_body_entered(body):
+	print("blackhole")
 	success()
 
 
 func _on_Moon_stationary():
 	$Fortuna.enabled = false
+
+
+func _on_BlackHole_body_exited(body):
+	print("blackhole exit")
+
+
+func _on_Moon_exploded():
+	emit_signal("failure")

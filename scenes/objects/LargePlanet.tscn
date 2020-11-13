@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/objects/Planet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/shaders/planet.shader" type="Shader" id=2]
+[ext_resource path="res://scenes/objects/LargePlanet.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 131.113
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 2 )
+shader_param/resolution = null
+shader_param/offset = Vector2( 0.5, 0.5 )
+shader_param/base_color = 0.2
+shader_param/random_modifier = null
+shader_param/greyscale = null
+
+[node name="LargePlanet" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource( 2 )
+
+[node name="texture" parent="." index="1"]
+material = SubResource( 1 )
+scale = Vector2( 4, 4 )
+
+[node name="GravityArea" parent="." index="2"]
+gravity = 640.0
