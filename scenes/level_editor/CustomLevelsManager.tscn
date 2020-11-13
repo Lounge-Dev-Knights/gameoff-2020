@@ -161,6 +161,7 @@ margin_bottom = 70.0
 margin_right = 400.0
 margin_bottom = 300.0
 rect_min_size = Vector2( 400, 300 )
+popup_exclusive = true
 access = 2
 current_dir = "/home/dardan/code/gameoff-2020"
 current_path = "/home/dardan/code/gameoff-2020/"
