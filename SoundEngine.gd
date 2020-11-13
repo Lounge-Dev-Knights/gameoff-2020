@@ -11,6 +11,10 @@ const sounds = {
 		"stream": preload("res://Sounds/MoonImpact.wav"),
 		"volume": 0
 		},
+	"AstroidImpact": {
+		"stream": preload("res://Sounds/AstroidImpact.wav"),
+		"volume": -3
+		},
 	"Wurmhole": {
 		"stream":preload("res://Sounds/wurmhole.wav"),
 		"volume": 0
