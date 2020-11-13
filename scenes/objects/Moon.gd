@@ -39,7 +39,6 @@ var _moon_destroyed = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_angle = randf() * 2 * PI
-	$MoonRevolving.play()
 	$god.hide()
 
 
@@ -176,7 +175,6 @@ func disappear(in_node: Node2D) -> void:
 	SoundEngine.play_sound("Wurmhole")
 
 func _on_Moon_started_moving():
-	$MoonRevolving.stop()
 	$MoonCharging.play()
 
 
@@ -190,7 +188,6 @@ func _on_Moon_moving():
 func _on_Moon_reset():
 	yield(get_tree().create_timer(0.2), "timeout")
 	$MoonFlying.stop()
-	$MoonRevolving.play()
 
 
 func _on_Moon_exploded():
