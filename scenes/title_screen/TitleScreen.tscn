@@ -194,13 +194,13 @@ margin_right = 171.0
 margin_bottom = 19.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Volume/Music"]
-margin_right = 62.0
+margin_right = 74.0
 margin_bottom = 19.0
 theme = ExtResource( 10 )
-text = "Music"
+text = "musica"
 
 [node name="Music" type="HSlider" parent="CanvasLayer/Volume/Music"]
-margin_left = 66.0
+margin_left = 78.0
 margin_right = 171.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
@@ -213,12 +213,12 @@ margin_right = 171.0
 margin_bottom = 42.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Volume/Sound"]
-margin_right = 70.0
+margin_right = 67.0
 margin_bottom = 19.0
-text = "Sound"
+text = "sonus"
 
 [node name="Sound" type="HSlider" parent="CanvasLayer/Volume/Sound"]
-margin_left = 74.0
+margin_left = 71.0
 margin_right = 171.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
