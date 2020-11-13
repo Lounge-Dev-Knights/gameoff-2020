@@ -22,20 +22,8 @@ texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 600, 467 )
 
 [sub_resource type="StyleBoxTexture" id=2]
-code = "shader_type canvas_item;
-uniform vec4 sky_color = vec4(0.0, 0.0, 1.0, 1.0);
-
-void fragment() {
-	float dist = 1.0 - pow(length(vec2(0.5, 1.0) - UV), 0.4);
-	COLOR = dist * sky_color;
-
-	if (texture(TEXTURE, UV).g < 0.85) {
-		COLOR += vec4(0.0, 0.0, 0.0, 0.0);
-	} else {
-		COLOR += texture(TEXTURE, UV);
-	}
-}"
-
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 600, 476 )
 
 [sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 5 )
@@ -58,11 +46,11 @@ texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 380, 88 )
 
 [sub_resource type="Shader" id=9]
-	code = "shader_type canvas_item;
-	void vertex() {
-		VERTEX.x += sin(TIME) * 5.0;
-		VERTEX.y += (1.0 + sin(TIME / 2.0)) * 5.0;
-	}"
+code = "shader_type canvas_item;
+void vertex() {
+	VERTEX.x += sin(TIME) * 5.0;
+	VERTEX.y += (1.0 + sin(TIME / 2.0)) * 5.0;
+}"
 
 [sub_resource type="ShaderMaterial" id=10]
 shader = SubResource( 9 )
@@ -78,6 +66,8 @@ font_data = ExtResource( 5 )
 
 [sub_resource type="Theme" id=14]
 default_font = SubResource( 13 )
+
+
 
 [sub_resource type="DynamicFont" id=18]
 font_data = ExtResource( 5 )
@@ -137,17 +127,14 @@ texture = ExtResource( 28 )
 region_rect = Rect2( 0, 0, 380, 88 )
 
 [sub_resource type="ShaderMaterial" id=32] #old id 15
-shader = SubResource( 14 )
+shader = SubResource( 10 )
 
 [sub_resource type="Curve" id=33] #old id 1 # old is 23
 max_value = 2.0
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.248276, 1.98182 ), 0.0, 0.0, 0, 0, Vector2( 0.417241, 2 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-#[sub_resource type="Shader" id=34] #old id 2 old is 24
-#code = "shader_type canvas_item;"
-
 [sub_resource type="ShaderMaterial" id=35] #old id 3 old is 25
-shader = SubResource( 2 )
+shader = SubResource( 10 )
 shader_param/sky_color = Plane( 0, 0, 1, 1 )
 
 [node name="TitleScreen" type="Node2D"]
@@ -173,10 +160,10 @@ emission_shape = 2
 emission_rect_extents = Vector2( 800, 300 )
 gravity = Vector2( 0, 0 )
 scale_amount = 2.0
-scale_amount_curve = SubResource( 23 )
+scale_amount_curve = 3 #SubResource( 23 )
 
 [node name="Sky" type="TextureRect" parent="CanvasLayer"]
-material = SubResource( 25 )
+material = SubResource( 35 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -352,6 +339,7 @@ __meta__ = {
 [node name="MenuButtonHoverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -18.0
+bus = "Sound Vol"
 
 [node name="ScrollLevelMenu" type="ScrollContainer" parent="."]
 margin_top = 50.0
@@ -390,8 +378,8 @@ size_flags_horizontal = 5
 margin_right = 200.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
-custom_styles/hover = SubResource( 33 )
-custom_styles/normal = SubResource( 30 )
+custom_styles/hover = SubResource( 23 )
+custom_styles/normal = SubResource( 20 )
 custom_constants/hseparation = 10
 shortcut_in_tooltip = false
 __meta__ = {
@@ -403,7 +391,7 @@ margin_left = 204.0
 margin_right = 404.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
-custom_styles/hover = SubResource( 34 )
+custom_styles/hover = SubResource( 24 )
 custom_styles/normal = SubResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -414,7 +402,7 @@ margin_left = 408.0
 margin_right = 608.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
-custom_styles/hover = SubResource( 35 )
+custom_styles/hover = SubResource( 25 )
 custom_styles/normal = SubResource( 22 )
 
 [node name="MenuItem3 Button2" type="Button" parent="ScrollLevelMenu/CenterContainer/HBoxContainer/HBoxContainer2"]
@@ -422,7 +410,7 @@ margin_left = 612.0
 margin_right = 812.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
-custom_styles/hover = SubResource( 35 )
+custom_styles/hover = SubResource( 25 )
 custom_styles/normal = SubResource( 22 )
 
 [node name="MenuItem3 Button3" type="Button" parent="ScrollLevelMenu/CenterContainer/HBoxContainer/HBoxContainer2"]
@@ -430,7 +418,7 @@ margin_left = 816.0
 margin_right = 1016.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
-custom_styles/hover = SubResource( 35 )
+custom_styles/hover = SubResource( 25 )
 custom_styles/normal = SubResource( 22 )
 
 [node name="MenuItem3 Button4" type="Button" parent="ScrollLevelMenu/CenterContainer/HBoxContainer/HBoxContainer2"]
@@ -438,7 +426,7 @@ margin_left = 1020.0
 margin_right = 1220.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 200 )
-custom_styles/hover = SubResource( 35 )
+custom_styles/hover = SubResource( 25 )
 custom_styles/normal = SubResource( 22 )
 
 [node name="ButtonRight" type="Button" parent="ScrollLevelMenu/CenterContainer/HBoxContainer"]
@@ -446,8 +434,7 @@ margin_left = 1260.0
 margin_right = 1280.0
 margin_bottom = 200.0
 text = ">"
-volume_db = -14.604
-bus = "Sound Vol"
+
 
 [node name="SoundVolCheck" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 11 )
