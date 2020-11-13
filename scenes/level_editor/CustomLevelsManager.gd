@@ -14,6 +14,8 @@ var selected_level: String
 func _ready():
 	load_custom_levels()
 	
+	get_tree().connect("files_dropped", self, "_on_files_dropped")
+
 
 func get_levelname_from_path(path: String) -> String:
 	var regex = RegEx.new()
@@ -65,19 +67,54 @@ func export_level(level: String, destination: String):
 	print("export %s to %s. Error: %d" % [level, destination, error])
 
 
-func import_level(path: String) -> void:
-	var dir = Directory.new()
-	var file_name = path.substr(path.find_last("/"))
+# Download the level as json file in HTML5 runtimes
+# javascript downloadcode from volzotan; https://stackoverflow.com/a/30800715
+# CC BY-SA 4.0 - https://creativecommons.org/licenses/by-sa/4.0/
+func download_level(level: String):
+	var file_name = level.get_file()
+	var file = File.new()
+	var error = file.open(level, File.READ)
+	# TODO evaluate error
 	
-	var error = dir.copy(path, CUSTOM_LEVELS_PATH + file_name)
-	print("export %s to %s. Error: %d" % [path, CUSTOM_LEVELS_PATH + filename, error])
+	var level_data = file.get_as_text()
+	
+	var export_script = """
+			function downloadObjectAsJson(exportObj, exportName) {
+				var dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(exportObj);
+				var downloadAnchorNode = document.createElement('a');
+				downloadAnchorNode.setAttribute('href', dataStr);
+				downloadAnchorNode.setAttribute('download', exportName);
+				document.body.appendChild(downloadAnchorNode); // required for firefox
+				downloadAnchorNode.click();
+				downloadAnchorNode.remove();
+			}
+			
+			downloadObjectAsJson('%s', '%s');
+		""" % [level_data, file_name]
+		
+	JavaScript.eval(export_script)
+
+
+
+func import_level(file_path: String) -> void:
+	var dir = Directory.new()
+	# var file_name = file_path.substr(file_path.find_last("/"))
+	var file_name = file_path.get_file()
+	
+	var error = dir.copy(file_path, CUSTOM_LEVELS_PATH + file_name)
+	print("export %s to %s. Error: %d" % [file_path, CUSTOM_LEVELS_PATH + file_name, error])
 	
 
 
 func _on_CustomLevels_item_selected(index):
 	$PopupPanel.popup_centered_minsize()
-	$PopupPanel.rect_position = get_global_mouse_position()
+	$PopupPanel.rect_position = get_global_mouse_position() + Vector2(5, 5)
 	selected_level = CUSTOM_LEVELS_PATH + levels_list.get_item_text(index) + ".json"
+
+
+func _on_CustomLevels_item_activated(index):
+	selected_level = CUSTOM_LEVELS_PATH + levels_list.get_item_text(index) + ".json"
+	SceneLoader.goto_scene("res://scenes/Game.tscn", {"level_path": selected_level})
 
 
 func _on_Play_pressed() -> void:
@@ -95,7 +132,10 @@ func _on_Rename_pressed() -> void:
 
 
 func _on_Export_pressed() -> void:
-	$ExportFileDialog.popup_centered()
+	if OS.has_feature("HTML5"):
+		download_level(selected_level)
+	else:
+		$ExportFileDialog.popup_centered()
 
 
 func _on_Delete_pressed() -> void:
@@ -139,4 +179,14 @@ func _on_PopupPanel_about_to_show():
 func _on_RenameFileDialog_confirmed():
 	var dir = Directory.new()
 	dir.rename(selected_level, CUSTOM_LEVELS_PATH + $RenameFileDialog/HBoxContainer2/LineEdit.text + ".json")
+	load_custom_levels()
+
+
+func _on_ExportText_pressed():
+	pass # Replace with function body.
+
+func _on_files_dropped(files: Array, screen: int):
+	for f in files:
+		import_level(f)
+	
 	load_custom_levels()

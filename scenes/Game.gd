@@ -24,7 +24,11 @@ func load_level(reload: bool = false):
 
 
 func _on_Back_pressed():
-	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn")
+	if level_path.find("user://levels") == -1:
+		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn")
+	else:
+		SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
+		
 	SoundEngine.play_sound("MenuButtonSound")
 
 
