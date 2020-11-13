@@ -65,6 +65,28 @@ func export_level(level: String, destination: String):
 	print("export %s to %s. Error: %d" % [level, destination, error])
 
 
+# Download the level as json file in HTML5 runtimes
+# javascript downloadcode from volzotan; https://stackoverflow.com/a/30800715
+# CC BY-SA 4.0 - https://creativecommons.org/licenses/by-sa/4.0/
+func download_level(level: String):
+	var export_script = """
+			function downloadObjectAsJson(exportObj, exportName) {
+				var dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(exportObj);
+				var downloadAnchorNode = document.createElement('a');
+				downloadAnchorNode.setAttribute('href', dataStr);
+				downloadAnchorNode.setAttribute('download', exportName + '.json');
+				document.body.appendChild(downloadAnchorNode); // required for firefox
+				downloadAnchorNode.click();
+				downloadAnchorNode.remove();
+			}
+			
+			downloadObjectAsJson('%s', '%s');
+		""" % [to_json({ "hello": "world"}), "test"]
+		
+	JavaScript.eval(export_script)
+
+
+
 func import_level(path: String) -> void:
 	var dir = Directory.new()
 	var file_name = path.substr(path.find_last("/"))
@@ -95,7 +117,10 @@ func _on_Rename_pressed() -> void:
 
 
 func _on_Export_pressed() -> void:
-	$ExportFileDialog.popup_centered()
+	if OS.has_feature("HTML5"):
+		download_level(selected_level)
+	else:
+		$ExportFileDialog.popup_centered()
 
 
 func _on_Delete_pressed() -> void:
@@ -140,3 +165,7 @@ func _on_RenameFileDialog_confirmed():
 	var dir = Directory.new()
 	dir.rename(selected_level, CUSTOM_LEVELS_PATH + $RenameFileDialog/HBoxContainer2/LineEdit.text + ".json")
 	load_custom_levels()
+
+
+func _on_ExportText_pressed():
+	pass # Replace with function body.
