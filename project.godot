@@ -15,7 +15,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="gameoff-2020"
+config/name="Golfing Gods"
 run/main_scene="res://scenes/title_screen/TitleScreen.tscn"
 
 [autoload]
