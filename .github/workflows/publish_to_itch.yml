@@ -3,9 +3,9 @@ on:
     types: [published]
     
 env:
-  GAME_TITLE: gameoff-2020
+  GAME_TITLE: golfing-gods
   ITCH_USER: lounge-dev-knights
-  PACKAGE_PREFIX: gameoff
+  PACKAGE_PREFIX: golfing-gods
 
 jobs:
   publish_to_itch:
