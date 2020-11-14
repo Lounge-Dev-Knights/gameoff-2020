@@ -211,3 +211,12 @@ func _on_AddLargePlanet_pressed():
 
 func _on_AddGiantPlanet_pressed():
 	var planet = level.add_object("GiantPlanet", camera.position)
+
+
+func _on_button_mouse_entered():
+	SoundEngine.play_sound("MenuButtonHoverSound")
+
+
+func _on_button_pressed():
+	SoundEngine.play_sound("MenuButtonSound")
+
