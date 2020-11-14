@@ -61,7 +61,7 @@ margin_bottom = 41.0
 margin_top = 159.0
 margin_right = 704.0
 margin_bottom = 181.0
-text = "Option 2: Enter level text here"
+text = "Option 2: Paste level text here"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -137,6 +137,7 @@ access = 2
 filters = PoolStringArray( "*.json" )
 current_dir = "/Users/Dardan/code/gameoff-2020"
 current_path = "/Users/Dardan/code/gameoff-2020/"
+[connection signal="about_to_show" from="." to="." method="_on_ImportDialog_about_to_show"]
 [connection signal="text_changed" from="VBoxContainer/MarginContainer/VBoxContainer/TextEdit" to="." method="_on_TextEdit_text_changed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2/BrowseFiles" to="." method="_on_BrowseFiles_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Close" to="." method="_on_Close_pressed"]

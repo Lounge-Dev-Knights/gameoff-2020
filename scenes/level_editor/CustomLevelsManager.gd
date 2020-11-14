@@ -211,10 +211,7 @@ func _on_button_mouse_entered():
 
 func _on_button_pressed():
 	SoundEngine.play_sound("MenuButtonSound")
-
-
-
-
+	$ContextMenu.hide()
 
 
 

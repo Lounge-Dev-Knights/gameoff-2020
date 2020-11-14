@@ -24,6 +24,26 @@ func import_level(file_path: String) -> void:
 	print("export %s to %s. Error: %d" % [file_path, CUSTOM_LEVELS_PATH + file_name, error])
 
 
+func import_base64(data: String) -> int:
+	var err := OK
+	var level_data_string = Marshalls.base64_to_utf8(data) 
+	
+	if parse_json(level_data_string) != null:
+		var dir = Directory.new()
+		var i = 1
+		while dir.file_exists(CUSTOM_LEVELS_PATH + "Imported level " + str(i) + ".json"):
+			i += 1
+		
+		var file = File.new()
+		err = file.open(CUSTOM_LEVELS_PATH + "Imported level " + str(i) + ".json", File.WRITE)
+		
+		if err == OK:
+			file.store_string(level_data_string)
+	else:
+		err = ERR_INVALID_DATA
+	
+	return err
+
 func _on_Close_pressed():
 	hide()
 
@@ -35,9 +55,15 @@ func _on_FileDialog_file_selected(path):
 
 
 func _on_TextEdit_text_changed():
-	# TODO try to import level
-	pass # Replace with function body.
+	var err = import_base64($VBoxContainer/MarginContainer/VBoxContainer/TextEdit.text)
+	if err == OK:
+		emit_signal("level_imported")
+		hide()
 
 
 func _on_BrowseFiles_pressed():
 	$CanvasLayer/FileDialog.popup_centered()
+
+
+func _on_ImportDialog_about_to_show():
+	$VBoxContainer/MarginContainer/VBoxContainer/TextEdit.text = ""
