@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/title_screen/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_screen/title_screen.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=10]
 [ext_resource path="res://Sounds/MoonRevolving.ogg" type="AudioStream" id=11]
 [ext_resource path="res://scenes/Sky.tscn" type="PackedScene" id=12]
+[ext_resource path="res://resources/ConstellationMenu.tscn" type="PackedScene" id=14]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 9 )
@@ -179,11 +180,14 @@ margin_bottom = 50.0
 theme = SubResource( 14 )
 text = "Test level"
 
+[node name="ConstellationMenu" parent="CanvasLayer" instance=ExtResource( 14 )]
+
 [node name="Volume" type="VBoxContainer" parent="CanvasLayer"]
-margin_left = 436.0
-margin_top = 148.0
-margin_right = 607.0
-margin_bottom = 221.0
+visible = false
+margin_left = 130.53
+margin_top = 343.161
+margin_right = 301.53
+margin_bottom = 416.161
 theme = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -191,16 +195,16 @@ __meta__ = {
 
 [node name="Music" type="HBoxContainer" parent="CanvasLayer/Volume"]
 margin_right = 171.0
-margin_bottom = 19.0
+margin_bottom = 22.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Volume/Music"]
-margin_right = 62.0
-margin_bottom = 19.0
+margin_right = 48.0
+margin_bottom = 22.0
 theme = ExtResource( 10 )
 text = "Music"
 
 [node name="Music" type="HSlider" parent="CanvasLayer/Volume/Music"]
-margin_left = 66.0
+margin_left = 52.0
 margin_right = 171.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
@@ -208,17 +212,17 @@ min_value = -24.0
 max_value = 0.0
 
 [node name="Sound" type="HBoxContainer" parent="CanvasLayer/Volume"]
-margin_top = 23.0
+margin_top = 26.0
 margin_right = 171.0
-margin_bottom = 42.0
+margin_bottom = 48.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Volume/Sound"]
-margin_right = 70.0
-margin_bottom = 19.0
+margin_right = 51.0
+margin_bottom = 22.0
 text = "Sound"
 
 [node name="Sound" type="HSlider" parent="CanvasLayer/Volume/Sound"]
-margin_left = 74.0
+margin_left = 55.0
 margin_right = 171.0
 margin_bottom = 16.0
 size_flags_horizontal = 3
