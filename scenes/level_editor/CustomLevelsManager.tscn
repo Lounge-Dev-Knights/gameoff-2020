@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/level_editor/CustomLevelsManager.gd" type="Script" id=1]
 [ext_resource path="res://scenes/level_editor/Add.svg" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/level_editor/ArrowLeft.svg" type="Texture" id=4]
 [ext_resource path="res://scenes/level_editor/RenameFileDialog.gd" type="Script" id=5]
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=6]
+[ext_resource path="res://scenes/level_editor/ImportDialog.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "open_popup"
@@ -167,14 +168,6 @@ filters = PoolStringArray( "*.json" )
 current_dir = "/Users/Dardan/code/gameoff-2020"
 current_path = "/Users/Dardan/code/gameoff-2020/"
 
-[node name="ImportFileDialog" type="FileDialog" parent="."]
-margin_right = 400.0
-margin_bottom = 300.0
-rect_min_size = Vector2( 400, 300 )
-access = 2
-current_dir = "/Users/Dardan/code/gameoff-2020"
-current_path = "/Users/Dardan/code/gameoff-2020/"
-
 [node name="RenameFileDialog" type="ConfirmationDialog" parent="."]
 margin_left = 7.0
 margin_top = 7.0
@@ -267,6 +260,8 @@ margin_left = 447.0
 margin_right = 518.0
 margin_bottom = 32.0
 text = "Close"
+
+[node name="ImportDialog" parent="." instance=ExtResource( 7 )]
 [connection signal="item_activated" from="MarginContainer/HBoxContainer/CustomLevels" to="." method="_on_CustomLevels_item_activated"]
 [connection signal="item_selected" from="MarginContainer/HBoxContainer/CustomLevels" to="." method="_on_CustomLevels_item_selected"]
 [connection signal="mouse_entered" from="MarginContainer/HBoxContainer/CustomLevels/HBoxContainer/NewLevel" to="." method="_on_button_mouse_entered"]
@@ -291,7 +286,6 @@ text = "Close"
 [connection signal="pressed" from="ContextMenu/VBoxContainer/Delete" to="." method="_on_Delete_pressed"]
 [connection signal="confirmed" from="DeleteConfirmationDialog" to="." method="_on_DeleteConfirmationDialog_confirmed"]
 [connection signal="file_selected" from="ExportFileDialog" to="." method="_on_ExportFileDialog_file_selected"]
-[connection signal="file_selected" from="ImportFileDialog" to="." method="_on_ImportFileDialog_file_selected"]
 [connection signal="confirmed" from="RenameFileDialog" to="." method="_on_RenameFileDialog_confirmed"]
 [connection signal="text_changed" from="RenameFileDialog/HBoxContainer2/LineEdit" to="RenameFileDialog" method="_on_LineEdit_text_changed"]
 [connection signal="mouse_entered" from="CanvasLayer/Back" to="." method="_on_button_mouse_entered"]
@@ -303,3 +297,4 @@ text = "Close"
 [connection signal="mouse_entered" from="ExportTextDialog/VBoxContainer/HBoxContainer/Close" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/Close" to="." method="_on_ExportText_Close_pressed"]
 [connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/Close" to="." method="_on_button_pressed"]
+[connection signal="level_imported" from="ImportDialog" to="." method="_on_ImportDialog_level_imported"]

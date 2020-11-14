@@ -160,8 +160,8 @@ func _on_NewLevel_pressed():
 
 
 func _on_Import_pressed():
-	$ImportFileDialog.popup_centered()
-	
+	$ImportDialog.popup_centered()
+
 
 func _on_ImportFileDialog_file_selected(path):
 	import_level(path)
@@ -192,7 +192,7 @@ func _on_ExportText_pressed():
 func _on_files_dropped(files: Array, screen: int):
 	for f in files:
 		import_level(f)
-	
+	$ImportDialog.hide()
 	load_custom_levels()
 
 
@@ -216,3 +216,7 @@ func _on_button_pressed():
 
 
 
+
+
+func _on_ImportDialog_level_imported():
+	load_custom_levels()
