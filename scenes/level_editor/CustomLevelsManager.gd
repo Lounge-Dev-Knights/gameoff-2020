@@ -5,6 +5,7 @@ const CUSTOM_LEVELS_PATH = "user://levels/"
 
 
 onready var levels_list = $MarginContainer/HBoxContainer/CustomLevels
+onready var export_text_dialog = $ExportTextDialog
 
 
 var selected_level: String
@@ -107,8 +108,8 @@ func import_level(file_path: String) -> void:
 
 
 func _on_CustomLevels_item_selected(index):
-	$PopupPanel.popup_centered_minsize()
-	$PopupPanel.rect_position = get_global_mouse_position() + Vector2(5, 5)
+	$ContextMenu.popup_centered_minsize()
+	$ContextMenu.rect_position = get_global_mouse_position() + Vector2(5, 5)
 	selected_level = CUSTOM_LEVELS_PATH + levels_list.get_item_text(index) + ".json"
 
 
@@ -150,7 +151,6 @@ func _on_ExportFileDialog_file_selected(destination: String) -> void:
 	export_level(selected_level, destination)
 
 
-
 func _on_NewLevel_pressed():
 	var dir = Directory.new()
 	var i = 1
@@ -160,8 +160,8 @@ func _on_NewLevel_pressed():
 
 
 func _on_Import_pressed():
-	$ImportFileDialog.popup_centered()
-	
+	$ImportDialog.popup_centered()
+
 
 func _on_ImportFileDialog_file_selected(path):
 	import_level(path)
@@ -175,7 +175,6 @@ func _on_PopupPanel_about_to_show():
 	$AnimationPlayer.play("open_popup")
 
 
-
 func _on_RenameFileDialog_confirmed():
 	var dir = Directory.new()
 	dir.rename(selected_level, CUSTOM_LEVELS_PATH + $RenameFileDialog/HBoxContainer2/LineEdit.text + ".json")
@@ -183,10 +182,38 @@ func _on_RenameFileDialog_confirmed():
 
 
 func _on_ExportText_pressed():
-	pass # Replace with function body.
+	var file = File.new()
+	file.open(selected_level, File.READ)
+	export_text_dialog.get_node("VBoxContainer/TextEdit").text = Marshalls.utf8_to_base64(file.get_as_text())
+	
+	export_text_dialog.popup_centered()
+
 
 func _on_files_dropped(files: Array, screen: int):
 	for f in files:
 		import_level(f)
-	
+	$ImportDialog.hide()
+	load_custom_levels()
+
+
+func _on_CopyToClipboard_pressed():
+	OS.set_clipboard(export_text_dialog.get_node("VBoxContainer/TextEdit").text)
+	export_text_dialog.get_node("VBoxContainer/HBoxContainer/CopyToClipboard").text = "Copied!"
+
+
+func _on_ExportText_Close_pressed():
+	export_text_dialog.hide()
+
+
+func _on_button_mouse_entered():
+	SoundEngine.play_sound("MenuButtonHoverSound")
+
+
+func _on_button_pressed():
+	SoundEngine.play_sound("MenuButtonSound")
+	$ContextMenu.hide()
+
+
+
+func _on_ImportDialog_level_imported():
 	load_custom_levels()
