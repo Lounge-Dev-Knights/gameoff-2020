@@ -1,9 +1,14 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://resources/default_theme.tres" type="Theme" id=1]
 
 [node name="ConstellationMenu" type="ScrollContainer"]
 margin_top = 51.0
 margin_right = 1024.0
 margin_bottom = 251.0
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+scroll_vertical_enabled = false
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -13,7 +13,9 @@ var level_path: String = "res://scenes/levels/test_level.json"
 func _ready():
 	load_level()
 
-
+func _unhandled_input(event):
+	if Input.is_action_just_pressed("reset"):
+		load_level(true)
 
 func load_level(reload: bool = false):
 	var file = File.new()
