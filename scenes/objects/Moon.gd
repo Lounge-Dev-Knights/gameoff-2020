@@ -46,6 +46,9 @@ func _process(delta: float) -> void:
 	
 	if not _moon_destroyed:
 		if mode == RigidBody2D.MODE_KINEMATIC:
+			
+		
+			$god.show()
 			start_angle += orbit_speed * delta
 			rotation = start_angle + PI / 2
 
@@ -153,8 +156,6 @@ func explode() -> void:
 func orbit(center: Node2D, radius: float = 220.0) -> void:
 	if center != orbit_center: 
 		
-		
-		$god.show()
 		set_deferred("mode", RigidBody2D.MODE_KINEMATIC)
 		if center != null:
 			start_angle = (position - center.position).angle()

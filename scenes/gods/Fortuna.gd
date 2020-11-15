@@ -14,7 +14,7 @@ var enabled: bool = false
 
 
 # how far can an object be dragged
-const DRAG_DISTANCE = 150
+const DRAG_DISTANCE = 500
 const MODULATE_COLOR = Color(0.503906, 0.503906, 0.503906)
 
 # how many times can you drag
