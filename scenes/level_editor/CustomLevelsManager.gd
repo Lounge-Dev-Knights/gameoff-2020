@@ -177,7 +177,23 @@ func _on_PopupPanel_about_to_show():
 
 func _on_RenameFileDialog_confirmed():
 	var dir = Directory.new()
-	dir.rename(selected_level, CUSTOM_LEVELS_PATH + $RenameFileDialog/HBoxContainer2/LineEdit.text + ".json")
+	var new_level_name = $RenameFileDialog/HBoxContainer2/LineEdit.text
+	var new_level_path = CUSTOM_LEVELS_PATH + new_level_name + ".json"
+	dir.rename(selected_level, new_level_path)
+
+	# Save level name in json
+	# first we load the file
+	var file = File.new()
+	file.open(new_level_path, File.READ)
+	var data = parse_json(file.get_as_text())
+	file.close()
+	data['level_name'] = new_level_name
+
+	# open file for writing
+	file.open(new_level_path, File.WRITE)
+	file.store_string(to_json(data))
+	file.close()
+	
 	load_custom_levels()
 
 
