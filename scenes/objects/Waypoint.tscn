@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/objects/planet.svg" type="Texture" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 32.0
+radius = 100.0
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 800.0
@@ -19,6 +19,7 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="texture" type="Sprite" parent="."]
+scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 
 [node name="GravityArea" type="Area2D" parent="."]

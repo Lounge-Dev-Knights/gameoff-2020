@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scenes/PlayableLevel.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Game.gd" type="Script" id=2]
 [ext_resource path="res://scenes/level_editor/ArrowLeft.svg" type="Texture" id=3]
 [ext_resource path="res://scenes/objects/star.svg" type="Texture" id=4]
+[ext_resource path="res://resources/default_theme.tres" type="Theme" id=5]
 
 [sub_resource type="InputEventAction" id=1]
 action = "ui_cancel"
@@ -45,17 +46,20 @@ anchor_bottom = 1.0
 margin_left = -45.5
 margin_top = -94.0
 margin_right = 45.5
+theme = ExtResource( 5 )
 popup_exclusive = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SuccessPanel"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 87.0
-margin_bottom = 90.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 124.0
+margin_bottom = 135.0
 
 [node name="Label" type="Label" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
 margin_right = 83.0
 margin_bottom = 14.0
+text = "Success!"
+align = 1
 
 [node name="Next" type="Button" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
 margin_top = 18.0
@@ -84,20 +88,23 @@ anchor_bottom = 1.0
 margin_left = -45.5
 margin_top = -70.0
 margin_right = 45.5
+theme = ExtResource( 5 )
 popup_exclusive = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/RetryPanel"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 87.0
-margin_bottom = 66.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 124.0
+margin_bottom = 99.0
 
 [node name="Label" type="Label" parent="CanvasLayer/RetryPanel/VBoxContainer"]
 margin_right = 83.0
 margin_bottom = 14.0
+text = "Failure..."
+align = 1
 
 [node name="Retry" type="Button" parent="CanvasLayer/RetryPanel/VBoxContainer"]
 margin_top = 18.0

@@ -10,7 +10,7 @@ signal stationary
 signal wurmhole
 
 
-const START_RADIUS = 0
+const START_RADIUS = 100
 const START_ANGULAR_SPEED = 1 * PI
 const MIN_SHOOT_VELOCITY = 200
 const MAX_SHOOT_VELOCITY = 2000
@@ -49,7 +49,7 @@ func _process(delta: float) -> void:
 			start_angle += orbit_speed * delta
 			rotation = start_angle + PI / 2
 
-			orbit_current_radius = lerp(orbit_current_radius, orbit_radius, delta)
+			orbit_current_radius = lerp(orbit_current_radius, orbit_radius, delta * 5)
 			orbit_speed = lerp(orbit_speed, sign(orbit_speed) * START_ANGULAR_SPEED, delta)
 
 			orbit_target = Vector2(orbit_current_radius, 0).rotated(start_angle)
@@ -106,6 +106,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		# reset pressed duration
 		_start_charging = 0
+		
+		modulate = Color.white
 	
 	var _duration_charging = (OS.get_ticks_msec()-_start_charging) / 1000.0
 
@@ -148,8 +150,9 @@ func explode() -> void:
 	enabled = false
 
 
-func orbit(center: Node2D, radius: float = 150.0) -> void:
+func orbit(center: Node2D, radius: float = 220.0) -> void:
 	if center != orbit_center: 
+		
 		
 		$god.show()
 		set_deferred("mode", RigidBody2D.MODE_KINEMATIC)
@@ -160,7 +163,7 @@ func orbit(center: Node2D, radius: float = 150.0) -> void:
 			var velocity_norm = linear_velocity / 100
 			
 			orbit_speed = (velocity_norm).dot(distance.rotated(PI / 2))
-			print("start orbiting " + center.name)
+			print("start orbiting " + center.name + " at " + str(radius))
 		
 		orbit_center = center
 		orbit_radius = radius
@@ -171,6 +174,7 @@ func disappear(in_node: Node2D) -> void:
 	print("disappear")
 	_moon_stopped = true
 	orbit(in_node, 0)
+	$god.hide()
 	$CollisionShape2D.set_deferred("disabled", true)
 	$AnimationPlayer.play("disappear")
 	emit_signal("wurmhole")
