@@ -45,7 +45,7 @@ func _ready():
 func _process(delta: float) -> void:
 	
 	if not _moon_destroyed:
-		if mode == RigidBody2D.MODE_STATIC:
+		if mode == RigidBody2D.MODE_KINEMATIC:
 			start_angle += orbit_speed * delta
 			rotation = start_angle + PI / 2
 
@@ -71,13 +71,13 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
-	if enabled and Input.is_action_just_pressed("shoot") and mode == RigidBody2D.MODE_STATIC:
+	if enabled and Input.is_action_just_pressed("shoot") and mode == RigidBody2D.MODE_KINEMATIC:
 		_start_charging = OS.get_ticks_msec()
 		Engine.time_scale = 0.1
 
 		emit_signal("started_moving")
 
-	if enabled and _start_charging != 0 and Input.is_action_just_released("shoot") and mode == RigidBody2D.MODE_STATIC and not _moon_stopped:
+	if enabled and _start_charging != 0 and Input.is_action_just_released("shoot") and mode == RigidBody2D.MODE_KINEMATIC and not _moon_stopped:
 
 		# set moon to not be slow anymore after charge button is released
 		Engine.time_scale = 1.0
@@ -97,7 +97,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		# velocity is clamped to not let moon fly too fast nor too slow
 		charged_velocity = clamp(charged_velocity, MIN_SHOOT_VELOCITY, MAX_SHOOT_VELOCITY) * sign(orbit_speed)
-		print(charged_velocity)
+
 
 		# multiply direction vector with charged velocity to get the ball flying
 		linear_velocity = direction * charged_velocity
@@ -108,7 +108,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_start_charging = 0
 	
 	var _duration_charging = (OS.get_ticks_msec()-_start_charging) / 1000.0
-	print(_duration_charging)
+
 	if Input. is_action_pressed("shoot"):
 		$MoonCharging.adjust(_duration_charging)
 	else: 
@@ -129,6 +129,8 @@ func reset(start_planet: Node2D = null):
 	emit_signal("reset")
 	emit_signal("stationary")
 	
+	# workaround: wait a moment, until physics body is moved to not trigger black hole again
+	yield(get_tree().create_timer(0.1), "timeout")
 	$CollisionShape2D.set_deferred("disabled", false)
 	enabled = true
 
@@ -140,7 +142,7 @@ func explode() -> void:
 	emit_signal("exploded")
 	emit_signal("stationary")
 	
-	set_deferred("mode", RigidBody2D.MODE_STATIC)
+	set_deferred("mode", RigidBody2D.MODE_KINEMATIC)
 	_moon_destroyed = true
 	$CollisionShape2D.set_deferred("disabled", true)
 	enabled = false
@@ -150,7 +152,7 @@ func orbit(center: Node2D, radius: float = 150.0) -> void:
 	if center != orbit_center: 
 		
 		$god.show()
-		set_deferred("mode", RigidBody2D.MODE_STATIC)
+		set_deferred("mode", RigidBody2D.MODE_KINEMATIC)
 		if center != null:
 			start_angle = (position - center.position).angle()
 			
@@ -158,7 +160,7 @@ func orbit(center: Node2D, radius: float = 150.0) -> void:
 			var velocity_norm = linear_velocity / 100
 			
 			orbit_speed = (velocity_norm).dot(distance.rotated(PI / 2))
-			print("back to orbiting")
+			print("start orbiting " + center.name)
 		
 		orbit_center = center
 		orbit_radius = radius
@@ -166,6 +168,7 @@ func orbit(center: Node2D, radius: float = 150.0) -> void:
 
 
 func disappear(in_node: Node2D) -> void:
+	print("disappear")
 	_moon_stopped = true
 	orbit(in_node, 0)
 	$CollisionShape2D.set_deferred("disabled", true)
