@@ -43,7 +43,7 @@ func render_stars():
 	for child in stars.get_children():
 		child.queue_free()
 	
-	for i in range(num_stars):
+	for _i in range(num_stars):
 		var star = TextureRect.new()
 		star.texture = preload("res://scenes/objects/star_outline.svg")
 		stars.add_child(star)

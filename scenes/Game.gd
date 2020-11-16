@@ -11,11 +11,13 @@ var level_path: String = "res://scenes/levels/test_level.json"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	load_level()
+	call_deferred("load_level")
 
-func _unhandled_input(event):
+
+func _unhandled_input(_event):
 	if Input.is_action_just_pressed("reset"):
 		load_level(true)
+
 
 func load_level(reload: bool = false):
 	var file = File.new()
@@ -35,6 +37,7 @@ func _on_Back_pressed():
 
 
 func _on_Reset_pressed():
+	$CanvasLayer/Back.show()
 	retry_panel.hide()
 	success_panel.hide()
 	load_level(true)
@@ -47,11 +50,13 @@ func _on_Titlescreen_pressed():
 
 
 func _on_PlayableLevel_failure():
+	$CanvasLayer/Back.hide()
 	$CanvasLayer/RetryPanel.popup_centered()
 
 
 func _on_PlayableLevel_success():
 	$CanvasLayer/SuccessPanel.popup_centered()
+	$CanvasLayer/Back.hide()
 	$CanvasLayer/Control/SuccessConfettiStars.emitting = true
 
 
