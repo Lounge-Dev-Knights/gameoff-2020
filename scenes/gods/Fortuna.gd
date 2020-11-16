@@ -6,7 +6,7 @@ const SLOW_MOTION_SCALE = 0.1
 onready var countdown = $CanvasLayer/CountdownContainer/Countdown
 onready var countdown_container = $CanvasLayer/CountdownContainer
 
-
+var effect_active = false
 var effects_left
 var timer: SceneTreeTimer
 var enabled: bool = false
@@ -57,6 +57,7 @@ func reset():
 func start_effect():
 	if not enabled:
 		return
+	effect_active = true
 	
 	for object in get_tree().get_nodes_in_group("objects"):
 		object.connect("mouse_entered", self, "_on_object_mouse_entered", [object])
@@ -70,15 +71,17 @@ func start_effect():
 	countdown.max_value = timer.time_left
 
 func stop_effect():
-	for object in get_tree().get_nodes_in_group("objects"):
-		object.disconnect("mouse_entered", self, "_on_object_mouse_entered")
-		object.disconnect("mouse_exited", self, "_on_object_mouse_exited")
-	
-	hovered_object = null
-	drags_left = 1
-	
-	countdown_container.hide()
-	Engine.time_scale = 1.0
+	if effect_active:
+		for object in get_tree().get_nodes_in_group("objects"):
+			object.disconnect("mouse_entered", self, "_on_object_mouse_entered")
+			object.disconnect("mouse_exited", self, "_on_object_mouse_exited")
+		
+		hovered_object = null
+		drags_left = 1
+		
+		countdown_container.hide()
+		Engine.time_scale = 1.0
+		effect_active = false
 
 
 func _on_Timer_timeout():

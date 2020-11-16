@@ -2,6 +2,9 @@ extends Node2D
 
 func _ready():
 	MusicEngine.play_sound("Music")
+	
+	if OS.has_feature("HTML5"):
+		$CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit.hide()
 
 func _on_Play_pressed():
 	SceneLoader.goto_scene("res://scenes/Game.tscn")

@@ -22,21 +22,21 @@ region_rect = Rect2( 0, 0, 600, 467 )
 texture = ExtResource( 8 )
 region_rect = Rect2( 0, 0, 600, 476 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 5 )
 
-[sub_resource type="Theme" id=6]
-default_font = SubResource( 5 )
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
 
-[sub_resource type="StyleBoxTexture" id=7]
+[sub_resource type="StyleBoxTexture" id=5]
 texture = ExtResource( 7 )
 region_rect = Rect2( 0, 0, 380, 88 )
 
-[sub_resource type="StyleBoxTexture" id=8]
+[sub_resource type="StyleBoxTexture" id=6]
 texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 380, 88 )
 
-[sub_resource type="Shader" id=9]
+[sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
 
 void vertex() {
@@ -44,8 +44,8 @@ void vertex() {
 	VERTEX.y += (1.0 + sin(TIME / 2.0)) * 5.0;
 }"
 
-[sub_resource type="ShaderMaterial" id=10]
-shader = SubResource( 9 )
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -104,15 +104,15 @@ margin_left = 789.012
 margin_top = 228.259
 margin_right = 973.012
 margin_bottom = 276.259
-theme = SubResource( 6 )
-custom_styles/hover = SubResource( 7 )
-custom_styles/normal = SubResource( 8 )
+theme = SubResource( 4 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Clouds" type="TextureRect" parent="CanvasLayer/VBoxContainer2/CenterContainer"]
-material = SubResource( 10 )
+material = SubResource( 8 )
 margin_right = 1024.0
 margin_bottom = 380.0
 grow_horizontal = 2

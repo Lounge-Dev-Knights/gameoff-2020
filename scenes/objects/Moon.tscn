@@ -163,6 +163,7 @@ position = Vector2( 10.2134, 34.4619 )
 scale = Vector2( 0.1, 0.1 )
 frames = SubResource( 2 )
 animation = "run"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -204,5 +205,4 @@ script = ExtResource( 7 )
 [connection signal="moving" from="." to="." method="_on_Moon_moving"]
 [connection signal="reset" from="." to="." method="_on_Moon_reset"]
 [connection signal="started_moving" from="." to="." method="_on_Moon_started_moving"]
-[connection signal="started_moving" from="." to="MoonCharging" method="_on_Moon_started_moving"]
 [connection signal="wurmhole" from="." to="." method="_on_Moon_wurmhole"]
