@@ -15,7 +15,7 @@ func explode():
 	
 	$CollisionShape2D.set_deferred("disabled", true)
 	#get_tree().call_group("cameras", "add_trauma", 0.15) #Screen shake
-	SoundEngine.play_sound("AstroidImpact")
+	$AudioStreamPlayer2D.play()
 	$AsteroidExplosion.play("AsteroidExplosion")
 	yield($AsteroidExplosion,"animation_finished") 
 	queue_free()
