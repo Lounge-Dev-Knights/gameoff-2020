@@ -43,12 +43,12 @@ func _draw():
 func show_lines():
 	tween.stop_all()
 	for line in $lines.get_children():
-		tween.interpolate_property(line, "scale", line.scale, Vector2(1, 1), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.5)
+		tween.interpolate_property(line, "scale", line.scale, Vector2(1, 1), 1.5, Tween.TRANS_EXPO, Tween.EASE_OUT, 0.0)
 	tween.start()
 
 
 func hide_lines():
 	tween.stop_all()
 	for line in $lines.get_children():
-		tween.interpolate_property(line, "scale", line.scale, Vector2(0, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.5)
+		tween.interpolate_property(line, "scale", line.scale, Vector2(0, 0), 1.5, Tween.TRANS_EXPO, Tween.EASE_OUT, 0.0)
 	tween.start()
