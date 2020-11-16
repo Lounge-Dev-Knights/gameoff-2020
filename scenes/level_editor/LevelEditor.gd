@@ -122,13 +122,13 @@ func save():
 		preview_image.blit_rect(preview_image, rect, Vector2())
 		preview_image.crop(size, size)
 		preview_image.resize(128, 128)
-		
+
 		# save image to base64
 		print("save image")
-		# convert picture to save space
-		preview_image.convert(Image.FORMAT_DXT3)
-		data["preview_image"] = Marshalls.variant_to_base64(preview_image, true)
-		
+		# save as png before encoding to base64 to save bytes
+		var buffer = preview_image.save_png_to_buffer()	
+		data["preview_image"] = Marshalls.variant_to_base64(buffer, true)
+
 		print("Saved " + level_path)
 		file.store_string(to_json(data))
 	else:

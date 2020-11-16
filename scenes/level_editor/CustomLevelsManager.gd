@@ -14,7 +14,7 @@ var selected_level: String
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_custom_levels()
-	
+
 	get_tree().connect("files_dropped", self, "_on_files_dropped")
 
 
@@ -22,33 +22,34 @@ func get_levelname_from_path(path: String) -> String:
 	var regex = RegEx.new()
 	regex.compile("(.+/)(.+)(.json)")
 	var result = regex.search(path)
-	
+
 	return result.strings[2]
 	
 
 
 func load_custom_levels():
 	levels_list.clear()
-	
+
 	var dir = Directory.new()
 	var err = dir.open(CUSTOM_LEVELS_PATH)
-	
+
 	dir.list_dir_begin(true)
 	var next = dir.get_next()
-	
+
 	while next != "":
 		if next.ends_with(".json"):
 			var level_path = CUSTOM_LEVELS_PATH + next
 			var level_name = get_levelname_from_path(CUSTOM_LEVELS_PATH + next)
 			var preview = Image.new()
-			
+
 			# load preview image
 			var file = File.new()
 			file.open(level_path, File.READ)
 			var data = parse_json(file.get_as_text())
 			if data.has("preview_image"):
-				preview = Marshalls.base64_to_variant(data["preview_image"], true)
-				
+				var image_buffer = Marshalls.base64_to_variant(data["preview_image"], true)
+				preview.load_png_from_buffer(image_buffer)
+
 			# create texture
 			var texture = ImageTexture.new()
 			texture.create_from_image(preview)
