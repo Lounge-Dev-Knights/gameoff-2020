@@ -45,15 +45,15 @@ grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 200, 200 )
 theme = SubResource( 1 )
-alignment = 2
+alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Name" type="Label" parent="Labels"]
-margin_top = 61.0
+margin_top = 30.0
 margin_right = 200.0
-margin_bottom = 136.0
+margin_bottom = 105.0
 grow_horizontal = 2
 grow_vertical = 2
 custom_fonts/font = SubResource( 2 )
@@ -64,9 +64,9 @@ __meta__ = {
 }
 
 [node name="Status" type="Label" parent="Labels"]
-margin_top = 140.0
+margin_top = 109.0
 margin_right = 200.0
-margin_bottom = 168.0
+margin_bottom = 137.0
 grow_horizontal = 2
 grow_vertical = 2
 custom_fonts/font = SubResource( 3 )
@@ -77,9 +77,9 @@ __meta__ = {
 }
 
 [node name="Stars" type="Label" parent="Labels"]
-margin_top = 172.0
+margin_top = 141.0
 margin_right = 200.0
-margin_bottom = 200.0
+margin_bottom = 169.0
 grow_horizontal = 2
 grow_vertical = 2
 custom_fonts/font = SubResource( 3 )
