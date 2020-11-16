@@ -1,19 +1,17 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/title_screen/LevelSelectionItem.gd" type="Script" id=1]
+[ext_resource path="res://scenes/title_screen/Constellation.gd" type="Script" id=2]
 [ext_resource path="res://resources/font/Underdog-Regular.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 50, 50 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 36
-outline_size = 1
+size = 64
+outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 3 )
-
-[sub_resource type="Theme" id=3]
-default_font = SubResource( 2 )
 
 [node name="LevelSelectionItem" type="Area2D" groups=[
 "levels",
@@ -26,10 +24,14 @@ shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Line2D" type="Line2D" parent="."]
-points = PoolVector2Array( 6.61188, 77.9357, -61.974, 41.1346, -85.1636, -24.8664, -43.5413, -87.2998, -41.1629, -190.761, 38.5139, -106.327, 62.7798, 1.14188, 49.8114, 45.8914, 6.2373, 77.5611 )
-width = 2.0
-default_color = Color( 1, 1, 1, 1 )
+[node name="Constellation" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Tween" type="Tween" parent="Constellation"]
+
+[node name="lines" type="Node2D" parent="Constellation"]
+
+[node name="Line2D" type="Line2D" parent="Constellation"]
 
 [node name="Label" type="Label" parent="."]
 anchor_left = 0.5
@@ -42,7 +44,7 @@ margin_right = 20.0
 margin_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "Level 1"
 __meta__ = {
 "_edit_use_anchors_": false

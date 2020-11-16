@@ -53,5 +53,13 @@ func _set_current_index(new_index):
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_2, scale_2), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	
+	
+	if current_index == index:
+		$Constellation.show_lines()
+		z_index = 1
+	else:
+		$Constellation.hide_lines()
+		z_index = 2
+	
 	tween.start()
 
