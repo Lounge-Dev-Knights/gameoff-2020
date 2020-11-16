@@ -1,6 +1,47 @@
 extends Node2D
 
 const constellations = {
+	"editor": {
+		"stars": [
+			Vector2(-102, 96),
+			Vector2(-49, 95),
+			Vector2(20, 15),
+			Vector2(84, -61),
+			Vector2(81, -78),
+			Vector2(45, -107),
+			Vector2(17, -103),
+			Vector2(-40, -43),
+			Vector2(-109, 28),
+			Vector2(-22, -20),
+			Vector2(0, -5),
+			Vector2(-92, 44),
+			Vector2(-61, 65),
+			Vector2(60, -75),
+			Vector2(30, -88),
+		],
+		"collected": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
+		"connections": [
+			[0, 1],
+			[1, 2],
+			[2, 3],
+			[3, 4],
+			[4, 5],
+			[5, 6],
+			[6, 7],
+			[7, 8],
+			[8, 0],
+			[1, 12],
+			[12, 11],
+			[11, 8],
+			[3, 13],
+			[13, 14],
+			[14, 6],
+			[11, 9],
+			[12, 10],
+			[10, 13],
+			[9, 14],
+		]
+	},
 	"locked": {
 		"stars": [
 			Vector2(-80, 120),
@@ -14,6 +55,7 @@ const constellations = {
 			Vector2(-50, -50),
 			Vector2(-100, -50),
 		],
+		"collected": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
 		"connections": [
 			[0, 1],
 			[1, 2],
@@ -30,47 +72,52 @@ const constellations = {
 	}
 }
 
+
+var collected = []
+
+
 var stars = []
 
 
 onready var tween = $Tween
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	load_constellation(constellations["locked"])
-	
-	
-	update()
 
 
 func _draw():
 	for star in stars:
-		if (randi() % 2) == 0:
-			draw_circle(star, 4, Color.white)
+		# fill out collected stars
+		if stars.find(star) in collected:
+			draw_circle(star, 6, Color.white)
 		else:
-			draw_arc(star, 4, 0, 2 * PI, 30, Color.white, 1, true)
+			draw_arc(star, 6, 0, 2 * PI, 30, Color.white, 1, true)
 
 
 func load_constellation(constellation: Dictionary) -> void:
 	for star in constellation["stars"]:
 		stars.append(star)
+		
+	collected = constellation["collected"]
 	
 	for connection in constellation["connections"]:
-		var from = constellation["stars"][connection[0]]
-		var to = constellation["stars"][connection[1]]
 		
-		var line = Line2D.new()
-		line.position = from
-		line.antialiased = true
-		line.scale = Vector2()
-		line.points = [
-			Vector2(),
-			to - from
-		]
-		line.default_color = Color.white
-		line.width = 1
-		$lines.add_child(line)
+		if connection[0] in constellation["collected"] and connection[1] in constellation["collected"]:
+			var from = constellation["stars"][connection[0]]
+			var to = constellation["stars"][connection[1]]
+			
+			var line = Line2D.new()
+			line.position = from
+			line.antialiased = true
+			line.scale = Vector2()
+			line.points = [
+				Vector2(),
+				to - from
+			]
+			line.default_color = Color.white
+			line.width = 2
+			$lines.add_child(line)
+	
+	update()
 
 
 func load_random() -> void:
@@ -91,6 +138,7 @@ func load_random() -> void:
 		line.default_color = Color.white
 		line.width = 1
 		$lines.add_child(line)
+	update()
 
 
 func show_lines():

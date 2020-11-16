@@ -8,15 +8,45 @@ var current_index = 0 setget _set_current_index
 func _ready():
 	var custom_levels = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
 	custom_levels.index = 0
-	custom_levels.level_name = "Level editor"
-	custom_levels.connect("input_event", self, "_on_LevelSelectionItem_input_event", [0])
+	custom_levels.level_data = {"name": "Level editor"}
+	custom_levels.connect("selected", self, "_on_LevelSelectionItem_selected", [0])
 	$Center.add_child(custom_levels)
 	
-	for i in range(1, 10):
+	for i in range(1, 3):
 		var level = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
 		level.index = i
-		level.level_name = "Level %d" % (i)
-		level.connect("input_event", self, "_on_LevelSelectionItem_input_event", [i])
+		var level_data = {
+			"name": "Level %d" % (i),
+			"state": level.LevelState.COMPLETED,
+			"stars": randi() % 9,
+			"stars_max": 8
+		}
+		level.level_data = level_data
+		level.connect("selected", self, "_on_LevelSelectionItem_selected", [i])
+		$Center.add_child(level)
+	
+	for i in range(3, 4):
+		var level = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
+		level.index = i
+		var level_data = {
+			"name": "Level %d" % (i),
+			"state": level.LevelState.UNLOCKED,
+			"stars": 0,
+			"stars_max": 8
+		}
+		level.level_data = level_data
+		level.connect("selected", self, "_on_LevelSelectionItem_selected", [i])
+		$Center.add_child(level)
+	
+	for i in range(4, 7):
+		var level = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
+		level.index = i
+		var level_data = {
+			"name": "Level %d" % (i),
+			"state": level.LevelState.LOCKED
+		}
+		level.level_data = level_data
+		level.connect("selected", self, "_on_LevelSelectionItem_selected", [i])
 		$Center.add_child(level)
 	
 	self.current_index = 1
@@ -42,13 +72,11 @@ func open_selected_level():
 		})
 
 
-func _on_LevelSelectionItem_input_event(_viewport, event, _shape_idx, index):
-	if event is InputEventMouseButton and event.is_pressed():
-		
-		if index == current_index:
-			open_selected_level()
-		else:
-			self.current_index = index
+func _on_LevelSelectionItem_selected(index):
+	if index == current_index:
+		open_selected_level()
+	else:
+		self.current_index = index
 
 
 func _set_current_index(new_index: int):
