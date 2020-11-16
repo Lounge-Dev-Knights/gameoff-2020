@@ -8,7 +8,7 @@ var current_index = 0 setget _set_current_index
 func _ready():
 	var custom_levels = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
 	custom_levels.index = 0
-	custom_levels.level_name = "Custom levels"
+	custom_levels.level_name = "Level editor"
 	custom_levels.connect("input_event", self, "_on_LevelSelectionItem_input_event", [0])
 	$Center.add_child(custom_levels)
 	

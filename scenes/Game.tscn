@@ -29,8 +29,8 @@ script = ExtResource( 2 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Back" type="ToolButton" parent="CanvasLayer"]
-margin_right = 12.0
-margin_bottom = 22.0
+margin_right = 76.0
+margin_bottom = 72.0
 hint_tooltip = "Back"
 shortcut = SubResource( 2 )
 icon = ExtResource( 3 )
@@ -46,6 +46,7 @@ anchor_bottom = 1.0
 margin_left = -45.5
 margin_top = -94.0
 margin_right = 45.5
+mouse_filter = 1
 theme = ExtResource( 5 )
 popup_exclusive = true
 
@@ -88,6 +89,7 @@ anchor_bottom = 1.0
 margin_left = -45.5
 margin_top = -70.0
 margin_right = 45.5
+mouse_filter = 1
 theme = ExtResource( 5 )
 popup_exclusive = true
 __meta__ = {
@@ -101,22 +103,22 @@ margin_right = 124.0
 margin_bottom = 99.0
 
 [node name="Label" type="Label" parent="CanvasLayer/RetryPanel/VBoxContainer"]
-margin_right = 83.0
-margin_bottom = 14.0
+margin_right = 119.0
+margin_bottom = 22.0
 text = "Failure..."
 align = 1
 
 [node name="Retry" type="Button" parent="CanvasLayer/RetryPanel/VBoxContainer"]
-margin_top = 18.0
-margin_right = 83.0
-margin_bottom = 38.0
+margin_top = 26.0
+margin_right = 119.0
+margin_bottom = 58.0
 shortcut = SubResource( 4 )
 text = "Retry"
 
 [node name="Titlescreen" type="Button" parent="CanvasLayer/RetryPanel/VBoxContainer"]
-margin_top = 42.0
-margin_right = 83.0
-margin_bottom = 62.0
+margin_top = 62.0
+margin_right = 119.0
+margin_bottom = 94.0
 text = "Titlescreen"
 
 [node name="Control" type="Control" parent="CanvasLayer"]
