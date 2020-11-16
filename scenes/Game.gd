@@ -35,6 +35,7 @@ func _on_Back_pressed():
 
 
 func _on_Reset_pressed():
+	$CanvasLayer/Back.show()
 	retry_panel.hide()
 	success_panel.hide()
 	load_level(true)
@@ -47,11 +48,13 @@ func _on_Titlescreen_pressed():
 
 
 func _on_PlayableLevel_failure():
+	$CanvasLayer/Back.hide()
 	$CanvasLayer/RetryPanel.popup_centered()
 
 
 func _on_PlayableLevel_success():
 	$CanvasLayer/SuccessPanel.popup_centered()
+	$CanvasLayer/Back.hide()
 	$CanvasLayer/Control/SuccessConfettiStars.emitting = true
 
 
