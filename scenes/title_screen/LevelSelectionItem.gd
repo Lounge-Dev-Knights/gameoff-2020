@@ -36,30 +36,35 @@ func _set_current_index(new_index):
 		tween.interpolate_property(self, "position", position, Vector2(offset_2, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_2, scale_2), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$CollisionShape2D.set("disabled", true)
 	elif current_index == index - 1:
 		tween.interpolate_property(self, "position", position, Vector2(offset_1, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.3), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_1, scale_1), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$CollisionShape2D.set("disabled", false)
 	elif current_index == index:
 		tween.interpolate_property(self, "position", position, Vector2(), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 1.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(1.0, 1.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$CollisionShape2D.set("disabled", false)
 	elif current_index == index + 1:
 		tween.interpolate_property(self, "position", position, Vector2(-offset_1, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.3), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_1, scale_1), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$CollisionShape2D.set("disabled", false)
 	elif current_index >= index + 2:
 		tween.interpolate_property(self, "position", position, Vector2(-offset_2, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_2, scale_2), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		$CollisionShape2D.set("disabled", true)
 	
 	
 	if current_index == index:
 		$Constellation.show_lines()
-		z_index = 1
+		z_index = 0
 	else:
 		$Constellation.hide_lines()
-		z_index = 2
+		z_index = -1
 	
 	tween.start()
 

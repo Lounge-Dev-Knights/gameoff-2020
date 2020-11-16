@@ -5,7 +5,7 @@
 [ext_resource path="res://resources/font/Underdog-Regular.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 50, 50 )
+extents = Vector2( 100, 100 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 64

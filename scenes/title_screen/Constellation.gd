@@ -10,7 +10,7 @@ onready var tween = $Tween
 func _ready():
 	
 	for i in range(8):
-		stars.append(Vector2(rand_range(-100, 100), rand_range(-100, 100)))
+		stars.append(Vector2(rand_range(-150, 150), rand_range(-150, 150)))
 	
 	for i in range(6):
 		var from = stars[randi() % stars.size()]
@@ -41,12 +41,14 @@ func _draw():
 
 
 func show_lines():
+	tween.stop_all()
 	for line in $lines.get_children():
 		tween.interpolate_property(line, "scale", line.scale, Vector2(1, 1), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.5)
 	tween.start()
 
 
 func hide_lines():
+	tween.stop_all()
 	for line in $lines.get_children():
 		tween.interpolate_property(line, "scale", line.scale, Vector2(0, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT, 0.5)
 	tween.start()
