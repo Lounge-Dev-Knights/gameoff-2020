@@ -105,18 +105,14 @@ func select(objects: Array):
 func save():
 	var data = level.save_data()
 	
-	
 	var dir = Directory.new()
 	if not dir.dir_exists(USER_LEVELS_PATH):
 		dir.make_dir_recursive(USER_LEVELS_PATH)
 	
-	
 	var file = File.new()
 	var err = file.open(level_path, File.WRITE)
 	if err == OK:
-		print("Saved " + level_path)
-		file.store_string(to_json(data))
-		
+			
 		var preview_path = level_path.substr(0, level_path.length() - ".json".length()) + ".png"
 		var preview_image = level.get_viewport().get_texture().get_data()
 		var size = min(preview_image.get_width(), preview_image.get_height())
@@ -126,8 +122,15 @@ func save():
 		preview_image.blit_rect(preview_image, rect, Vector2())
 		preview_image.crop(size, size)
 		preview_image.resize(128, 128)
+		
+		# save image to base64
 		print("save image")
-		preview_image.save_png(preview_path)
+		# convert picture to save space
+		preview_image.convert(Image.FORMAT_DXT3)
+		data["preview_image"] = Marshalls.variant_to_base64(preview_image, true)
+		
+		print("Saved " + level_path)
+		file.store_string(to_json(data))
 	else:
 		print("Saving %s failed with code %d" % [level_path, err])
 	file.close()

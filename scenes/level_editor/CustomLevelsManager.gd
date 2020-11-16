@@ -38,12 +38,17 @@ func load_custom_levels():
 	
 	while next != "":
 		if next.ends_with(".json"):
+			var level_path = CUSTOM_LEVELS_PATH + next
 			var level_name = get_levelname_from_path(CUSTOM_LEVELS_PATH + next)
+			var preview = Image.new()
 			
 			# load preview image
-			var preview: Image = Image.new()
-			var e = preview.load(CUSTOM_LEVELS_PATH + level_name + ".png")
-			
+			var file = File.new()
+			file.open(level_path, File.READ)
+			var data = parse_json(file.get_as_text())
+			if data.has("preview_image"):
+				preview = Marshalls.base64_to_variant(data["preview_image"], true)
+				
 			# create texture
 			var texture = ImageTexture.new()
 			texture.create_from_image(preview)
@@ -182,14 +187,12 @@ func _on_RenameFileDialog_confirmed():
 	dir.rename(selected_level, new_level_path)
 
 	# Save level name in json
-	# first we load the file
 	var file = File.new()
 	file.open(new_level_path, File.READ)
 	var data = parse_json(file.get_as_text())
 	file.close()
 	data['level_name'] = new_level_name
 
-	# open file for writing
 	file.open(new_level_path, File.WRITE)
 	file.store_string(to_json(data))
 	file.close()
