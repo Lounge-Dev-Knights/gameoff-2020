@@ -152,6 +152,7 @@ tracks/2/keys = {
 z_index = 1
 collision_layer = 17
 mode = 1
+linear_damp = 0.0
 script = ExtResource( 3 )
 
 [node name="planet" type="Sprite" parent="."]
