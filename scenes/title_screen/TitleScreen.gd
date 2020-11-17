@@ -5,6 +5,8 @@ var current_index = 1
 onready var level_selection = $CanvasLayer/VBoxContainer2/LevelSelection
 
 func _ready():
+	
+	
 	MusicEngine.play_sound("Music")
 	
 	level_selection.current_index = current_index
@@ -53,18 +55,3 @@ func _on_Exit_mouse_entered():
 func _viewport_size_changed():
 	var size = get_viewport_rect()
 	$CanvasLayer/Control/CPUParticles2D.emission_rect_extents = size.size / 2
-
-
-
-
-func _on_Sound_value_changed(value):
-	var sound_vol = AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Vol"),value)
-
-func _on_Sound_mouse_entered():
-	$SoundVolCheck.play()
-
-func _on_Sound_mouse_exited():
-	$SoundVolCheck.stop()
-
-func _on_Music_value_changed(value):
-	var sound_vol = AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music Vol"),value)
