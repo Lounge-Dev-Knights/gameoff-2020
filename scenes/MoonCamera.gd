@@ -33,8 +33,8 @@ func _unhandled_input(event):
 func _process(delta):  
 	# follow target
 	if target != null:
-		position = position.linear_interpolate(target.position, delta * 5)
-		if (target.position - position).length() < 0.1:
+		position = position.linear_interpolate(target.position, delta * 10)
+		if (target.position - position).length() < 5:
 			emit_signal("target_reached")
 		
 	# apply screen shake
