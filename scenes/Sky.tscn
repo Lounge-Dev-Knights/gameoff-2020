@@ -10,7 +10,7 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.248276, 1.98182 ), 0.0, 0.
 code = "shader_type canvas_item;
 
 uniform vec4 sky_color = vec4(0.0, 0.0, 1.0, 1.0);
-
+uniform float threshold = 0.85;
 
 
 
@@ -18,7 +18,7 @@ void fragment() {
 	float dist = 1.0 - pow(length(vec2(0.5, 1.0) - UV), 0.4);
 	COLOR = dist * sky_color;
 	
-	if (texture(TEXTURE, UV).g < 0.85) {
+	if (texture(TEXTURE, UV).g < threshold) {
 		COLOR += vec4(0.0, 0.0, 0.0, 0.0);
 	} else {
 		COLOR += texture(TEXTURE, UV);
@@ -28,9 +28,10 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=3]
 shader = SubResource( 2 )
 shader_param/sky_color = Plane( 0, 0, 1, 1 )
+shader_param/threshold = 0.85
 
 [sub_resource type="OpenSimplexNoise" id=4]
-seed = -1719488346
+seed = 184110885
 octaves = 2
 period = 4.0
 persistence = 1.0
