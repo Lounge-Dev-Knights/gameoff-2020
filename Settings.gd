@@ -7,15 +7,11 @@ const SETTINGS_FILENAME: String = "user://settings.json"
 
 ###
 # define settings and (if needed) setters/getters
-###
+# CUSTOMIZE HERE
 var master_volume: float = 1 setget _set_master_volume
 var sound_volume: float = 1 setget _set_sound_volume
 var music_volume: float = 1 setget _set_music_volume
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	print(_get_properties_to_persist())
+###
 
 
 # load settings from file
@@ -83,7 +79,7 @@ func _get_properties_to_persist() -> Array:
 ####
 # define setters an getters below
 # Example: set the volume of the Audiobus, every time the volume settings is set
-###
+# CUSTOMIZE HERE
 
 # set soundeffect volume on AudioServer
 func _set_sound_volume(new_value: float) -> void:
@@ -99,3 +95,4 @@ func _set_music_volume(new_value: float) -> void:
 func _set_master_volume(new_value: float) -> void:
 	var sound_vol = AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(new_value))
 	master_volume = new_value
+###
