@@ -105,6 +105,12 @@ func select(objects: Array):
 func save():
 	var data = level.save_data()
 	
+	# if level_name doesn't exist, take it from path
+	if not data.has("level_name"):
+		var level_name_from_path = level_path.substr(0, level_path.length() - ".json".length()).split("/")[-1]
+		print(level_name_from_path)
+		data["level_name"] = level_name_from_path
+	
 	var dir = Directory.new()
 	if not dir.dir_exists(USER_LEVELS_PATH):
 		dir.make_dir_recursive(USER_LEVELS_PATH)
@@ -112,7 +118,6 @@ func save():
 	var file = File.new()
 	var err = file.open(level_path, File.WRITE)
 	if err == OK:
-			
 		var preview_path = level_path.substr(0, level_path.length() - ".json".length()) + ".png"
 		var preview_image = level.get_viewport().get_texture().get_data()
 		var size = min(preview_image.get_width(), preview_image.get_height())
