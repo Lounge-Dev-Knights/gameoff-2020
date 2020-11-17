@@ -174,6 +174,7 @@ func orbit(center: Node2D, radius: float = 220.0) -> void:
 func disappear(in_node: Node2D) -> void:
 	print("disappear")
 	_moon_stopped = true
+	enabled = false
 	orbit(in_node, 0)
 	$god.hide()
 	$CollisionShape2D.set_deferred("disabled", true)
