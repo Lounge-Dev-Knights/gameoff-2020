@@ -1,7 +1,13 @@
 extends Node2D
 
+var current_index = 1
+
+onready var level_selection = $CanvasLayer/VBoxContainer2/LevelSelection
+
 func _ready():
 	MusicEngine.play_sound("Music")
+	
+	level_selection.current_index = current_index
 	
 	if OS.has_feature("HTML5"):
 		$CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit.hide()

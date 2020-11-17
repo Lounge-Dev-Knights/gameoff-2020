@@ -32,7 +32,7 @@ func load_level(reload: bool = false):
 
 func _on_Back_pressed():
 	if level_path.find("user://levels") == -1:
-		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn")
+		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"current_index": level_num})
 	else:
 		SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
 		
@@ -48,7 +48,7 @@ func _on_Reset_pressed():
 
 
 func _on_Titlescreen_pressed():
-	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn")
+	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"current_index": level_num})
 	SoundEngine.play_sound("MenuButtonSound")
 
 
