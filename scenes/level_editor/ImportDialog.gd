@@ -28,14 +28,25 @@ func import_base64(data: String) -> int:
 	var err := OK
 	var level_data_string = Marshalls.base64_to_utf8(data) 
 	
-	if parse_json(level_data_string) != null:
+	var level_data_json = parse_json(level_data_string)
+	
+	if level_data_json != null:
 		var dir = Directory.new()
-		var i = 1
-		while dir.file_exists(CUSTOM_LEVELS_PATH + "Imported level " + str(i) + ".json"):
-			i += 1
+		var level_name = "Imported level "
+		
+		if level_data_json.has("level_name"):
+			if not dir.file_exists(CUSTOM_LEVELS_PATH + level_data_json["level_name"] + ".json"):
+				level_name =  level_data_json["level_name"]
+			else:
+				return ERR_ALREADY_EXISTS
+		else:
+			var i = 1
+			while dir.file_exists(CUSTOM_LEVELS_PATH + "Imported level " + str(i) + ".json"):
+				i += 1
+			level_name = level_name + str(i)
 		
 		var file = File.new()
-		err = file.open(CUSTOM_LEVELS_PATH + "Imported level " + str(i) + ".json", File.WRITE)
+		err = file.open(CUSTOM_LEVELS_PATH + level_name + ".json", File.WRITE)
 		
 		if err == OK:
 			file.store_string(level_data_string)

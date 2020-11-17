@@ -40,7 +40,6 @@ func _ready():
 	level_name.text = level_data["name"]
 	
 	if level_data.has("state"):
-		
 		state.text = LevelState.keys()[level_data["state"]]
 	else:
 		state.hide()

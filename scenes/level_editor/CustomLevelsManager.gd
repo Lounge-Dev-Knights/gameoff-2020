@@ -14,7 +14,7 @@ var selected_level: String
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	load_custom_levels()
-	
+
 	get_tree().connect("files_dropped", self, "_on_files_dropped")
 
 
@@ -22,28 +22,34 @@ func get_levelname_from_path(path: String) -> String:
 	var regex = RegEx.new()
 	regex.compile("(.+/)(.+)(.json)")
 	var result = regex.search(path)
-	
+
 	return result.strings[2]
 	
 
 
 func load_custom_levels():
 	levels_list.clear()
-	
+
 	var dir = Directory.new()
 	var err = dir.open(CUSTOM_LEVELS_PATH)
-	
+
 	dir.list_dir_begin(true)
 	var next = dir.get_next()
-	
+
 	while next != "":
 		if next.ends_with(".json"):
+			var level_path = CUSTOM_LEVELS_PATH + next
 			var level_name = get_levelname_from_path(CUSTOM_LEVELS_PATH + next)
-			
+			var preview = Image.new()
+
 			# load preview image
-			var preview: Image = Image.new()
-			var e = preview.load(CUSTOM_LEVELS_PATH + level_name + ".png")
-			
+			var file = File.new()
+			file.open(level_path, File.READ)
+			var data = parse_json(file.get_as_text())
+			if data.has("preview_image"):
+				var image_buffer = Marshalls.base64_to_variant(data["preview_image"], true)
+				preview.load_png_from_buffer(image_buffer)
+
 			# create texture
 			var texture = ImageTexture.new()
 			texture.create_from_image(preview)
@@ -177,7 +183,21 @@ func _on_PopupPanel_about_to_show():
 
 func _on_RenameFileDialog_confirmed():
 	var dir = Directory.new()
-	dir.rename(selected_level, CUSTOM_LEVELS_PATH + $RenameFileDialog/HBoxContainer2/LineEdit.text + ".json")
+	var new_level_name = $RenameFileDialog/HBoxContainer2/LineEdit.text
+	var new_level_path = CUSTOM_LEVELS_PATH + new_level_name + ".json"
+	dir.rename(selected_level, new_level_path)
+
+	# Save level name in json
+	var file = File.new()
+	file.open(new_level_path, File.READ)
+	var data = parse_json(file.get_as_text())
+	file.close()
+	data['level_name'] = new_level_name
+
+	file.open(new_level_path, File.WRITE)
+	file.store_string(to_json(data))
+	file.close()
+	
 	load_custom_levels()
 
 

@@ -9,16 +9,78 @@ onready var tween = $Tween
 onready var camera = $Camera2D
 
 
+var stars_collected = 0
+var tries = 0
+
+var finished = false
+var level_name = 'Level 1'
+var level_num = 1
+
+enum LevelState {
+	LOCKED,
+	UNLOCKED,
+	COMPLETED
+}
+
 
 func _unhandled_input(event):
 	if tween.is_active() and Input.is_action_just_pressed("shoot"):
 		show_start()
 
 
+func save_progress():
+	# load progress first
+	var progress_path = "user://progress.json"
+	var file = File.new()
+	var err = file.open(progress_path, File.READ)
+	var progress = parse_json(file.get_as_text())
+	file.close()
+	
+	if not progress:
+		progress = Dictionary()
+	if not progress.has(str(level_num)):
+		progress[str(level_num)] = Dictionary()
+	
+	var level_progress = progress[str(level_num)]
+	
+	level_progress["level_name"] = level_name
+	
+	# if finished, set stars and unlock next level
+	if finished:
+		level_progress["state"] = LevelState.COMPLETED
+		if not progress.has(str(level_num + 1)):
+			progress[str(level_num + 1)] = Dictionary()
+		progress[str(level_num + 1)]["state"] = LevelState.UNLOCKED
+		
+		if level_progress.has("stars_collected"):
+			if level_progress["stars_collected"] < stars_collected:
+				level_progress["stars_collected"] = stars_collected
+		else:
+			level_progress["stars_collected"] = stars_collected
+	
+	# advance tries. This is not yet displayed anywhere
+	if level_progress.has("tries"):
+		level_progress["tries"] += 1
+	else:
+		level_progress["tries"] = 1
+	tries = level_progress["tries"]
+	
+	
+	# save progress file
+	var save_file = File.new()
+	save_file.open(progress_path, File.WRITE)
+	save_file.store_string(to_json(progress))
+	save_file.close()
+	print(progress)
+
+
 var star_count = 0
 func load_data(level_data: Dictionary, reload: bool = false) -> void:
 	star_count = 0
+	stars_collected = 0
 	.load_data(level_data)
+	if level_data.has("level_name"):
+		level_name = level_data["level_name"]
 	moon.position = start_planet.position
 	$Fortuna.reset()
 	$StarCounter.num_stars = star_count
@@ -37,6 +99,7 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 func add_star(pos: Vector2 = Vector2(0, 0)) -> Node2D:
 	var star = .add_star(pos)
 	star.connect("collected", $StarCounter, "collect_star", [star, star_count])
+	star.connect("collected", self, "_on_star_collected")
 	star_count += 1
 	return star
 
@@ -98,6 +161,16 @@ func _on_Moon_exploded():
 	camera.target = null
 	emit_signal("failure")
 
+
+func _on_PlayableLevel_failure():
+	save_progress()
+
+func _on_PlayableLevel_success():
+	finished = true
+	save_progress()
+	
+func _on_star_collected():
+	stars_collected += 1
 
 func _on_Camera2D_target_reached():
 	if camera.target != moon:
