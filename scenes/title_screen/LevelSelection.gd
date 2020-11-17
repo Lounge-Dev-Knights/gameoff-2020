@@ -76,7 +76,8 @@ func _ready():
 			"state": state,
 			"stars": stars,
 			"stars_max": stars_max,
-			"level_path": dir.get_current_dir() + "/" + lvl
+			"level_path": dir.get_current_dir() + "/" + lvl,
+			"next_levels": level_list.slice(index, len(level_list))
 		}
 		level_selection.level_data = level_selection_data
 		level_selection.connect("selected", self, "_on_LevelSelectionItem_selected", [index])
@@ -103,10 +104,10 @@ func open_selected_level():
 		SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
 	else:
 		var level = $Center.get_child(current_index)
-		print(level.level_data["level_path"])
 		SceneLoader.goto_scene("res://scenes/Game.tscn", {
 			"level_num": current_index,
-			"level_path": level.level_data["level_path"]
+			"level_path": level.level_data["level_path"],
+			"next_levels": level.level_data["next_levels"]
 		})
 
 

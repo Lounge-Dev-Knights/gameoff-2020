@@ -4,15 +4,20 @@ extends Node2D
 onready var level = $PlayableLevel
 onready var retry_panel = $CanvasLayer/RetryPanel
 onready var success_panel = $CanvasLayer/SuccessPanel
+onready var next_button = $CanvasLayer/SuccessPanel/VBoxContainer/Next
 
 
 var level_path: String = "res://scenes/levels/test_level.json"
+var next_levels: Array = Array()
 var level_num: int = 1
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	call_deferred("load_level")
+	
+	if len(next_levels) == 0:
+		next_button.hide()
 
 
 func _unhandled_input(_event):
@@ -65,3 +70,13 @@ func _on_PlayableLevel_success():
 
 func _on_Button_mouse_entered():
 	SoundEngine.play_sound("MenuButtonHoverSound")
+
+
+func _on_Next_pressed():
+	success_panel.hide()
+	level_path = "res://scenes/levels/" + next_levels.pop_front()
+
+	load_level(false)
+	
+	
+	
