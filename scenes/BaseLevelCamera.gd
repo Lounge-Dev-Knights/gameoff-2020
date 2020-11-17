@@ -1,34 +1,34 @@
 extends Camera2D
 
-var fixed_toggle_point:Vector2 = Vector2()
+
+var drag_offset = Vector2()
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
+
 func _process(delta):
-	 # This happens once 'camera_drag' is pressed
-	if Input.is_action_just_pressed('camera_drag'):
-		var ref = get_viewport().get_mouse_position()
-		fixed_toggle_point = ref
-	# This happens while 'camera_drag' is pressed
-	if Input.is_action_pressed('camera_drag'):
-		drag_camera()
+	var move_offset = drag_offset * delta * 10
+	drag_offset -= move_offset
+	position += move_offset
+
 
 # handle input that wasn't catcher by ui etc.
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("zoom_in"):
 		var position = (event as InputEventMouseButton).position
 		zoom_at_point(0.9, position)
+	
 	if Input.is_action_just_pressed("zoom_out"):
 		var position = (event as InputEventMouseButton).position
 		zoom_at_point(1.1, position)
+	
+	if Input.is_action_pressed("camera_drag") and event is InputEventMouseMotion:
+		var relative = (event as InputEventMouseMotion).relative
+		drag_offset -= relative * zoom
 
-# drags the camera around
-func drag_camera():
-	var ref = get_viewport().get_mouse_position()
-	global_position.x += -(ref.x - fixed_toggle_point.x) / 10
-	global_position.y += -(ref.y - fixed_toggle_point.y) / 10
 
 # zoom in/out with the center at a certain point (e.g. mouse position)
 func zoom_at_point(zoom_change, point):

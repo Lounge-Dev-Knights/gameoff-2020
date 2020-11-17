@@ -99,4 +99,10 @@ func _on_BlackHole_body_exited(body):
 
 
 func _on_Moon_exploded():
+	camera.target = null
 	emit_signal("failure")
+
+
+func _on_Camera2D_target_reached():
+	if camera.target != moon:
+		camera.target = null

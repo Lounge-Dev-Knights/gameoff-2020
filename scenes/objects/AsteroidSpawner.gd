@@ -15,8 +15,6 @@ func _ready():
 		_draw()
 	else:
 		$Line2D.visible = false
-	_load_asteroid()
-	pass # Replace with function body.
 
 func _draw():
 	if SceneLoader.current_scene.name == "LevelEditor":

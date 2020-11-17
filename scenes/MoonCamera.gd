@@ -1,4 +1,6 @@
-extends Camera2D
+extends "res://scenes/BaseLevelCamera.gd"
+
+signal target_reached
 
 
 export var max_offset : float = 80.0
@@ -32,6 +34,8 @@ func _process(delta):
 	# follow target
 	if target != null:
 		position = position.linear_interpolate(target.position, delta * 5)
+		if (target.position - position).length() < 0.1:
+			emit_signal("target_reached")
 		
 	# apply screen shake
 	_process_shake(global_transform.origin, 0.0, delta)
