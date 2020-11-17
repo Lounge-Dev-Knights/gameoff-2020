@@ -28,56 +28,63 @@ func _ready():
 	
 	var progress = load_progress()
 	
+	# load level dir into list
+	var level_list = Array()
 	var dir := Directory.new()
 	var level_dir = "res://scenes/levels/"
 	dir.open(level_dir)
-	
 	dir.list_dir_begin(true)
 	var next: String =  dir.get_next()
 	while next != "":
 		if next.get_extension() == "json":
-			var level_selection = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
-			level_selection.index = index
-			var file = File.new()
-			file.open(level_dir + next, File.READ)
-			var level_data = parse_json(file.get_as_text())
-			file.close()
-		
-			var level_name = level_data["level_name"] if level_data.has("level_name") else next.get_basename()
-
-			# get number of stars
-			var stars_max = 0	
-			if level_data.has("stars"):
-				stars_max = len(level_data["stars"])
-
-			var stars = 0
-			var state = level_selection.LevelState.UNLOCKED if index == 1 else level_selection.LevelState.LOCKED
-			var level_progress = Dictionary()
-			# try to get progress of level
-			if progress.has(str(index)):
-				level_progress = progress[str(index)]
-				if level_progress.has("state"):
-					state = level_progress["state"]
-				if level_progress.has("stars_collected"):
-					stars = level_progress["stars_collected"]
-
-			var level_selection_data = {
-				"index": index,
-				"name": level_name,
-				"state": state,
-				"stars": stars,
-				"stars_max": stars_max,
-				"level_path": dir.get_current_dir() + "/" + next
-			}
-			level_selection.level_data = level_selection_data
-			level_selection.connect("selected", self, "_on_LevelSelectionItem_selected", [index])
-			$Center.add_child(level_selection)
-			
-			index += 1
-		
+			level_list.append(next)
 		next = dir.get_next()
 	
 	dir.list_dir_end()
+	
+	level_list.sort()
+	
+	for lvl in level_list:
+		var level_selection = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
+		level_selection.index = index
+		var file = File.new()
+		file.open(level_dir + lvl, File.READ)
+		var level_data = parse_json(file.get_as_text())
+		file.close()
+
+		var level_name = level_data["level_name"] if level_data.has("level_name") else lvl .get_basename()
+
+		# get number of stars
+		var stars_max = 0	
+		if level_data.has("stars"):
+			stars_max = len(level_data["stars"])
+
+		var stars = 0
+		var state = level_selection.LevelState.UNLOCKED if index == 1 else level_selection.LevelState.LOCKED
+		var level_progress = Dictionary()
+		# try to get progress of level
+		if progress.has(str(index)):
+			level_progress = progress[str(index)]
+			if level_progress.has("state"):
+				state = level_progress["state"]
+			if level_progress.has("stars_collected"):
+				stars = level_progress["stars_collected"]
+
+		var level_selection_data = {
+			"index": index,
+			"name": level_name,
+			"state": state,
+			"stars": stars,
+			"stars_max": stars_max,
+			"level_path": dir.get_current_dir() + "/" + lvl
+		}
+		level_selection.level_data = level_selection_data
+		level_selection.connect("selected", self, "_on_LevelSelectionItem_selected", [index])
+		$Center.add_child(level_selection)
+		
+		index += 1
+	
+
 
 
 func _input(event):
