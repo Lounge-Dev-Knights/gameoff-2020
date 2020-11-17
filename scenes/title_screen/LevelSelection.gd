@@ -5,8 +5,6 @@ var current_index = 0 setget _set_current_index
 var progress_path = "user://progress.json"
 
 
-	
-
 func load_progress():
 	var file = File.new()
 	file.open(progress_path, File.READ)
@@ -20,68 +18,73 @@ func load_progress():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var index = 0
 	var custom_levels = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
-	custom_levels.index = 0
+	custom_levels.index = index
 	custom_levels.level_data = {"name": "Level editor"}
 	custom_levels.connect("selected", self, "_on_LevelSelectionItem_selected", [0])
 	$Center.add_child(custom_levels)
+	index += 1
 	
 	var progress = load_progress()
 	
-	for i in range(1, 9):
-		var level_select = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
-		
-		# abort if level doesn't exist
-		var level_path = "res://scenes/levels/level" + str(i) + ".json"
-		var file = File.new()
-		if not file.file_exists(level_path):
-			break
-
-		
-		file.open(level_path, File.READ)
-		var level_data = parse_json(file.get_as_text())
-		file.close()
-		
-		
-		var level_name = level_data["level_name"] if level_data.has("level_name") else "Level %d" % (i)
-		
-		# get number of stars
-		var stars_max = 0	
-		if level_data.has("stars"):
-			stars_max = len(level_data["stars"])
-		
-		var stars = 0
-		var state = level_select.LevelState.UNLOCKED if i == 1 else level_select.LevelState.LOCKED
-		var level_progress = Dictionary()
-		# try to get progress of level
-		if progress.has(str(i)):
-			level_progress = progress[str(i)]
-			if level_progress.has("state"):
-				print("state ", level_progress["state"])
-				state = level_progress["state"]
-			if level_progress.has("stars_collected"):
-				stars = level_progress["stars_collected"]
-
-
-		level_select.index = i
-		var level_select_data = {
-			"name": level_name,
-			"state": state,
-			"stars": stars,
-			"stars_max": stars_max
-		}
-		level_select.level_data = level_select_data
-		level_select.connect("selected", self, "_on_LevelSelectionItem_selected", [i])
-		$Center.add_child(level_select)
+	var dir := Directory.new()
+	var level_dir = "res://scenes/levels/"
+	dir.open(level_dir)
 	
-	self.current_index = 1
+	dir.list_dir_begin(true)
+	var next: String =  dir.get_next()
+	while next != "":
+		if next.get_extension() == "json":
+			var level_selection = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
+			level_selection.index = index
+			var file = File.new()
+			file.open(level_dir + next, File.READ)
+			var level_data = parse_json(file.get_as_text())
+			file.close()
+		
+			var level_name = level_data["level_name"] if level_data.has("level_name") else next.get_basename()
+
+			# get number of stars
+			var stars_max = 0	
+			if level_data.has("stars"):
+				stars_max = len(level_data["stars"])
+
+			var stars = 0
+			var state = level_selection.LevelState.UNLOCKED if index == 1 else level_selection.LevelState.LOCKED
+			var level_progress = Dictionary()
+			# try to get progress of level
+			if progress.has(str(index)):
+				level_progress = progress[str(index)]
+				if level_progress.has("state"):
+					state = level_progress["state"]
+				if level_progress.has("stars_collected"):
+					stars = level_progress["stars_collected"]
+
+			var level_selection_data = {
+				"index": index,
+				"name": level_name,
+				"state": state,
+				"stars": stars,
+				"stars_max": stars_max,
+				"level_path": dir.get_current_dir() + "/" + next
+			}
+			level_selection.level_data = level_selection_data
+			level_selection.connect("selected", self, "_on_LevelSelectionItem_selected", [index])
+			$Center.add_child(level_selection)
+			
+			index += 1
+		
+		next = dir.get_next()
+	
+	dir.list_dir_end()
 
 
-func _unhandled_key_input(event):
-	if Input.is_action_just_pressed("ui_right") and current_index < $Center.get_child_count() - 1:
+func _input(event):
+	if Input.is_action_just_pressed("level_selection_right") and current_index < $Center.get_child_count() - 1:
 		self.current_index += 1
 	
-	if Input.is_action_just_pressed("ui_left") and current_index > 0:
+	if Input.is_action_just_pressed("level_selection_left") and current_index > 0:
 		self.current_index -= 1
 	
 	if Input.is_action_just_pressed("ui_accept"):
@@ -92,9 +95,11 @@ func open_selected_level():
 	if current_index == 0:
 		SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
 	else:
+		var level = $Center.get_child(current_index)
+		print(level.level_data["level_path"])
 		SceneLoader.goto_scene("res://scenes/Game.tscn", {
-			"level_path": "res://scenes/levels/level" + str(current_index) + ".json",
-			"level_num": current_index
+			"level_num": current_index,
+			"level_path": level.level_data["level_path"]
 		})
 
 

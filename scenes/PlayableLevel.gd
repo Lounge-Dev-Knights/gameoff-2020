@@ -157,18 +157,13 @@ func _on_Moon_stationary():
 	$Fortuna.enabled = false
 
 
-func _on_BlackHole_body_exited(body):
-	print("blackhole exit")
-
-
 func _on_Moon_exploded():
+	camera.target = null
 	emit_signal("failure")
 
 
 func _on_PlayableLevel_failure():
-
 	save_progress()
-
 
 func _on_PlayableLevel_success():
 	finished = true
@@ -176,3 +171,7 @@ func _on_PlayableLevel_success():
 	
 func _on_star_collected():
 	stars_collected += 1
+
+func _on_Camera2D_target_reached():
+	if camera.target != moon:
+		camera.target = null

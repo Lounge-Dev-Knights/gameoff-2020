@@ -95,6 +95,7 @@ __meta__ = {
 }
 
 [node name="CountdownContainer" type="MarginContainer" parent="Fortuna/CanvasLayer" index="1"]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -152,5 +153,5 @@ anims/setup = SubResource( 4 )
 [connection signal="started_orbiting" from="Moon" to="." method="_on_Moon_started_orbiting"]
 [connection signal="stationary" from="Moon" to="." method="_on_Moon_stationary"]
 [connection signal="body_entered" from="BlackHole" to="." method="_on_BlackHole_body_entered"]
-[connection signal="body_exited" from="BlackHole" to="." method="_on_BlackHole_body_exited"]
+[connection signal="target_reached" from="Camera2D" to="." method="_on_Camera2D_target_reached"]
 [connection signal="pressed" from="Fortuna/CanvasLayer/MarginContainer/Portrait" to="Fortuna" method="_on_Portrait_pressed"]

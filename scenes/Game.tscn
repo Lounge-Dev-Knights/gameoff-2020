@@ -54,7 +54,7 @@ popup_exclusive = true
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 124.0
-margin_bottom = 135.0
+margin_bottom = 99.0
 
 [node name="Label" type="Label" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
 margin_right = 83.0
@@ -63,17 +63,18 @@ text = "Success!"
 align = 1
 
 [node name="Next" type="Button" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
+visible = false
 margin_top = 18.0
 margin_right = 83.0
 margin_bottom = 38.0
 text = "Next"
 
-[node name="Retry" type="Button" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
+[node name="Restart" type="Button" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
 margin_top = 42.0
 margin_right = 83.0
 margin_bottom = 62.0
 shortcut = SubResource( 4 )
-text = "Retry"
+text = "Restart"
 
 [node name="Titlescreen" type="Button" parent="CanvasLayer/SuccessPanel/VBoxContainer"]
 margin_top = 66.0
@@ -108,12 +109,12 @@ margin_bottom = 22.0
 text = "Failure..."
 align = 1
 
-[node name="Retry" type="Button" parent="CanvasLayer/RetryPanel/VBoxContainer"]
+[node name="Restart" type="Button" parent="CanvasLayer/RetryPanel/VBoxContainer"]
 margin_top = 26.0
 margin_right = 119.0
 margin_bottom = 58.0
 shortcut = SubResource( 4 )
-text = "Retry"
+text = "Restart"
 
 [node name="Titlescreen" type="Button" parent="CanvasLayer/RetryPanel/VBoxContainer"]
 margin_top = 62.0
@@ -149,11 +150,11 @@ scale_amount_curve = SubResource( 5 )
 [connection signal="success" from="PlayableLevel" to="." method="_on_PlayableLevel_success"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_Back_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/SuccessPanel/VBoxContainer/Next" to="." method="_on_Button_mouse_entered"]
-[connection signal="mouse_entered" from="CanvasLayer/SuccessPanel/VBoxContainer/Retry" to="." method="_on_Button_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/SuccessPanel/VBoxContainer/Retry" to="." method="_on_Reset_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/SuccessPanel/VBoxContainer/Restart" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/SuccessPanel/VBoxContainer/Restart" to="." method="_on_Reset_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/SuccessPanel/VBoxContainer/Titlescreen" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/SuccessPanel/VBoxContainer/Titlescreen" to="." method="_on_Titlescreen_pressed"]
-[connection signal="mouse_entered" from="CanvasLayer/RetryPanel/VBoxContainer/Retry" to="." method="_on_Button_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/RetryPanel/VBoxContainer/Retry" to="." method="_on_Reset_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/RetryPanel/VBoxContainer/Restart" to="." method="_on_Button_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/RetryPanel/VBoxContainer/Restart" to="." method="_on_Reset_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/RetryPanel/VBoxContainer/Titlescreen" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/RetryPanel/VBoxContainer/Titlescreen" to="." method="_on_Titlescreen_pressed"]
