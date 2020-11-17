@@ -1,7 +1,7 @@
 extends CenterContainer
 
 
-var current_index = 0 setget _set_current_index
+var current_index = 1 setget _set_current_index
 var progress_path = "user://progress.json"
 
 
