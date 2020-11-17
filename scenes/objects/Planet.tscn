@@ -52,7 +52,7 @@ texture = ExtResource( 2 )
 [node name="GravityArea" type="Area2D" parent="."]
 space_override = 1
 gravity_point = true
-gravity_distance_scale = 0.005
+gravity_distance_scale = 0.001
 gravity_vec = Vector2( 0, 0 )
 gravity = 384.0
 linear_damp = 0.05
