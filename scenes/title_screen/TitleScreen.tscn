@@ -10,7 +10,7 @@
 [ext_resource path="res://resources/font/Button_Settings_normal.png" type="Texture" id=8]
 [ext_resource path="res://resources/font/Button_Settings_mouse_over.png" type="Texture" id=9]
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=10]
-[ext_resource path="res://Sounds/MoonRevolving.ogg" type="AudioStream" id=11]
+[ext_resource path="res://scenes/title_screen/VolumeSettings.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/Sky.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/title_screen/LevelSelection.tscn" type="PackedScene" id=13]
 
@@ -113,6 +113,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="VolumeSettings" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building" instance=ExtResource( 11 )]
+
 [node name="Clouds" type="TextureRect" parent="CanvasLayer/VBoxContainer2/CenterContainer"]
 material = SubResource( 8 )
 margin_right = 1024.0
@@ -128,75 +130,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Volume" type="VBoxContainer" parent="CanvasLayer"]
-visible = false
-margin_left = 130.53
-margin_top = 343.161
-margin_right = 301.53
-margin_bottom = 416.161
-theme = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Music" type="HBoxContainer" parent="CanvasLayer/Volume"]
-margin_right = 171.0
-margin_bottom = 22.0
-
-[node name="Label" type="Label" parent="CanvasLayer/Volume/Music"]
-margin_right = 48.0
-margin_bottom = 22.0
-theme = ExtResource( 10 )
-text = "musica"
-
-[node name="Music" type="HSlider" parent="CanvasLayer/Volume/Music"]
-margin_left = 52.0
-margin_right = 171.0
-margin_bottom = 16.0
-focus_mode = 0
-size_flags_horizontal = 3
-min_value = -60.0
-max_value = 0.0
-
-[node name="Sound" type="HBoxContainer" parent="CanvasLayer/Volume"]
-margin_top = 26.0
-margin_right = 171.0
-margin_bottom = 48.0
-
-[node name="Label" type="Label" parent="CanvasLayer/Volume/Sound"]
-margin_right = 51.0
-margin_bottom = 22.0
-text = "sonus"
-
-[node name="Sound" type="HSlider" parent="CanvasLayer/Volume/Sound"]
-margin_left = 55.0
-margin_right = 171.0
-margin_bottom = 16.0
-focus_mode = 0
-size_flags_horizontal = 3
-min_value = -40.0
-max_value = 0.0
-scrollable = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Timer" type="Timer" parent="."]
 
 [node name="MenuButtonHoverSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 volume_db = -14.604
 bus = "Sound Vol"
-
-[node name="SoundVolCheck" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
-bus = "Sound Vol"
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Settings" to="." method="_on_Settings_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit" to="." method="_on_Exit_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit" to="." method="_on_Exit_pressed"]
-[connection signal="focus_entered" from="CanvasLayer/Volume/Music/Music" to="." method="_on_Music_focus_entered"]
-[connection signal="value_changed" from="CanvasLayer/Volume/Music/Music" to="." method="_on_Music_value_changed"]
-[connection signal="mouse_entered" from="CanvasLayer/Volume/Sound/Sound" to="." method="_on_Sound_mouse_entered"]
-[connection signal="mouse_exited" from="CanvasLayer/Volume/Sound/Sound" to="." method="_on_Sound_mouse_exited"]
-[connection signal="value_changed" from="CanvasLayer/Volume/Sound/Sound" to="." method="_on_Sound_value_changed"]
