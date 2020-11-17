@@ -23,6 +23,7 @@ func load_level(reload: bool = false):
 	var file = File.new()
 	file.open(level_path, File.READ)
 	var level_data = parse_json(file.get_as_text())
+	level.save_progress()
 	level.load_data(level_data, reload)
 	
 
@@ -40,6 +41,7 @@ func _on_Reset_pressed():
 	$CanvasLayer/Back.show()
 	retry_panel.hide()
 	success_panel.hide()
+	
 	load_level(true)
 	SoundEngine.play_sound("MenuButtonSound")
 
