@@ -7,6 +7,7 @@ onready var success_panel = $CanvasLayer/SuccessPanel
 
 
 var level_path: String = "res://scenes/levels/test_level.json"
+var level_num: int = 1
 
 
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +17,7 @@ func _ready():
 
 func _unhandled_input(_event):
 	if Input.is_action_just_pressed("reset"):
+		level.save_progress()
 		load_level(true)
 
 
@@ -23,7 +25,7 @@ func load_level(reload: bool = false):
 	var file = File.new()
 	file.open(level_path, File.READ)
 	var level_data = parse_json(file.get_as_text())
-	level.save_progress()
+	level.level_num = level_num
 	level.load_data(level_data, reload)
 	
 
@@ -41,7 +43,6 @@ func _on_Reset_pressed():
 	$CanvasLayer/Back.show()
 	retry_panel.hide()
 	success_panel.hide()
-	
 	load_level(true)
 	SoundEngine.play_sound("MenuButtonSound")
 
