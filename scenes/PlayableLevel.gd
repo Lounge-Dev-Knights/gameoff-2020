@@ -9,7 +9,7 @@ onready var tween = $Tween
 onready var camera = $Camera2D
 
 
-var stars_collected = 0
+var stars_collected := Array()
 var tries = 0
 
 var finished = false
@@ -53,8 +53,10 @@ func save_progress():
 		progress[str(level_num + 1)]["state"] = LevelState.UNLOCKED
 		
 		if level_progress.has("stars_collected"):
-			if level_progress["stars_collected"] < stars_collected:
-				level_progress["stars_collected"] = stars_collected
+			for star in stars_collected:
+				if not star in level_progress["stars_collected"]:
+					level_progress["stars_collected"].append(star)
+			
 		else:
 			level_progress["stars_collected"] = stars_collected
 	
@@ -77,7 +79,8 @@ func save_progress():
 var star_count = 0
 func load_data(level_data: Dictionary, reload: bool = false) -> void:
 	star_count = 0
-	stars_collected = 0
+	stars_collected = Array()
+	
 	.load_data(level_data)
 	if level_data.has("level_name"):
 		level_name = level_data["level_name"]
@@ -99,7 +102,7 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 func add_star(pos: Vector2 = Vector2(0, 0)) -> Node2D:
 	var star = .add_star(pos)
 	star.connect("collected", $StarCounter, "collect_star", [star, star_count])
-	star.connect("collected", self, "_on_star_collected")
+	star.connect("collected", self, "_on_star_collected", [star_count])
 	star_count += 1
 	return star
 
@@ -169,8 +172,8 @@ func _on_PlayableLevel_success():
 	finished = true
 	save_progress()
 	
-func _on_star_collected():
-	stars_collected += 1
+func _on_star_collected(index: int):
+	stars_collected.append(index)
 
 func _on_Camera2D_target_reached():
 	if camera.target != moon:
