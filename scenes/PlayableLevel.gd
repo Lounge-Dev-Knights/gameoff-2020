@@ -94,10 +94,6 @@ func _on_Moon_stationary():
 	$Fortuna.enabled = false
 
 
-func _on_BlackHole_body_exited(body):
-	print("blackhole exit")
-
-
 func _on_Moon_exploded():
 	camera.target = null
 	emit_signal("failure")

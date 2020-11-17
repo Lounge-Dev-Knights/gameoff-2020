@@ -16,7 +16,7 @@ func _process(delta):
 
 
 # handle input that wasn't catcher by ui etc.
-func _unhandled_input(event):
+func _input(event):
 	if Input.is_action_just_pressed("zoom_in"):
 		var position = (event as InputEventMouseButton).position
 		zoom_at_point(0.9, position)
@@ -24,7 +24,8 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("zoom_out"):
 		var position = (event as InputEventMouseButton).position
 		zoom_at_point(1.1, position)
-	
+
+func _unhandled_input(event):
 	if Input.is_action_pressed("camera_drag") and event is InputEventMouseMotion:
 		var relative = (event as InputEventMouseMotion).relative
 		drag_offset -= relative * zoom

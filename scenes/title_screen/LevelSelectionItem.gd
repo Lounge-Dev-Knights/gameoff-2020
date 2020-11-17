@@ -114,5 +114,7 @@ func _set_current_index(new_index):
 
 
 func _on_Labels_gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
-		emit_signal("selected")
+	if event is InputEventMouseButton:
+		var mouse_event = (event as InputEventMouseButton)
+		if mouse_event.pressed and mouse_event.button_index == BUTTON_LEFT:
+			emit_signal("selected")
