@@ -1,6 +1,6 @@
 extends Area2D
 
-signal collected
+signal collected(index)
 
 var type: String = "Star"
 

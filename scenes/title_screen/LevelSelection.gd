@@ -59,7 +59,7 @@ func _ready():
 		if level_data.has("stars"):
 			stars_max = len(level_data["stars"])
 
-		var stars = 0
+		var stars = Array()
 		var state = level_selection.LevelState.UNLOCKED if index == 1 else level_selection.LevelState.LOCKED
 		var level_progress = Dictionary()
 		# try to get progress of level
@@ -74,7 +74,7 @@ func _ready():
 			"index": index,
 			"name": level_name,
 			"state": state,
-			"stars": stars,
+			"stars": len(stars),
 			"stars_max": stars_max,
 			"level_path": dir.get_current_dir() + "/" + lvl
 		}
