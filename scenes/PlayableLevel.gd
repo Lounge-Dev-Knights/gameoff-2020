@@ -23,9 +23,17 @@ enum LevelState {
 }
 
 
+func _physics_process(delta):
+	check_velocity_unchanged(delta)
+
+
 func _unhandled_input(event):
 	if tween.is_active() and Input.is_action_just_pressed("shoot"):
-		show_start()
+		# stop black hole tween and show start planet
+		
+		tween.remove_all()
+		tween.emit_signal("tween_all_completed")
+		camera.target = start_planet
 
 
 func save_progress():
@@ -78,25 +86,33 @@ func save_progress():
 
 var star_count = 0
 func load_data(level_data: Dictionary, reload: bool = false) -> void:
+	moon.enabled = false
+	moon.linear_velocity = Vector2()
+	
 	star_count = 0
 	stars_collected = Array()
 	
 	.load_data(level_data)
+	
+	moon.position = start_planet.position
+	
 	if level_data.has("level_name"):
 		level_name = level_data["level_name"]
-	moon.position = start_planet.position
 	$Fortuna.reset()
 	$StarCounter.num_stars = star_count
 	
 	$AnimationPlayer.play("setup")
 	
 	if reload:
-		show_start()
+		# show start planet
+		camera.target = start_planet
 	else:
+		# show blackhole, then show start_planet
 		peek_level()
-		
-	yield(tween, "tween_all_completed")
-	$Moon.reset(start_planet)
+		yield(tween, "tween_all_completed")
+	
+	
+	moon.reset(start_planet)
 
 
 func add_star(pos: Vector2 = Vector2(0, 0)) -> Node2D:
@@ -114,26 +130,47 @@ func peek_level():
 	tween.interpolate_property(camera, "position", $StartPlanet.position, $BlackHole.position, 1.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 0.0)
 	tween.interpolate_property(camera, "position", $BlackHole.position, $StartPlanet.position, 1.0, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 2.0)
 	
-	$Moon.enabled = false
 	tween.start()
 	yield($Tween, "tween_all_completed")
-	$Moon.enabled = true
 
 
-func show_start():
-	tween.stop_all()
-	tween.remove_all()
-	
-	tween.interpolate_property(camera, "position", camera.position, $StartPlanet.position, 0.5, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT, 0.0)
-	
-	$Moon.enabled = true
-	tween.start()
-	
 
 func success():
 	$Fortuna.enabled = false
 	$Fortuna.reset()
 	emit_signal("success")
+
+
+var last_velocity: Vector2
+var velocity_unchanged_time: float = 0
+const MAX_VELOCITY_UNCHANGED = 0.5
+
+# check for how long the velocity of the moon hasn't changed
+# this is an indicator of if the moon is outside the range of any planet
+func check_velocity_unchanged(delta):
+	if moon.enabled and not moon.orbiting and last_velocity == moon.linear_velocity:
+		velocity_unchanged_time += delta
+	else:
+		velocity_unchanged_time = 0
+	
+	last_velocity = moon.linear_velocity
+	
+	if velocity_unchanged_time > MAX_VELOCITY_UNCHANGED:
+		if is_moon_heading_for_gravity_area():
+			velocity_unchanged_time = 0
+		else:
+			moon.explode()
+
+
+func is_moon_heading_for_gravity_area():
+	print("check moon out of bounds")
+	if moon.linear_velocity.length() < 0.5:
+		return false
+	else:
+		print(moon.linear_velocity.length())
+		
+		var collisions = get_world_2d().direct_space_state.intersect_ray(moon.position, moon.position + moon.linear_velocity.normalized() * 100000, [], 0x7fffffff, false, true)
+		return collisions.size() > 0
 
 
 func _on_Moon_started_moving() -> void:

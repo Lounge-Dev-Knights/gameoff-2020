@@ -27,7 +27,7 @@ var orbit_speed: float = START_ANGULAR_SPEED
 var orbit_target: Vector2
 var orbit_current_radius: float
 
-
+var orbiting = true
 var enabled = true
 
 
@@ -35,6 +35,7 @@ var _start_charging: int
 var _moon_disappearing = false
 var _moon_stopped = false
 var _moon_destroyed = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -86,6 +87,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		Engine.time_scale = 1.0
 
 		emit_signal("moving")
+		
+		orbiting = false
 
 		var orbit_position = position
 		if orbit_center != null:
@@ -121,8 +124,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func reset(start_planet: Node2D = null):
+	
 	_moon_destroyed = false
 	_moon_stopped = false
+	orbiting = true
 	orbit_center = null
 	position = start_planet.position if start_planet != null else Vector2()
 	orbit(start_planet)
@@ -168,6 +173,8 @@ func orbit(center: Node2D, radius: float = 220.0) -> void:
 		
 		orbit_center = center
 		orbit_radius = radius
+		
+		orbiting = true
 		emit_signal("started_orbiting", center)
 
 
