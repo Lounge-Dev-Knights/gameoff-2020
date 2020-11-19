@@ -179,7 +179,7 @@ func _on_Moon_started_moving() -> void:
 	$Tween.stop_all()
 	camera.target = $Moon
 	
-	$Fortuna.enabled = true
+	$Fortuna.enabled = false
 
 
 func _on_Moon_started_orbiting(center: Node2D) -> void:
@@ -217,3 +217,6 @@ func _on_star_collected(index: int):
 func _on_Camera2D_target_reached():
 	if camera.target != moon:
 		camera.target = null
+
+func _on_Moon_moving():
+	$Fortuna.enabled = true

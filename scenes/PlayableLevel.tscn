@@ -149,6 +149,7 @@ anims/setup = SubResource( 4 )
 [connection signal="success" from="." to="." method="_on_PlayableLevel_success"]
 [connection signal="body_entered" from="Moon" to="." method="_on_Moon_body_entered"]
 [connection signal="exploded" from="Moon" to="." method="_on_Moon_exploded"]
+[connection signal="moving" from="Moon" to="." method="_on_Moon_moving"]
 [connection signal="started_moving" from="Moon" to="." method="_on_Moon_started_moving"]
 [connection signal="started_orbiting" from="Moon" to="." method="_on_Moon_started_orbiting"]
 [connection signal="stationary" from="Moon" to="." method="_on_Moon_stationary"]
