@@ -9,8 +9,7 @@ onready var next_button = $CanvasLayer/SuccessPanel/VBoxContainer/Next
 
 var level_path: String = "res://scenes/levels/test_level.json"
 var next_levels: Array = Array()
-var level_num: int = 1
-
+var selection_index = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,14 +29,15 @@ func load_level(reload: bool = false):
 	var file = File.new()
 	file.open(level_path, File.READ)
 	var level_data = parse_json(file.get_as_text())
-	level.level_num = level_num
+	level.level_path = level_path
+	level.next_level_path = next_levels[next_levels.find(level_path)+1]
 	level.load_data(level_data, reload)
 	
 
 
 func _on_Back_pressed():
 	if level_path.find("user://levels") == -1:
-		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"current_index": level_num})
+		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"current_index": selection_index})
 	else:
 		SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
 		
@@ -53,7 +53,7 @@ func _on_Reset_pressed():
 
 
 func _on_Titlescreen_pressed():
-	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"current_index": level_num})
+	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"current_index": selection_index})
 	SoundEngine.play_sound("MenuButtonSound")
 
 
@@ -74,7 +74,7 @@ func _on_Button_mouse_entered():
 
 func _on_Next_pressed():
 	success_panel.hide()
-	level_path = "res://scenes/levels/" + next_levels.pop_front()
+	level_path = next_levels.pop_front()
 
 	load_level(false)
 	

@@ -10,11 +10,13 @@ onready var camera = $Camera2D
 
 
 var stars_collected := Array()
-var tries = 0
+var tries := 0
 
 var finished = false
 var level_name = 'Level 1'
-var level_num = 1
+var level_path: String = ''
+var next_level_path: String = ''
+
 
 enum LevelState {
 	LOCKED,
@@ -46,19 +48,19 @@ func save_progress():
 	
 	if not progress:
 		progress = Dictionary()
-	if not progress.has(str(level_num)):
-		progress[str(level_num)] = Dictionary()
+	if not progress.has(level_path):
+		progress[level_path] = Dictionary()
 	
-	var level_progress = progress[str(level_num)]
+	var level_progress = progress[level_path]
 	
 	level_progress["level_name"] = level_name
 	
 	# if finished, set stars and unlock next level
 	if finished:
 		level_progress["state"] = LevelState.COMPLETED
-		if not progress.has(str(level_num + 1)):
-			progress[str(level_num + 1)] = Dictionary()
-		progress[str(level_num + 1)]["state"] = LevelState.UNLOCKED
+		if not progress.has(next_level_path):
+			progress[next_level_path] = Dictionary()
+		progress[next_level_path]["state"] = LevelState.UNLOCKED
 		
 		if level_progress.has("stars_collected"):
 			for star in stars_collected:

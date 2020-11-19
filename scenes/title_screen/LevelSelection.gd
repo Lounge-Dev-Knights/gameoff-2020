@@ -37,7 +37,7 @@ func _ready():
 	var next: String =  dir.get_next()
 	while next != "":
 		if next.get_extension() == "json":
-			level_list.append(next)
+			level_list.append(level_dir + next)
 		next = dir.get_next()
 	
 	dir.list_dir_end()
@@ -48,11 +48,11 @@ func _ready():
 		var level_selection = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
 		level_selection.index = index
 		var file = File.new()
-		file.open(level_dir + lvl, File.READ)
+		file.open(lvl, File.READ)
 		var level_data = parse_json(file.get_as_text())
 		file.close()
 
-		var level_name = level_data["level_name"] if level_data.has("level_name") else lvl .get_basename()
+		var level_name = level_data["level_name"] if level_data.has("level_name") else lvl.split('/')[-1].split(".json")[0]
 
 		# get number of stars
 		var stars_max = 0	
@@ -63,21 +63,23 @@ func _ready():
 		var state = level_selection.LevelState.UNLOCKED if index == 1 else level_selection.LevelState.LOCKED
 		var level_progress = Dictionary()
 		# try to get progress of level
-		if progress.has(str(index)):
-			level_progress = progress[str(index)]
+		if progress.has(lvl):
+			level_progress = progress[lvl]
 			if level_progress.has("state"):
 				state = level_progress["state"]
 			if level_progress.has("stars_collected"):
 				stars = level_progress["stars_collected"]
-
+		
+		
 		var level_selection_data = {
 			"index": index,
 			"name": level_name,
 			"state": state,
 			"stars": len(stars),
 			"stars_max": stars_max,
-			"level_path": dir.get_current_dir() + "/" + lvl,
-			"next_levels": level_list.slice(index, len(level_list))
+			"level_path": lvl,
+			"next_levels": level_list.slice(index, len(level_list)),
+			"selection_index": current_index
 		}
 		level_selection.level_data = level_selection_data
 		level_selection.connect("selected", self, "_on_LevelSelectionItem_selected", [index])
@@ -105,7 +107,7 @@ func open_selected_level():
 	else:
 		var level = $Center.get_child(current_index)
 		SceneLoader.goto_scene("res://scenes/Game.tscn", {
-			"level_num": current_index,
+			"selection_index": current_index,
 			"level_path": level.level_data["level_path"],
 			"next_levels": level.level_data["next_levels"]
 		})
