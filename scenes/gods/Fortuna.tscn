@@ -1,0 +1,92 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/gods/Fortuna.gd" type="Script" id=1]
+[ext_resource path="res://scenes/gods/clover.png" type="Texture" id=2]
+[ext_resource path="res://scenes/gods/fortuna.png" type="Texture" id=3]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.60636, 0.0, 0, 0 ]
+
+[sub_resource type="InputEventAction" id=2]
+action = "start_effect"
+
+[sub_resource type="ShortCut" id=3]
+shortcut = SubResource( 2 )
+
+[node name="Fortuna" type="Node2D" groups=[
+"gods",
+]]
+script = ExtResource( 1 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+texture = ExtResource( 2 )
+direction = Vector2( 1, 1 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 100.0
+initial_velocity_random = 0.5
+scale_amount_curve = SubResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -450.0
+margin_right = 200.0
+grow_vertical = 0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Portrait" type="TextureButton" parent="CanvasLayer/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 180.0
+margin_bottom = 430.0
+rect_pivot_offset = Vector2( 0, 50 )
+action_mode = 0
+shortcut = SubResource( 3 )
+texture_normal = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CountdownContainer" type="MarginContainer" parent="CanvasLayer"]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -20.0
+margin_top = -40.0
+margin_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Countdown" type="ProgressBar" parent="CanvasLayer/CountdownContainer"]
+margin_right = 300.0
+margin_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+rect_min_size = Vector2( 300, 50 )
+percent_visible = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="CanvasLayer/MarginContainer/Portrait" to="." method="_on_Portrait_pressed"]

@@ -29,8 +29,6 @@ var drag_origin: Vector2
 
 func _ready():
 	reset()
-	
-
 
 func _process(delta):
 	if timer != null and  timer.time_left > 0:
@@ -43,7 +41,6 @@ func _physics_process(delta):
 	if drag_object != null:
 		var drag_offset = get_global_mouse_position() - drag_origin
 		drag_object.position = drag_origin + drag_offset.clamped(DRAG_DISTANCE)
-
 
 func reset():
 	enabled = false
@@ -87,6 +84,13 @@ func stop_effect():
 		Engine.time_scale = 1.0
 
 
+func disable():
+	enabled = false
+	
+func enable():
+	enabled = true
+
+
 func _on_Timer_timeout():
 	stop_effect()
 
@@ -95,9 +99,6 @@ func _on_Portrait_pressed():
 	
 	if effects_left > 0:
 		start_effect()
-
-
-
 
 
 func _unhandled_input(event):
