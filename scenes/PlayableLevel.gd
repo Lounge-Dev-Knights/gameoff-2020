@@ -16,7 +16,7 @@ var finished = false
 var level_name = 'Level 1'
 var level_path: String = ''
 var next_level_path: String = ''
-
+var god = 'Fortuna'
 
 enum LevelState {
 	LOCKED,
@@ -24,6 +24,22 @@ enum LevelState {
 	COMPLETED
 }
 
+func load_god():
+	var portrait
+	var moon_god
+	var inst
+	match god:
+		'Fortuna':
+			portrait = load("res://scenes/gods/Fortuna.tscn")
+			moon_god = load("res://scenes/gods/FortunaMoon.tscn")
+
+	
+	add_child(portrait.instance())
+	$Moon.add_child(moon_god.instance())
+
+
+func _ready():
+	load_god()
 
 func _physics_process(delta):
 	check_velocity_unchanged(delta)
@@ -100,7 +116,7 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 	
 	if level_data.has("level_name"):
 		level_name = level_data["level_name"]
-	$Fortuna.reset()
+	get_tree().call_group("gods", "reset")
 	$StarCounter.num_stars = star_count
 	
 	$AnimationPlayer.play("setup")
@@ -138,8 +154,7 @@ func peek_level():
 
 
 func success():
-	$Fortuna.enabled = false
-	$Fortuna.reset()
+	get_tree().call_group("gods", "reset")
 	emit_signal("success")
 
 
@@ -179,14 +194,14 @@ func _on_Moon_started_moving() -> void:
 	$Tween.stop_all()
 	camera.target = $Moon
 	
-	$Fortuna.enabled = false
+	get_tree().call_group("gods", "disable")
 
 
 func _on_Moon_started_orbiting(center: Node2D) -> void:
 	if $Moon.enabled:
 		camera.target = center
 	
-	$Fortuna.enabled = false
+	get_tree().call_group("gods", "disable")
 
 
 
@@ -196,7 +211,7 @@ func _on_BlackHole_body_entered(body):
 
 
 func _on_Moon_stationary():
-	$Fortuna.enabled = false
+	 get_tree().call_group("gods", "disable")
 
 
 func _on_Moon_exploded():
@@ -219,4 +234,4 @@ func _on_Camera2D_target_reached():
 		camera.target = null
 
 func _on_Moon_moving():
-	$Fortuna.enabled = true
+	get_tree().call_group("gods", "enable")
