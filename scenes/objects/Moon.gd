@@ -201,6 +201,7 @@ func _on_Moon_moving():
 
 
 func _on_Moon_reset():
+	$CollisionShape2D.set_deferred("disabled", true)
 	yield(get_tree().create_timer(0.2), "timeout")
 	$MoonFlying.stop()
 
