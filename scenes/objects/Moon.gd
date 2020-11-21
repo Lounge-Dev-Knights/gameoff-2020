@@ -16,6 +16,7 @@ const MIN_SHOOT_VELOCITY = 200
 const MAX_SHOOT_VELOCITY = 2000
 
 onready var moon_sprite = $planet
+onready var shield = $Shield
 
 var start_angle: float
 
@@ -44,7 +45,6 @@ func _ready():
 
 
 func _process(delta: float) -> void:
-	
 	if not _moon_destroyed:
 		if mode == RigidBody2D.MODE_KINEMATIC:
 			
@@ -124,7 +124,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func reset(start_planet: Node2D = null):
-	
+	shield.hide()
 	_moon_destroyed = false
 	_moon_stopped = false
 	orbiting = true
@@ -189,6 +189,10 @@ func disappear(in_node: Node2D) -> void:
 	emit_signal("wurmhole")
 	SoundEngine.play_sound("Wurmhole")
 
+func bounce(from_position: Vector2) -> void:
+	linear_velocity *= (-1)	
+	shield.disable()
+
 func _on_Moon_started_moving():
 	$MoonCharging.play()
 
@@ -207,6 +211,7 @@ func _on_Moon_reset():
 
 func _on_Moon_exploded():
 	yield(get_tree().create_timer(0.2), "timeout")
+	shield.hide()
 	$MoonFlying.stop()
 
 

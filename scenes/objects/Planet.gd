@@ -13,5 +13,7 @@ func _ready():
 
 
 func _on_Planet_body_entered(body):
-	if body.has_method("explode"):
+	if body.has_method("bounce") and body.shield.visible == true:
+		body.bounce(position)
+	elif body.has_method("explode"):
 		body.explode()
