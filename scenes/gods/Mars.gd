@@ -5,6 +5,7 @@ func start_effect():
 	if not enabled:
 		return
 	print("Starting Mars effect")
+	effects_left -= 1
 
 	get_tree().call_group("shield", "enable")
 	effect_active = true
