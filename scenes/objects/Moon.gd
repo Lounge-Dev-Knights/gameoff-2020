@@ -190,7 +190,16 @@ func disappear(in_node: Node2D) -> void:
 	SoundEngine.play_sound("Wurmhole")
 
 func bounce(from_position: Vector2) -> void:
-	linear_velocity *= (-1)	
+	# calculate collision normal
+	var collision_normal = from_position - position
+	collision_normal = collision_normal.normalized()
+	print(collision_normal)
+
+	# project velocity onto unit tangent
+	linear_velocity = linear_velocity.reflect(collision_normal)
+	print(linear_velocity)
+	
+	
 	shield.disable()
 
 func _on_Moon_started_moving():
