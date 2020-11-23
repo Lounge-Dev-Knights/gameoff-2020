@@ -1,0 +1,23 @@
+{
+  "black_hole": {
+    "pos_x": 574.813965,
+    "pos_y": 0.022827
+  },
+  "level_name": "Tutorial 1",
+  "objects": [
+    {
+      "additional_properties": {
+        "text": "Press SPACE to charge/shoot"
+      },
+      "pos_x": 0,
+      "pos_y": -220,
+      "type": "Text"
+    }
+  ],
+  "stars": [],
+  "start_planet": {
+    "pos_x": 0,
+    "pos_y": 0
+  }
+}
+

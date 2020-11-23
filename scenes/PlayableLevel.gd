@@ -166,14 +166,19 @@ func check_velocity_unchanged(delta):
 
 func is_moon_heading_for_gravity_area():
 	print("check moon out of bounds")
+	update()
 	if moon.linear_velocity.length() < 0.5:
 		return false
 	else:
 		print(moon.linear_velocity.length())
 		
 		var collisions = get_world_2d().direct_space_state.intersect_ray(moon.position, moon.position + moon.linear_velocity.normalized() * 100000, [], 0x7fffffff, false, true)
+		print(collisions)
 		return collisions.size() > 0
 
+
+func _draw() -> void:
+	draw_line(moon.position, moon.position + moon.linear_velocity.normalized() * 100000, Color.white)
 
 func _on_Moon_started_moving() -> void:
 	$Tween.stop_all()

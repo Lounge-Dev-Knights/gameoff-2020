@@ -87,6 +87,8 @@ func add_object(type: String, pos: Vector2 = Vector2(0, 0), additional_propertie
 			instance = preload("res://scenes/objects/AsteroidSpawner.tscn").instance()
 		"Waypoint":
 			instance = preload("res://scenes/objects/Waypoint.tscn").instance()
+		"Text":
+			instance = preload("res://scenes/objects/Text.tscn").instance()
 	for property in additional_properties.keys():
 		instance[property] = additional_properties[property]
 	instance.position = pos
