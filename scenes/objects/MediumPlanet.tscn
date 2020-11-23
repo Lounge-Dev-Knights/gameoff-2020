@@ -27,4 +27,4 @@ material = SubResource( 2 )
 scale = Vector2( 2, 2 )
 
 [node name="GravityArea" parent="." index="2"]
-gravity = 453.818
+gravity = 400.0

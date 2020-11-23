@@ -4,10 +4,10 @@
 [ext_resource path="res://resources/shaders/planet.shader" type="Shader" id=2]
 [ext_resource path="res://scenes/objects/LargePlanet.gd" type="Script" id=3]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 131.113
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
 shader = ExtResource( 2 )
 shader_param/resolution = null
@@ -20,11 +20,11 @@ shader_param/greyscale = null
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" parent="." index="0"]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="texture" parent="." index="1"]
-material = SubResource( 1 )
+material = SubResource( 2 )
 scale = Vector2( 4, 4 )
 
 [node name="GravityArea" parent="." index="2"]
-gravity = 640.0
+gravity = 700.0
