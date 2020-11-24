@@ -16,6 +16,7 @@ const MIN_SHOOT_VELOCITY = 200
 const MAX_SHOOT_VELOCITY = 2000
 
 onready var moon_sprite = $planet
+onready var shield = $Shield
 
 var start_angle: float
 
@@ -40,16 +41,15 @@ var _moon_destroyed = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_angle = randf() * 2 * PI
-	$god.hide()
+	get_tree().call_group("moon_gods", "hide")
 
 
 func _process(delta: float) -> void:
-	
 	if not _moon_destroyed:
 		if mode == RigidBody2D.MODE_KINEMATIC:
 			
 		
-			$god.show()
+			get_tree().call_group("moon_gods", "show")
 			start_angle += orbit_speed * delta
 			rotation = start_angle + PI / 2
 
@@ -124,7 +124,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func reset(start_planet: Node2D = null):
-	
+	shield.hide()
 	_moon_destroyed = false
 	_moon_stopped = false
 	orbiting = true
@@ -183,11 +183,24 @@ func disappear(in_node: Node2D) -> void:
 	_moon_stopped = true
 	enabled = false
 	orbit(in_node, 0)
-	$god.hide()
+	get_tree().call_group("moon_gods", "hide")
 	$CollisionShape2D.set_deferred("disabled", true)
 	$AnimationPlayer.play("disappear")
 	emit_signal("wurmhole")
 	SoundEngine.play_sound("Wurmhole")
+
+func bounce(from_position: Vector2) -> void:
+	# calculate collision normal
+	var collision_normal = from_position - position
+	collision_normal = collision_normal.normalized()
+	print(collision_normal)
+
+	# project velocity onto unit tangent
+	linear_velocity = linear_velocity.reflect(collision_normal)
+	print(linear_velocity)
+	
+	
+	shield.disable()
 
 func _on_Moon_started_moving():
 	$MoonCharging.play()
@@ -197,7 +210,7 @@ func _on_Moon_moving():
 	$MoonCharging.stop()
 	$MoonFlying.play()
 	SoundEngine.play_sound("MoonThrowing")
-	$god.hide()
+	get_tree().call_group("moon_gods", "hide")
 
 
 func _on_Moon_reset():
@@ -208,6 +221,7 @@ func _on_Moon_reset():
 
 func _on_Moon_exploded():
 	yield(get_tree().create_timer(0.2), "timeout")
+	shield.hide()
 	$MoonFlying.stop()
 
 
