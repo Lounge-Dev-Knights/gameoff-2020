@@ -44,7 +44,7 @@ func _ready():
 	else:
 		state.hide()
 	
-	if level_data.has("stars"):
+	if level_data.has("stars") and level_data["state"] > LevelState.LOCKED and level_data["stars_max"] > 0:
 		stars.text = "%d/%d stars" % [level_data["stars"], level_data["stars_max"]]
 	else:
 		stars.hide()

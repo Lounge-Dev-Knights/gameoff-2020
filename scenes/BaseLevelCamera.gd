@@ -33,6 +33,7 @@ func _unhandled_input(event):
 
 # zoom in/out with the center at a certain point (e.g. mouse position)
 func zoom_at_point(zoom_change, point):
+	if (zoom.x >= 1 or zoom_change >= 1) and (zoom.x <= 100 or zoom_change <= 1):
 		var c0 = global_position # camera position
 		var v0 = get_viewport().size # vieport size
 		var c1 # next camera position
