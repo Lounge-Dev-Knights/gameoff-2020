@@ -13,9 +13,9 @@ func collect_star(star: Node2D, index: int = 0) -> void:
 	
 	# reparent the star to the counter and set the correct position
 	var pos = star.get_global_transform_with_canvas().get_origin()
-	star.get_parent().remove_child(star)
+	star.get_parent().call_deferred("remove_child", star)
 	star.position = pos
-	add_child(star)
+	call_deferred("add_child", star)
 	
 	# get target position and start animation
 	var star_outline: TextureRect = stars.get_child(index)

@@ -83,7 +83,6 @@ func save_progress():
 	save_file.open(progress_path, File.WRITE)
 	save_file.store_string(to_json(progress))
 	save_file.close()
-	print(progress)
 
 
 var star_count = 0
