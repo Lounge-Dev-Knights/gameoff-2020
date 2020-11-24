@@ -45,6 +45,9 @@ func _unhandled_input(event):
 		
 	if Input.is_action_just_pressed("context"):
 		_show_context()
+		
+	if Input.is_action_just_pressed("delete"):
+		delete_selected()
 	
 
 # check if cursor points to a node and start dragging
@@ -84,7 +87,6 @@ func _stop_drag():
 			select([])
 	
 	drag_object = null
-	save()
 
 
 func select(objects: Array):
@@ -150,6 +152,15 @@ func load_level(path: String):
 	level.load_data(data)
 
 
+func delete_selected():
+	var objects_to_delete = selected_objects
+	select([])
+	for o in objects_to_delete:
+		if context_object == o:
+			context_object = null
+		
+		o.queue_free()
+
 
 func _on_AddStar_pressed():
 	var star = level.add_star(camera.position)
@@ -165,6 +176,7 @@ func _on_AddWaypoint_pressed():
 
 func _on_BackToMenu_pressed():
 	SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
+	save()
 
 
 func _on_PopupMenu_mouse_exited():
