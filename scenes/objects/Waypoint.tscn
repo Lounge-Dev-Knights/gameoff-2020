@@ -7,7 +7,7 @@
 radius = 100.0
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 800.0
+radius = 1200.0
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 200.0
@@ -31,7 +31,7 @@ gravity_distance_scale = 0.001
 gravity_vec = Vector2( 0, 0 )
 gravity = 500.0
 linear_damp = 0.05
-collision_layer = 0
+collision_layer = 16
 collision_mask = 16
 
 [node name="gravityShape" type="CollisionShape2D" parent="GravityArea"]

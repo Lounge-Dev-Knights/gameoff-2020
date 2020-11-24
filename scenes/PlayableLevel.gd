@@ -175,6 +175,7 @@ func is_moon_heading_for_gravity_area():
 		return collisions.size() > 0
 
 
+
 func _on_Moon_started_moving() -> void:
 	$Tween.stop_all()
 	camera.target = $Moon

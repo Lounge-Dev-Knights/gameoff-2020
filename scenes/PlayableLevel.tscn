@@ -131,7 +131,6 @@ margin_left = -20.0
 margin_right = 20.0
 margin_bottom = 40.0
 grow_horizontal = 2
-rect_scale = Vector2( 1, 1e-05 )
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
