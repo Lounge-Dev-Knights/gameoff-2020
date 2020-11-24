@@ -2,6 +2,7 @@ extends PanelContainer
 
 
 const CUSTOM_LEVELS_PATH = "user://levels/"
+const DEFAULT_LEVELS_PATH = "res://scenes/levels/"
 
 
 onready var levels_list = $MarginContainer/HBoxContainer/CustomLevels
@@ -9,12 +10,17 @@ onready var export_text_dialog = $ExportTextDialog
 
 
 var selected_level: String
-
+var level_directory: String = CUSTOM_LEVELS_PATH
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	load_custom_levels()
-
+	# load initial levels
+	load_levels()
+	
+	if not OS.has_feature("standalone"):
+		$MarginContainer/HBoxContainer/CustomLevels/DefaultLevels.show()
+	
+	# listen for file drag and drop
 	get_tree().connect("files_dropped", self, "_on_files_dropped")
 
 
@@ -27,19 +33,19 @@ func get_levelname_from_path(path: String) -> String:
 	
 
 
-func load_custom_levels():
+func load_levels():
 	levels_list.clear()
 
 	var dir = Directory.new()
-	var err = dir.open(CUSTOM_LEVELS_PATH)
+	var err = dir.open(level_directory)
 
 	dir.list_dir_begin(true)
 	var next = dir.get_next()
 
 	while next != "":
 		if next.ends_with(".json"):
-			var level_path = CUSTOM_LEVELS_PATH + next
-			var level_name = get_levelname_from_path(CUSTOM_LEVELS_PATH + next)
+			var level_path = level_directory + next
+			var level_name = get_levelname_from_path(level_directory + next)
 			var preview = Image.new()
 
 			# load preview image
@@ -65,7 +71,7 @@ func delete_level(level: String):
 	var dir = Directory.new()
 	var error = dir.remove(level)
 	print("Delete %s. Error: %d" %[level, error])
-	load_custom_levels()
+	load_levels()
 
 
 func export_level(level: String, destination: String):
@@ -108,19 +114,19 @@ func import_level(file_path: String) -> void:
 	# var file_name = file_path.substr(file_path.find_last("/"))
 	var file_name = file_path.get_file()
 	
-	var error = dir.copy(file_path, CUSTOM_LEVELS_PATH + file_name)
-	print("export %s to %s. Error: %d" % [file_path, CUSTOM_LEVELS_PATH + file_name, error])
+	var error = dir.copy(file_path, level_directory + file_name)
+	print("export %s to %s. Error: %d" % [file_path, level_directory + file_name, error])
 	
 
 
 func _on_CustomLevels_item_selected(index):
 	$ContextMenu.popup_centered_minsize()
 	$ContextMenu.rect_position = get_global_mouse_position() + Vector2(5, 5)
-	selected_level = CUSTOM_LEVELS_PATH + levels_list.get_item_text(index) + ".json"
+	selected_level = level_directory + levels_list.get_item_text(index) + ".json"
 
 
 func _on_CustomLevels_item_activated(index):
-	selected_level = CUSTOM_LEVELS_PATH + levels_list.get_item_text(index) + ".json"
+	selected_level = level_directory + levels_list.get_item_text(index) + ".json"
 	SceneLoader.goto_scene("res://scenes/Game.tscn", {"level_path": selected_level})
 
 
@@ -184,7 +190,7 @@ func _on_PopupPanel_about_to_show():
 func _on_RenameFileDialog_confirmed():
 	var dir = Directory.new()
 	var new_level_name = $RenameFileDialog/HBoxContainer2/LineEdit.text
-	var new_level_path = CUSTOM_LEVELS_PATH + new_level_name + ".json"
+	var new_level_path = level_directory + new_level_name + ".json"
 	dir.rename(selected_level, new_level_path)
 
 	# Save level name in json
@@ -198,7 +204,7 @@ func _on_RenameFileDialog_confirmed():
 	file.store_string(to_json(data))
 	file.close()
 	
-	load_custom_levels()
+	load_levels()
 
 
 func _on_ExportText_pressed():
@@ -213,7 +219,7 @@ func _on_files_dropped(files: Array, screen: int):
 	for f in files:
 		import_level(f)
 	$ImportDialog.hide()
-	load_custom_levels()
+	load_levels()
 
 
 func _on_CopyToClipboard_pressed():
@@ -236,4 +242,9 @@ func _on_button_pressed():
 
 
 func _on_ImportDialog_level_imported():
-	load_custom_levels()
+	load_levels()
+
+
+func _on_DefaultLevels_toggled(button_pressed: bool) -> void:
+	level_directory = DEFAULT_LEVELS_PATH if button_pressed else CUSTOM_LEVELS_PATH
+	load_levels()

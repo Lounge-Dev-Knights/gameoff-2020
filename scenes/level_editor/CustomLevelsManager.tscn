@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/level_editor/CustomLevelsManager.gd" type="Script" id=1]
 [ext_resource path="res://scenes/level_editor/Add.svg" type="Texture" id=2]
@@ -8,8 +8,9 @@
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=6]
 [ext_resource path="res://scenes/level_editor/ImportDialog.tscn" type="PackedScene" id=7]
 
-[sub_resource type="Animation" id=1]
-resource_name = "open_popup"
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="Animation" id=2]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("ContextMenu:rect_scale")
@@ -93,6 +94,18 @@ hint_tooltip = "Import level"
 icon = ExtResource( 3 )
 flat = false
 
+[node name="DefaultLevels" type="CheckButton" parent="MarginContainer/HBoxContainer/CustomLevels"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -72.0
+margin_right = 94.0
+custom_styles/normal = SubResource( 1 )
+text = "Default Levels"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ContextMenu" type="PopupPanel" parent="."]
 margin_left = 7.0
 margin_top = 7.0
@@ -165,8 +178,8 @@ rect_min_size = Vector2( 400, 300 )
 popup_exclusive = true
 access = 2
 filters = PoolStringArray( "*.json" )
-current_dir = "/Users/Dardan/code/gameoff-2020"
-current_path = "/Users/Dardan/code/gameoff-2020/"
+current_dir = "/home/dardan/code/gameoff-2020"
+current_path = "/home/dardan/code/gameoff-2020/"
 
 [node name="RenameFileDialog" type="ConfirmationDialog" parent="."]
 margin_left = 7.0
@@ -213,7 +226,7 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/open_popup = SubResource( 1 )
+anims/open_popup = SubResource( 2 )
 
 [node name="ExportTextDialog" type="WindowDialog" parent="."]
 margin_left = 5.0
@@ -268,6 +281,7 @@ text = "Close"
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CustomLevels/HBoxContainer/NewLevel" to="." method="_on_NewLevel_pressed"]
 [connection signal="mouse_entered" from="MarginContainer/HBoxContainer/CustomLevels/HBoxContainer/Import" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/CustomLevels/HBoxContainer/Import" to="." method="_on_Import_pressed"]
+[connection signal="toggled" from="MarginContainer/HBoxContainer/CustomLevels/DefaultLevels" to="." method="_on_DefaultLevels_toggled"]
 [connection signal="about_to_show" from="ContextMenu" to="." method="_on_PopupPanel_about_to_show"]
 [connection signal="mouse_entered" from="ContextMenu/VBoxContainer/Play" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ContextMenu/VBoxContainer/Play" to="." method="_on_Play_pressed"]
@@ -292,8 +306,8 @@ text = "Close"
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_button_pressed"]
 [connection signal="mouse_entered" from="ExportTextDialog/VBoxContainer/HBoxContainer/CopyToClipboard" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/CopyToClipboard" to="." method="_on_CopyToClipboard_pressed"]
 [connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/CopyToClipboard" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/CopyToClipboard" to="." method="_on_CopyToClipboard_pressed"]
 [connection signal="mouse_entered" from="ExportTextDialog/VBoxContainer/HBoxContainer/Close" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/Close" to="." method="_on_ExportText_Close_pressed"]
 [connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/Close" to="." method="_on_button_pressed"]
