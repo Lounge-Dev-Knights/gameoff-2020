@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/gods/Mars.gd" type="Script" id=1]
+[ext_resource path="res://scenes/gods/mars.png" type="Texture" id=2]
+
+[sub_resource type="InputEventAction" id=2]
+action = "start_effect"
+
+[sub_resource type="ShortCut" id=3]
+shortcut = SubResource( 2 )
+
+[node name="Mars" type="Node2D" groups=[
+"gods",
+]]
+script = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -9.0
+margin_top = -478.0
+margin_right = 305.0
+margin_bottom = 137.0
+grow_vertical = 0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Portrait" type="TextureButton" parent="CanvasLayer/MarginContainer"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 294.0
+margin_bottom = 595.0
+rect_pivot_offset = Vector2( 0, 50 )
+action_mode = 0
+shortcut = SubResource( 3 )
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="CanvasLayer/MarginContainer/Portrait" to="." method="_on_Portrait_pressed"]
