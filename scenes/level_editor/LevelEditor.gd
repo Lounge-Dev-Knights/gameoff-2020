@@ -170,9 +170,10 @@ func _on_BackToMenu_pressed():
 func _on_PopupMenu_mouse_exited():
 	$CanvasLayer/PopupMenu.hide()
 
-
+# delete
 func _on_PopupMenu_id_pressed(id):
 	if id == 0:
+		select([])
 		context_object.queue_free()
 		context_object = null
 
