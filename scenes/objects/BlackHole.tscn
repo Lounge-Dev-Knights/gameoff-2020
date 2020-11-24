@@ -36,7 +36,7 @@ shader = SubResource( 1 )
 radius = 75.3838
 
 [sub_resource type="CircleShape2D" id=4]
-radius = 3000.0
+radius = 2000.0
 
 [sub_resource type="Animation" id=5]
 resource_name = "spawn"
@@ -67,7 +67,6 @@ script = ExtResource( 1 )
 
 [node name="texture" type="Sprite" parent="."]
 material = SubResource( 2 )
-scale = Vector2( 1e-05, 1e-05 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -79,7 +78,7 @@ space_override = 1
 gravity_point = true
 gravity_distance_scale = 0.001
 gravity_vec = Vector2( 0, 0 )
-gravity = 640.0
+gravity = 1024.0
 collision_layer = 0
 collision_mask = 2147483664
 

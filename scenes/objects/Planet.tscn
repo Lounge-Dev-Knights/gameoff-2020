@@ -17,7 +17,7 @@ shader_param/random_modifier = null
 shader_param/greyscale = null
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 800.0
+radius = 2000.0
 
 [sub_resource type="Animation" id=4]
 resource_name = "spawn"
