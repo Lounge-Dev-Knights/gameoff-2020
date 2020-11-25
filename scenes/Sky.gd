@@ -16,6 +16,7 @@ func _viewport_size_changed():
 	var rect = get_rect()
 	$Background.texture = _get_noise_texture(rect.size)
 	$BlinkingStars/CPUParticles2D.emission_rect_extents = rect.size / 2
+	$BlinkingStars/CPUParticles2D2.emission_rect_extents = rect.size / 2
 
 
 func _get_noise_texture(size: Vector2):
