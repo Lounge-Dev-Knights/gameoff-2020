@@ -16,7 +16,7 @@ var finished = false
 var level_name = 'Level 1'
 var level_path: String = ''
 var next_level_path: String = ''
-var god = 'Fortuna'
+var god = 'Mars'
 
 enum LevelState {
 	LOCKED,
