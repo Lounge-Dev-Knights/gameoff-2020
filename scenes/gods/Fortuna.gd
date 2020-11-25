@@ -1,17 +1,10 @@
-extends Node2D
-
-const EFFECT_TIME = 5.0
-const SLOW_MOTION_SCALE = 0.1
+extends "res://scenes/gods/God.gd"
 
 onready var countdown = $CanvasLayer/CountdownContainer/Countdown
 onready var countdown_container = $CanvasLayer/CountdownContainer
 
-var effect_active = false
-var effects_left
-var timer: SceneTreeTimer
-var enabled: bool = false
-
-
+const EFFECT_TIME = 5.0
+const SLOW_MOTION_SCALE = 0.1
 
 # how far can an object be dragged
 const DRAG_DISTANCE = 500
@@ -27,11 +20,6 @@ var drag_object: Node2D = null
 var drag_origin: Vector2
 
 
-func _ready():
-	reset()
-	
-
-
 func _process(delta):
 	if timer != null and  timer.time_left > 0:
 		countdown.value = timer.time_left
@@ -43,15 +31,6 @@ func _physics_process(delta):
 	if drag_object != null:
 		var drag_offset = get_global_mouse_position() - drag_origin
 		drag_object.position = drag_origin + drag_offset.clamped(DRAG_DISTANCE)
-
-
-func reset():
-	enabled = false
-	effects_left = 1
-	stop_effect()
-	if timer != null:
-		timer.disconnect("timeout", self, "_on_Timer_timeout")
-		timer = null
 
 
 func start_effect():
@@ -95,9 +74,6 @@ func _on_Portrait_pressed():
 	
 	if effects_left > 0:
 		start_effect()
-
-
-
 
 
 func _unhandled_input(event):
