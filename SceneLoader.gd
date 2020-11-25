@@ -1,6 +1,13 @@
 extends Node
 
-var history = []
+
+var preloaded_scenes = {
+	"res://scenes/Game.tscn": preload("res://scenes/Game.tscn"),
+	"res://scenes/level_editor/CustomLevelsManager.tscn": preload("res://scenes/level_editor/CustomLevelsManager.tscn"),
+	"res://scenes/level_editor/LevelEditor.tscn": preload("res://scenes/level_editor/LevelEditor.tscn"),
+	"res://scenes/title_screen/TitleScreen.tscn": preload("res://scenes/title_screen/TitleScreen.tscn"),
+}
+
 
 var current_scene = null
 
@@ -24,12 +31,17 @@ func goto_scene(path: String, properties: Dictionary = {}) -> void:
 
 func _deferred_goto_scene(path: String, properties: Dictionary) -> void:
 	# It is now safe to remove the current scene
-	
-	current_scene.free()
-
 	# Load the new scene.
-	var s = ResourceLoader.load(path)
-
+	
+	var s: Resource
+	
+	if preloaded_scenes.has(path):
+		s = preloaded_scenes[path]
+	else:
+		s = ResourceLoader.load(path)
+	
+	var old_scene = current_scene
+	
 	# Instance the new scene.
 	current_scene = s.instance()
 	
@@ -41,3 +53,5 @@ func _deferred_goto_scene(path: String, properties: Dictionary) -> void:
 
 	# Optionally, to make it compatible with the SceneTree.change_scene() API.
 	get_tree().set_current_scene(current_scene)
+	
+	old_scene.free()

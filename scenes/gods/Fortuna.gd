@@ -70,18 +70,21 @@ func start_effect():
 	timer.connect("timeout", self, "_on_Timer_timeout")
 	countdown.max_value = timer.time_left
 
+
 func stop_effect():
 	if effect_active:
+		effect_active = false
+		
 		for object in get_tree().get_nodes_in_group("objects"):
-			object.disconnect("mouse_entered", self, "_on_object_mouse_entered")
-			object.disconnect("mouse_exited", self, "_on_object_mouse_exited")
+			if object.is_connected("mouse_entered", self, "_on_object_mouse_entered"):
+				object.disconnect("mouse_entered", self, "_on_object_mouse_entered")
+				object.disconnect("mouse_exited", self, "_on_object_mouse_exited")
 		
 		hovered_object = null
 		drags_left = 1
 		
 		countdown_container.hide()
 		Engine.time_scale = 1.0
-		effect_active = false
 
 
 func _on_Timer_timeout():
@@ -103,7 +106,7 @@ func _unhandled_input(event):
 			_start_drag(hovered_object)
 		elif drag_object != null:
 			_stop_drag()
-			
+
 
 func _start_drag(object):
 	drags_left -= 1
@@ -112,7 +115,6 @@ func _start_drag(object):
 	
 func _stop_drag():
 	
-	print("stop drag")
 	drag_object = null
 	
 	$CPUParticles2D.emitting = true

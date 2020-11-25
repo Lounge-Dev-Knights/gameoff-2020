@@ -59,3 +59,5 @@ texture = ExtResource( 1 )
 stream = ExtResource( 4 )
 volume_db = -5.0
 bus = "Sound Vol"
+
+[node name="Timer" type="Timer" parent="."]
