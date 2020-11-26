@@ -141,6 +141,35 @@ func load_random() -> void:
 	update()
 
 
+func load_procedural(collected_stars: Array, max_stars: int, constellation_seed: int):
+	var rng = RandomNumberGenerator.new()
+	for i in range(max_stars):
+		stars.append(Vector2(rng.randf_range(-150, 150), rng.randf_range(-150, 150)))
+	
+	collected = collected_stars
+	
+	for i in range(max_stars):
+		var from_index = rng.randi() % stars.size()
+		var to_index = rng.randi() % stars.size()
+		if from_index in collected_stars and to_index in collected_stars:
+			
+			var from = stars[from_index]
+			var to = stars[to_index]
+			
+			
+			var line = Line2D.new()
+			line.position = from
+			line.antialiased = true
+			line.scale = Vector2()
+			line.points = [
+				Vector2(),
+				to - from
+			]
+			line.default_color = Color.white
+			line.width = 1
+			$lines.add_child(line)
+	update()
+
 func show_lines():
 	tween.stop_all()
 	for line in $lines.get_children():

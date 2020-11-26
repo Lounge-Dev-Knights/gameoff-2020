@@ -28,7 +28,7 @@ enum LevelState {
 var level_data = {
 	"name": "Level 1",
 	"state": LevelState.LOCKED,
-	"stars": 0,
+	"stars": [],
 	"stars_max": 8
 }
 
@@ -37,7 +37,10 @@ onready var tween = $Tween
 
 
 func _ready():
-	level_name.text = level_data["name"]
+	if index > 0:
+		level_name.text = "%s %s" % [integerToRoman(index), level_data["name"]]
+	else:
+		level_name.text = level_data["name"]
 	
 	if level_data.has("state"):
 		state.text = LevelState.keys()[level_data["state"]]
@@ -45,7 +48,7 @@ func _ready():
 		state.hide()
 	
 	if level_data.has("stars") and level_data["state"] > LevelState.LOCKED and level_data["stars_max"] > 0:
-		stars.text = "%d/%d stars" % [level_data["stars"], level_data["stars_max"]]
+		stars.text = "%d/%d stars" % [level_data["stars"].size(), level_data["stars_max"]]
 	else:
 		stars.hide()
 	
@@ -55,7 +58,7 @@ func _ready():
 	elif level_data["state"] == LevelState.LOCKED:
 		$Constellation.load_constellation($Constellation.constellations["locked"])
 	else:
-		$Constellation.load_random()
+		$Constellation.load_procedural(level_data["stars"], level_data["stars_max"], level_data["name"].hash())
 	
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
 	_on_screen_resized()
@@ -111,6 +114,29 @@ func _set_current_index(new_index):
 	tween.start()
 
 
+# convert integer to roman numeral string
+# https://www.geeksforgeeks.org/converting-decimal-number-lying-between-1-to-3999-to-roman-numerals/
+func integerToRoman(num: int) -> String:
+	# Storing roman values of digits from 0-9 
+	# when placed at different places
+	var m = [ "", "M", "MM", "MMM" ]
+	var c = [ "", "C", "CC", "CCC", "CD", "D", 
+		   "DC", "DCC", "DCCC", "CM "]
+	var x = [ "", "X", "XX", "XXX", "XL", "L", 
+		   "LX", "LXX", "LXXX", "XC" ]
+	var i = [ "", "I", "II", "III", "IV", "V", 
+		   "VI", "VII", "VIII", "IX"]
+		  
+	# Converting to roman
+	var thousands = m[num / 1000]
+	var hundereds = c[(num % 1000) / 100]
+	var tens =  x[(num % 100) / 10]
+	var ones = i[num % 10]
+		  
+	var ans = (thousands + hundereds +
+				 tens + ones)
+		  
+	return ans;
 
 func _on_Labels_gui_input(event):
 	if event is InputEventMouseButton:

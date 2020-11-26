@@ -47,6 +47,7 @@ func _ready():
 	for lvl in level_list:
 		var level_selection = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
 		level_selection.index = index
+		
 		var file = File.new()
 		file.open(lvl, File.READ)
 		var level_data = parse_json(file.get_as_text())
@@ -75,7 +76,7 @@ func _ready():
 			"index": index,
 			"name": level_name,
 			"state": state,
-			"stars": len(stars),
+			"stars": stars,
 			"stars_max": stars_max,
 			"level_path": lvl,
 			"next_levels": level_list.slice(index, len(level_list)),
