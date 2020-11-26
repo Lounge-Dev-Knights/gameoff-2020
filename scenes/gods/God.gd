@@ -27,6 +27,7 @@ func stop_effect():
 
 
 func disable():
+	stop_effect()
 	enabled = false
 	
 func enable():
