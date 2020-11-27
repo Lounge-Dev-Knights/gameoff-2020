@@ -148,26 +148,31 @@ func load_procedural(collected_stars: Array, max_stars: int, constellation_seed:
 	
 	collected = collected_stars
 	
-	for i in range(max_stars):
-		var from_index = rng.randi() % stars.size()
-		var to_index = rng.randi() % stars.size()
-		if from_index in collected_stars and to_index in collected_stars:
+	if max_stars > 1:
+		for i in range(max_stars):
+			var from_index = i
+			var to_index = rng.randi() % stars.size()
 			
-			var from = stars[from_index]
-			var to = stars[to_index]
+			while to_index == from_index:
+				to_index = rng.randi() % stars.size()
 			
-			
-			var line = Line2D.new()
-			line.position = from
-			line.antialiased = true
-			line.scale = Vector2()
-			line.points = [
-				Vector2(),
-				to - from
-			]
-			line.default_color = Color.white
-			line.width = 1
-			$lines.add_child(line)
+			if from_index in collected_stars and to_index in collected_stars:
+				
+				var from = stars[from_index]
+				var to = stars[to_index]
+				
+				
+				var line = Line2D.new()
+				line.position = from
+				line.antialiased = true
+				line.scale = Vector2()
+				line.points = [
+					Vector2(),
+					to - from
+				]
+				line.default_color = Color.white
+				line.width = 1
+				$lines.add_child(line)
 	update()
 
 func show_lines():

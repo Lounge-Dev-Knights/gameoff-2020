@@ -93,6 +93,6 @@ func _set_music_volume(new_value: float) -> void:
 
 # set master volume on AudioServer
 func _set_master_volume(new_value: float) -> void:
-	var sound_vol = AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(new_value))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(new_value))
 	master_volume = new_value
 ###
