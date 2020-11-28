@@ -88,7 +88,11 @@ func _draw():
 	for star in stars:
 		# fill out collected stars
 		if stars.find(star) in collected:
-			draw_circle(star, 6, Color.white)
+			#draw_circle(star, 6, Color.white)
+			var texture = preload("res://scenes/title_screen/star.png")
+			
+			var pos = star - Vector2(texture.get_width(), texture.get_height()) / 2
+			draw_texture(preload("res://scenes/title_screen/star.png"), pos)
 		else:
 			draw_arc(star, 6, 0, 2 * PI, 30, Color.white, 1, true)
 
