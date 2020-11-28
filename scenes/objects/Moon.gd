@@ -75,6 +75,7 @@ func _process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
+	
 	if enabled and Input.is_action_just_pressed("shoot") and mode == RigidBody2D.MODE_KINEMATIC:
 		_start_charging = OS.get_ticks_msec()
 		Engine.time_scale = 0.1
@@ -190,15 +191,16 @@ func disappear(in_node: Node2D) -> void:
 	SoundEngine.play_sound("Wurmhole")
 
 func bounce(from_position: Vector2) -> void:
+	# screenshake
+	get_tree().call_group("cameras", "add_trauma", 0.5)
+	
 	# calculate collision normal
-	var collision_normal = from_position - position
-	collision_normal = collision_normal.normalized()
-	print(collision_normal)
+	var collision_normal = position - from_position
+	# normalize and rotate
+	collision_normal = collision_normal.normalized().rotated(PI / 2)
 
 	# project velocity onto unit tangent
 	linear_velocity = linear_velocity.reflect(collision_normal)
-	print(linear_velocity)
-	
 	
 	shield.disable()
 	SoundEngine.play_sound("Mars2")
