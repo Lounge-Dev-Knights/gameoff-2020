@@ -9,6 +9,7 @@ func start_effect():
 
 	get_tree().call_group("shield", "enable")
 	effect_active = true
+	SoundEngine.play_sound("Mars1")
 
 func stop_effect():
 	if effect_active:

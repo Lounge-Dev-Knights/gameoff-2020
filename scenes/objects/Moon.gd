@@ -201,6 +201,7 @@ func bounce(from_position: Vector2) -> void:
 	
 	
 	shield.disable()
+	SoundEngine.play_sound("Mars2")
 
 func _on_Moon_started_moving():
 	$MoonCharging.play()

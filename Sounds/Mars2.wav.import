@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Mars2.wav-e6e945ad21c05b6c2b68133f0254a20d.sample"
+
+[deps]
+
+source_file="res://Sounds/Mars2.wav"
+dest_files=[ "res://.import/Mars2.wav-e6e945ad21c05b6c2b68133f0254a20d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
