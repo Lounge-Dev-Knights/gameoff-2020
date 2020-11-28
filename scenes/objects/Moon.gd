@@ -148,6 +148,12 @@ func reset(start_planet: Node2D = null):
 
 func explode() -> void:
 	get_tree().call_group("cameras", "add_trauma", 1.0)  #Screen shake
+	
+	rotation = 0
+	$Explosion.direction = linear_velocity.normalized()
+	$Explosion.initial_velocity = linear_velocity.length()
+	
+	 
 	$AnimationPlayer.play("explode")
 	SoundEngine.play_sound("MoonImpact")
 	emit_signal("exploded")
@@ -204,6 +210,13 @@ func bounce(from_position: Vector2) -> void:
 	
 	shield.disable()
 	SoundEngine.play_sound("Mars2")
+
+
+func suffer_explosion(origin: Vector2, intensity: float = 1000):
+	var distance = position - origin
+	var impulse = distance.normalized() * intensity 
+	apply_central_impulse(impulse)
+
 
 func _on_Moon_started_moving():
 	$MoonCharging.play()

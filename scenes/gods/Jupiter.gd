@@ -5,7 +5,7 @@ onready var countdown_container = $CanvasLayer/CountdownContainer
 
 
 const EFFECT_TIME = 5.0
-const SLOW_MOTION_SCALE = 0.1
+const SLOW_MOTION_SCALE = 1.0
 
 # how far can an object be dragged
 const DRAG_DISTANCE = 500
@@ -21,9 +21,11 @@ var drag_object: Node2D = null
 var drag_origin: Vector2
 
 
-func _ready():
-	cursor = preload("res://scenes/gods/clover.png")
+var bolts_left: int = 3
 
+
+func _ready():
+	cursor = preload("res://scenes/gods/bolt.png")
 
 func _process(delta):
 	if timer != null and  timer.time_left > 0:
@@ -43,14 +45,11 @@ func start_effect():
 	if not enabled:
 		return
 	effect_active = true
-	
-	for object in get_tree().get_nodes_in_group("objects"):
-		object.connect("mouse_entered", self, "_on_object_mouse_entered", [object])
-		object.connect("mouse_exited", self, "_on_object_mouse_exited", [object])
+	bolts_left = 3
 	
 	countdown_container.show()
 	effects_left -= 1
-	Engine.time_scale = 0.1
+	Engine.time_scale = SLOW_MOTION_SCALE
 	timer = get_tree().create_timer(EFFECT_TIME * SLOW_MOTION_SCALE)
 	timer.connect("timeout", self, "_on_Timer_timeout")
 	countdown.max_value = timer.time_left
@@ -61,16 +60,25 @@ func stop_effect():
 	if effect_active:
 		effect_active = false
 		
-		for object in get_tree().get_nodes_in_group("objects"):
-			if object.is_connected("mouse_entered", self, "_on_object_mouse_entered"):
-				object.disconnect("mouse_entered", self, "_on_object_mouse_entered")
-				object.disconnect("mouse_exited", self, "_on_object_mouse_exited")
-		
 		hovered_object = null
 		drags_left = 1
 		
 		countdown_container.hide()
 		Engine.time_scale = 1.0
+
+
+func shoot_bolt(location: Vector2):
+	get_tree().call_group("cameras", "add_trauma", 0.5)
+	
+	var particles = $CPUParticles2D.duplicate()
+	particles.emitting = true
+	add_child(particles)
+	get_tree().call_group("moon", "suffer_explosion", get_global_mouse_position())
+	
+	bolts_left -= 1
+	
+	if bolts_left <= 0:
+		stop_effect()
 
 
 func _on_Timer_timeout():
@@ -84,11 +92,9 @@ func _on_Portrait_pressed():
 
 
 func _unhandled_input(event):
-	if event is InputEventMouseButton:
-		if event.pressed and hovered_object != null and drags_left > 0:
-			_start_drag(hovered_object)
-		elif drag_object != null:
-			_stop_drag()
+	if event is InputEventMouseButton and effect_active:
+		if event.is_pressed():
+			shoot_bolt(get_global_mouse_position())
 
 
 func _start_drag(object):

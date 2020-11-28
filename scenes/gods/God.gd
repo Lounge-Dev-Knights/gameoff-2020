@@ -4,11 +4,16 @@ var effect_active = false
 var effects_left
 var timer: SceneTreeTimer
 var enabled: bool = false
+var cursor: StreamTexture = null
 
 
 func _ready():
 	reset()
-	
+
+
+func _exit_tree():
+	stop_effect()
+
 
 func reset():
 	enabled = false
@@ -20,10 +25,12 @@ func reset():
 
 
 func start_effect():
-	pass
+	if cursor != null:
+		Input.set_custom_mouse_cursor(cursor, 0, cursor.get_size() / 2)
+
 
 func stop_effect():
-	pass
+	Input.set_custom_mouse_cursor(null)
 
 
 func disable():

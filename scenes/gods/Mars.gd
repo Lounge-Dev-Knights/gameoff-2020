@@ -2,6 +2,7 @@ extends "res://scenes/gods/God.gd"
 
 
 func start_effect():
+	.start_effect()
 	if not enabled:
 		return
 	print("Starting Mars effect")
@@ -12,6 +13,7 @@ func start_effect():
 	SoundEngine.play_sound("Mars1")
 
 func stop_effect():
+	.stop_effect()
 	if effect_active:
 		print("Stopping Mars effect")
 		get_tree().call_group("shield", "disable")
