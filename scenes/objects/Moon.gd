@@ -203,6 +203,7 @@ func bounce(from_position: Vector2) -> void:
 	linear_velocity = linear_velocity.reflect(collision_normal)
 	
 	shield.disable()
+	SoundEngine.play_sound("Mars2")
 
 func _on_Moon_started_moving():
 	$MoonCharging.play()
