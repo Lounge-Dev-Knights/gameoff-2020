@@ -148,6 +148,12 @@ func reset(start_planet: Node2D = null):
 
 func explode() -> void:
 	get_tree().call_group("cameras", "add_trauma", 1.0)  #Screen shake
+	
+	rotation = 0
+	$Explosion.direction = linear_velocity.normalized()
+	$Explosion.initial_velocity = linear_velocity.length()
+	
+	 
 	$AnimationPlayer.play("explode")
 	SoundEngine.play_sound("MoonImpact")
 	emit_signal("exploded")
