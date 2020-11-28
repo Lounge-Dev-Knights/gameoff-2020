@@ -20,6 +20,7 @@ onready var shield = $Shield
 
 var start_angle: float
 
+var last_angle: float
 
 var orbit_center: Node2D
 var orbit_radius: float = START_RADIUS
@@ -52,6 +53,12 @@ func _process(delta: float) -> void:
 			get_tree().call_group("moon_gods", "show")
 			start_angle += orbit_speed * delta
 			rotation = start_angle + PI / 2
+			
+			var wrapped_angle = wrapf(start_angle, 0, 2 * PI)
+			if abs(last_angle - wrapped_angle) > PI:
+				print("play sound")
+				SoundEngine.play_sound("Reset")
+			last_angle = wrapped_angle
 
 			orbit_current_radius = lerp(orbit_current_radius, orbit_radius, delta * 5)
 			orbit_speed = lerp(orbit_speed, sign(orbit_speed) * START_ANGULAR_SPEED, delta)
