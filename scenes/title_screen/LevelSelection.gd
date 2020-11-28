@@ -4,13 +4,13 @@ const DEFAULT_LEVEL_LIST = [
 	"res://scenes/levels/Tutorial I.json",
 	"res://scenes/levels/Tutorial II.json",
 	"res://scenes/levels/Tutorial III.json",
-	"res://scenes/levels/reto1.json",
-	"res://scenes/levels/reto2.json",
-	"res://scenes/levels/reto3.json",
-	"res://scenes/levels/reto4.json",
-	"res://scenes/levels/reto5.json",
-	"res://scenes/levels/reto6.json",
-	"res://scenes/levels/reto7.json",
+	"res://scenes/levels/Aquila.json",
+	"res://scenes/levels/Taurus.json",
+	"res://scenes/levels/Sagitta.json",
+	"res://scenes/levels/Reticulum.json",
+	"res://scenes/levels/Draco.json",
+	"res://scenes/levels/Lyra.json",
+	"res://scenes/levels/Hydra.json",
 ]
 
 
