@@ -132,6 +132,7 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 		camera.target = start_planet
 	else:
 		# show blackhole, then show start_planet
+		camera.target = null
 		peek_level()
 		yield(tween, "tween_all_completed")
 	

@@ -114,6 +114,7 @@ __meta__ = {
 }
 
 [node name="VolumeSettings" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building" instance=ExtResource( 11 )]
+visible = false
 
 [node name="Clouds" type="TextureRect" parent="CanvasLayer/VBoxContainer2/CenterContainer"]
 material = SubResource( 8 )
