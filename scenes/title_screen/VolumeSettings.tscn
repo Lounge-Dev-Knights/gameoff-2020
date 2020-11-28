@@ -2,7 +2,7 @@
 
 [ext_resource path="res://resources/default_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/title_screen/VolumeSettings.gd" type="Script" id=2]
-[ext_resource path="res://Sounds/MoonRevolving.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/MoonFlying.wav" type="AudioStream" id=3]
 
 [node name="VolumeSettings" type="VBoxContainer"]
 margin_left = 39.53
@@ -87,6 +87,7 @@ one_shot = true
 
 [node name="SoundVolCheck" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = 13.0
 bus = "Sound Vol"
 [connection signal="value_changed" from="Music/Music" to="." method="_on_Music_value_changed"]
 [connection signal="value_changed" from="Sound/Sound" to="." method="_on_Sound_value_changed"]
