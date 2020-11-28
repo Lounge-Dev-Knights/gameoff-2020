@@ -3,6 +3,7 @@ extends "res://scenes/gods/God.gd"
 onready var countdown = $CanvasLayer/CountdownContainer/Countdown
 onready var countdown_container = $CanvasLayer/CountdownContainer
 
+
 const EFFECT_TIME = 5.0
 const SLOW_MOTION_SCALE = 0.1
 
@@ -20,6 +21,10 @@ var drag_object: Node2D = null
 var drag_origin: Vector2
 
 
+func _ready():
+	cursor = preload("res://scenes/gods/clover.png")
+
+
 func _process(delta):
 	if timer != null and  timer.time_left > 0:
 		countdown.value = timer.time_left
@@ -34,6 +39,7 @@ func _physics_process(delta):
 
 
 func start_effect():
+	.start_effect()
 	if not enabled:
 		return
 	effect_active = true
@@ -51,6 +57,7 @@ func start_effect():
 
 
 func stop_effect():
+	.stop_effect()
 	if effect_active:
 		effect_active = false
 		

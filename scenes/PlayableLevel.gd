@@ -16,7 +16,7 @@ var finished = false
 var level_name = 'Level 1'
 var level_path: String = ''
 var next_level_path: String = ''
-var god = 'Mars'
+var god = 'Jupiter'
 
 enum LevelState {
 	LOCKED,
@@ -35,6 +35,9 @@ func load_god():
 		'Mars':
 			portrait = load("res://scenes/gods/Mars.tscn")
 			moon_god = load("res://scenes/gods/MarsMoon.tscn")
+		'Jupiter':
+			portrait = load("res://scenes/gods/Jupiter.tscn")
+			moon_god = load("res://scenes/gods/FortunaMoon.tscn")
 
 	
 	add_child(portrait.instance())
@@ -43,6 +46,7 @@ func load_god():
 
 func _ready():
 	load_god()
+
 
 func _physics_process(delta):
 	check_velocity_unchanged(delta)

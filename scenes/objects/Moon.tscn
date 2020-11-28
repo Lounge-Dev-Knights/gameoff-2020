@@ -139,7 +139,9 @@ tracks/2/keys = {
 "values": [ false, true ]
 }
 
-[node name="Moon" type="RigidBody2D"]
+[node name="Moon" type="RigidBody2D" groups=[
+"moon",
+]]
 z_index = 1
 collision_layer = 17
 mode = 1
@@ -186,9 +188,7 @@ pitch_scale = 4.0
 bus = "Sound Vol"
 script = ExtResource( 7 )
 
-[node name="Shield" parent="." groups=[
-"shield",
-] instance=ExtResource( 8 )]
+[node name="Shield" parent="." instance=ExtResource( 8 )]
 visible = false
 [connection signal="exploded" from="." to="." method="_on_Moon_exploded"]
 [connection signal="moving" from="." to="." method="_on_Moon_moving"]
