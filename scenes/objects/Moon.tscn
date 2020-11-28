@@ -163,6 +163,7 @@ color = Color( 1, 1, 1, 0.0627451 )
 [node name="Explosion" parent="." instance=ExtResource( 1 )]
 material = SubResource( 4 )
 amount = 600
+local_coords = false
 direction = Vector2( 1, 1 )
 spread = 60.0
 scale_amount_curve = SubResource( 5 )

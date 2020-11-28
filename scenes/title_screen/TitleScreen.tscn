@@ -130,6 +130,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LastCommand" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 22.0
+grow_horizontal = 2
+theme = ExtResource( 10 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Timer" type="Timer" parent="."]
 
 [node name="MenuButtonHoverSound" type="AudioStreamPlayer" parent="."]

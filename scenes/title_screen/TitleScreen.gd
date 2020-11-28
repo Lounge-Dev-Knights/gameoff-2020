@@ -2,10 +2,12 @@ extends Node2D
 
 var current_index = 1
 
+var last_command = ""
+
 onready var level_selection = $CanvasLayer/VBoxContainer2/LevelSelection
 
 func _ready():
-	
+	$CanvasLayer/LastCommand.text = last_command
 	
 	MusicEngine.play_sound("Music")
 	
@@ -13,6 +15,41 @@ func _ready():
 	
 	if OS.has_feature("HTML5"):
 		$CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit.hide()
+
+
+var command_input = ""
+
+func _unhandled_key_input(event):
+	if event.is_pressed() and not event.is_echo():
+		command_input += event.as_text()
+		
+		check_command()
+
+
+func check_command():
+	print("check %s" % command_input)
+	if command_input.ends_with("RESETPROGRESS"):
+		var dir = Directory.new()
+		dir.remove("user://progress.json")
+		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"last_command": "All progress has been resetted."})
+	elif command_input.ends_with("UNLOCKALL"):
+		unlock_all()
+		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"last_command": "All levels have been unlocked."})
+
+func unlock_all():
+	# TODO: Kinda hacky... Progress stuff could be moved in to a separate class?
+	var progress = $CanvasLayer/VBoxContainer2/LevelSelection.load_progress()
+	for path in $CanvasLayer/VBoxContainer2/LevelSelection.DEFAULT_LEVEL_LIST:
+		if not  progress.has(path):
+			progress[path] = {
+				"state": 1 # UNLOCKED
+			}
+	
+	var file = File.new()
+	file.open("user://progress.json", File.WRITE)
+	file.store_string(to_json(progress))
+	file.close()
+
 
 func _on_Play_pressed():
 	SceneLoader.goto_scene("res://scenes/Game.tscn")

@@ -31,6 +31,7 @@ func load_progress():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	var index = 0
 	var level_number = 1
 	
