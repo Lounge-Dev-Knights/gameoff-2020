@@ -73,10 +73,10 @@ func _on_LevelEditor_mouse_entered():
 	SoundEngine.play_sound("MenuButtonHoverSound")
 	
 func _on_Settings_pressed():
-	if $CanvasLayer/Volume.visible == false:
-		$CanvasLayer/Volume.visible = true
+	if $CanvasLayer/VBoxContainer2/CenterContainer/Building/VolumeSettings.visible == false:
+		$CanvasLayer/VBoxContainer2/CenterContainer/Building/VolumeSettings.visible = true
 	else:
-		$CanvasLayer/Volume.visible = false
+		$CanvasLayer/VBoxContainer2/CenterContainer/Building/VolumeSettings.visible = false
 	SoundEngine.play_sound("MenuButtonSound")
 
 func _on_Settings_mouse_entered():
