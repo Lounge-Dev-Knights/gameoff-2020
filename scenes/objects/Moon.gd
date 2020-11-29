@@ -91,9 +91,6 @@ func _unhandled_input(event: InputEvent) -> void:
 
 		emit_signal("started_moving")
 		
-	if _start_charging != 0:
-		$ShotVelocityBar.show()
-		$ShotVelocityBar.value = (MIN_SHOOT_VELOCITY * (1 + 2*_duration_pressed)/MAX_SHOOT_VELOCITY)*100
 		
 	if enabled and _start_charging != 0 and Input.is_action_just_released("shoot") and mode == RigidBody2D.MODE_KINEMATIC and not _moon_stopped:
 
@@ -134,7 +131,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if Input. is_action_pressed("shoot"):
 		$MoonCharging.adjust(_duration_charging)
-		
+		$ShotVelocityBar.show()
+		$ShotVelocityBar.value = (MIN_SHOOT_VELOCITY * (1 + 2*_duration_charging)/MAX_SHOOT_VELOCITY)*100
 	else: 
 		$MoonCharging.adjust(00)
 
