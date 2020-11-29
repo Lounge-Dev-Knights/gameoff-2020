@@ -46,6 +46,9 @@ rotating = true
 current = true
 zoom = Vector2( 2, 2 )
 script = ExtResource( 2 )
+max_offset = 400.0
+max_roll = 30.0
+trauma_reduction = 1.0
 
 [node name="Tween" type="Tween" parent="." index="5"]
 

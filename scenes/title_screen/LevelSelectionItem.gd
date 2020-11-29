@@ -37,10 +37,7 @@ onready var tween = $Tween
 
 
 func _ready():
-	if index > 0:
-		level_name.text = "%s %s" % [integerToRoman(index), level_data["name"]]
-	else:
-		level_name.text = level_data["name"]
+	level_name.text = level_data["name"]
 	
 	if level_data.has("state"):
 		state.text = LevelState.keys()[level_data["state"]]
@@ -112,31 +109,6 @@ func _set_current_index(new_index):
 		z_index = 5
 	
 	tween.start()
-
-
-# convert integer to roman numeral string
-# https://www.geeksforgeeks.org/converting-decimal-number-lying-between-1-to-3999-to-roman-numerals/
-func integerToRoman(num: int) -> String:
-	# Storing roman values of digits from 0-9 
-	# when placed at different places
-	var m = [ "", "M", "MM", "MMM" ]
-	var c = [ "", "C", "CC", "CCC", "CD", "D", 
-		   "DC", "DCC", "DCCC", "CM "]
-	var x = [ "", "X", "XX", "XXX", "XL", "L", 
-		   "LX", "LXX", "LXXX", "XC" ]
-	var i = [ "", "I", "II", "III", "IV", "V", 
-		   "VI", "VII", "VIII", "IX"]
-		  
-	# Converting to roman
-	var thousands = m[num / 1000]
-	var hundereds = c[(num % 1000) / 100]
-	var tens =  x[(num % 100) / 10]
-	var ones = i[num % 10]
-		  
-	var ans = (thousands + hundereds +
-				 tens + ones)
-		  
-	return ans;
 
 func _on_Labels_gui_input(event):
 	if event is InputEventMouseButton:

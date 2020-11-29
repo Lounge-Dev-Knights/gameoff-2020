@@ -20,6 +20,7 @@ onready var shield = $Shield
 
 var start_angle: float
 
+var last_angle: float
 
 var orbit_center: Node2D
 var orbit_radius: float = START_RADIUS
@@ -52,6 +53,12 @@ func _process(delta: float) -> void:
 			get_tree().call_group("moon_gods", "show")
 			start_angle += orbit_speed * delta
 			rotation = start_angle + PI / 2
+			
+			var wrapped_angle = wrapf(start_angle, 0, 2 * PI)
+			if abs(last_angle - wrapped_angle) > PI:
+				print("play sound")
+				SoundEngine.play_sound("Reset")
+			last_angle = wrapped_angle
 
 			orbit_current_radius = lerp(orbit_current_radius, orbit_radius, delta * 5)
 			orbit_speed = lerp(orbit_speed, sign(orbit_speed) * START_ANGULAR_SPEED, delta)
@@ -77,6 +84,7 @@ func _process(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	
 	var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
+	
 	if enabled and Input.is_action_just_pressed("shoot") and mode == RigidBody2D.MODE_KINEMATIC:
 		_start_charging = OS.get_ticks_msec()
 		Engine.time_scale = 0.1
@@ -155,6 +163,12 @@ func reset(start_planet: Node2D = null):
 
 func explode() -> void:
 	get_tree().call_group("cameras", "add_trauma", 1.0)  #Screen shake
+	
+	rotation = 0
+	$Explosion.direction = linear_velocity.normalized()
+	$Explosion.initial_velocity = linear_velocity.length()
+	
+	 
 	$AnimationPlayer.play("explode")
 	SoundEngine.play_sound("MoonImpact")
 	emit_signal("exploded")
@@ -198,17 +212,26 @@ func disappear(in_node: Node2D) -> void:
 	SoundEngine.play_sound("Wurmhole")
 
 func bounce(from_position: Vector2) -> void:
+	# screenshake
+	get_tree().call_group("cameras", "add_trauma", 0.5)
+	
 	# calculate collision normal
-	var collision_normal = from_position - position
-	collision_normal = collision_normal.normalized()
-	print(collision_normal)
+	var collision_normal = position - from_position
+	# normalize and rotate
+	collision_normal = collision_normal.normalized().rotated(PI / 2)
 
 	# project velocity onto unit tangent
 	linear_velocity = linear_velocity.reflect(collision_normal)
-	print(linear_velocity)
-	
 	
 	shield.disable()
+	SoundEngine.play_sound("Mars2")
+
+
+func suffer_explosion(origin: Vector2, intensity: float = 1000):
+	var distance = position - origin
+	var impulse = distance.normalized() * intensity 
+	apply_central_impulse(impulse)
+
 
 func _on_Moon_started_moving():
 	$MoonCharging.play()

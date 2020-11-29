@@ -7,11 +7,11 @@ blend_mode = 1
 
 [sub_resource type="Curve" id=2]
 max_value = 2.5
-_data = [ Vector2( 0.0260708, 2.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.5 ), 0.0, 0.0, 0, 0 ]
+_data = [ Vector2( 0.0260708, 2.5 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
 [sub_resource type="Gradient" id=3]
-offsets = PoolRealArray( 0.00583658, 0.215953, 0.466926, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 0.808594, 0, 1, 1, 0.339844, 0, 1, 1, 0, 0, 1 )
+offsets = PoolRealArray( 0.00583658, 0.210059, 0.466926, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.929412, 0.313726, 0.0509804, 1, 0.733333, 0.34902, 0.188235, 1, 0.494118, 0.239216, 0.129412, 1 )
 
 [node name="Explosion" type="CPUParticles2D"]
 material = SubResource( 1 )
@@ -24,7 +24,7 @@ emission_shape = 1
 emission_sphere_radius = 2.0
 spread = 180.0
 gravity = Vector2( 0, 0 )
-initial_velocity = 100.0
+initial_velocity = 200.0
 initial_velocity_random = 0.5
 linear_accel = 100.0
 linear_accel_random = 0.2

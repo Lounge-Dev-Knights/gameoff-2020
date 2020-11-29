@@ -5,7 +5,7 @@ extends CenterContainer
 func _ready():
 	randomize()
 	get_viewport().connect("size_changed", self, "_viewport_size_changed")
-	_viewport_size_changed()
+	call_deferred("_viewport_size_changed")
 	
 	if OS.has_feature("HTML5"):
 		($Background.material as ShaderMaterial).set_shader_param("threshold", 0.75)
