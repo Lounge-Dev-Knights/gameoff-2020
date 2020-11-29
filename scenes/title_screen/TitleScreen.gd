@@ -13,7 +13,7 @@ func _ready():
 	MusicEngine.play_sound("Music")
 	
 	level_selection.current_index = current_index
-	god_selection.current_index = current_index
+	god_selection.current_index = 1
 	
 	if OS.has_feature("HTML5"):
 		$CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit.hide()
