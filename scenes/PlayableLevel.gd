@@ -16,7 +16,7 @@ var finished = false
 var level_name = 'Level 1'
 var level_path: String = ''
 var next_level_path: String = ''
-var god = 'Jupiter'
+var god = ''
 
 enum LevelState {
 	LOCKED,
@@ -28,20 +28,29 @@ func load_god():
 	var portrait
 	var moon_god
 	var inst
+	
+	# clear portrait
+	portrait = null
+	moon_god = null
 	match god:
 		'Fortuna':
 			portrait = load("res://scenes/gods/Fortuna.tscn")
 			moon_god = load("res://scenes/gods/FortunaMoon.tscn")
+			add_child(portrait.instance())
+			$Moon.add_child(moon_god.instance())
 		'Mars':
 			portrait = load("res://scenes/gods/Mars.tscn")
 			moon_god = load("res://scenes/gods/MarsMoon.tscn")
+			add_child(portrait.instance())
+			$Moon.add_child(moon_god.instance())
 		'Jupiter':
 			portrait = load("res://scenes/gods/Jupiter.tscn")
-			moon_god = load("res://scenes/gods/FortunaMoon.tscn")
+			moon_god = load("res://scenes/gods/JupiterMoon.tscn")
+			add_child(portrait.instance())
+			$Moon.add_child(moon_god.instance())
 
 	
-	add_child(portrait.instance())
-	$Moon.add_child(moon_god.instance())
+	
 
 
 func _ready():
@@ -135,8 +144,7 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 		camera.target = null
 		peek_level()
 		yield(tween, "tween_all_completed")
-	
-	
+		
 	moon.reset(start_planet)
 
 

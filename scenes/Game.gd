@@ -10,6 +10,7 @@ onready var next_button = $CanvasLayer/SuccessPanel/VBoxContainer/Next
 var level_path: String = "res://scenes/levels/test_level.json"
 var next_levels: Array = Array()
 var selection_index = 1
+var god = "Fortuna"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -30,6 +31,11 @@ func load_level(reload: bool = false):
 	file.open(level_path, File.READ)
 	var level_data = parse_json(file.get_as_text())
 	level.level_path = level_path
+	
+	# load god
+	level.god = god
+	level.load_god()
+
 	if not next_levels.find(level_path) == len(next_levels)-1:
 		level.next_level_path = next_levels[next_levels.find(level_path)+1]
 	level.load_data(level_data, reload)

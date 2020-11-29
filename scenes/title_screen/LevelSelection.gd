@@ -17,6 +17,7 @@ const DEFAULT_LEVEL_LIST = [
 var current_index = 1 setget _set_current_index
 var progress_path = "user://progress.json"
 
+var god = 'Fortuna'
 
 func load_progress():
 	var file = File.new()
@@ -156,7 +157,8 @@ func open_selected_level():
 		SceneLoader.goto_scene("res://scenes/Game.tscn", {
 			"selection_index": current_index,
 			"level_path": level.level_data["level_path"],
-			"next_levels": level.level_data["next_levels"]
+			"next_levels": level.level_data["next_levels"],
+			"god": god
 		})
 
 
@@ -171,3 +173,6 @@ func _set_current_index(new_index: int):
 	current_index = new_index
 	get_tree().call_group("levels", "_set_current_index", current_index)
 	SoundEngine.play_sound("MoonThrowing")
+
+func set_god(current_god: String):
+	god = current_god
