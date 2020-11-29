@@ -67,20 +67,26 @@ func _process(delta: float) -> void:
 		if _start_charging != 0:
 			modulate.g -= 20 * delta
 			modulate.b -= 20 * delta
-
+		else:
+			$ShotVelocityBar.hide()
 		# if moon is disappearing, scale moon down linearly
 		if _moon_disappearing:
 			moon_sprite.scale = moon_sprite.scale / 1.05
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	
 	var _duration_pressed = (OS.get_ticks_msec() - _start_charging) / 1000.0
 	if enabled and Input.is_action_just_pressed("shoot") and mode == RigidBody2D.MODE_KINEMATIC:
 		_start_charging = OS.get_ticks_msec()
 		Engine.time_scale = 0.1
 
 		emit_signal("started_moving")
-
+		
+	if _start_charging != 0:
+		$ShotVelocityBar.show()
+		$ShotVelocityBar.value = (MIN_SHOOT_VELOCITY * (1 + 2*_duration_pressed)/MAX_SHOOT_VELOCITY)*100
+		
 	if enabled and _start_charging != 0 and Input.is_action_just_released("shoot") and mode == RigidBody2D.MODE_KINEMATIC and not _moon_stopped:
 
 		# set moon to not be slow anymore after charge button is released
@@ -100,9 +106,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		# velocity is multiplied by duration key is pressed, to "charge up" shot
 		var charged_velocity = MIN_SHOOT_VELOCITY * (1 + 2*_duration_pressed)
-
+		
 		# velocity is clamped to not let moon fly too fast nor too slow
 		charged_velocity = clamp(charged_velocity, MIN_SHOOT_VELOCITY, MAX_SHOOT_VELOCITY) * sign(orbit_speed)
+		
 
 
 		# multiply direction vector with charged velocity to get the ball flying
@@ -119,6 +126,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if Input. is_action_pressed("shoot"):
 		$MoonCharging.adjust(_duration_charging)
+		
 	else: 
 		$MoonCharging.adjust(00)
 
