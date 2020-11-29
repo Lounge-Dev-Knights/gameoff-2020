@@ -35,6 +35,14 @@ const sounds = {
 		"stream": preload("res://Sounds/MenuButtonHoverSound.wav"),
 		"volume": -18
 		},
+	"Mars1": {
+		"stream": preload("res://Sounds/Mars1.wav"),
+		"volume": 0
+		},
+		"Mars2": {
+		"stream": preload("res://Sounds/Mars2.wav"),
+		"volume": 0
+		},
 	}
 
 

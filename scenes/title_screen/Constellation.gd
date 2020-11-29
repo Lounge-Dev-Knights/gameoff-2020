@@ -88,7 +88,11 @@ func _draw():
 	for star in stars:
 		# fill out collected stars
 		if stars.find(star) in collected:
-			draw_circle(star, 6, Color.white)
+			#draw_circle(star, 6, Color.white)
+			var texture = preload("res://scenes/title_screen/star.png")
+			
+			var pos = star - Vector2(texture.get_width(), texture.get_height()) / 2
+			draw_texture(preload("res://scenes/title_screen/star.png"), pos)
 		else:
 			draw_arc(star, 6, 0, 2 * PI, 30, Color.white, 1, true)
 
@@ -140,6 +144,41 @@ func load_random() -> void:
 		$lines.add_child(line)
 	update()
 
+
+func load_procedural(collected_stars: Array, max_stars: int, constellation_seed: int):
+	var rng = RandomNumberGenerator.new()
+	rng.seed = constellation_seed
+	for i in range(max_stars):
+		stars.append(Vector2(rng.randf_range(-150, 150), rng.randf_range(-150, 150)))
+	
+	collected = collected_stars
+	
+	if max_stars > 1:
+		for i in range(max_stars):
+			var from_index = i
+			var to_index = rng.randi() % stars.size()
+			
+			while to_index == from_index:
+				to_index = rng.randi() % stars.size()
+			
+			if from_index in collected_stars and to_index in collected_stars:
+				
+				var from = stars[from_index]
+				var to = stars[to_index]
+				
+				
+				var line = Line2D.new()
+				line.position = from
+				line.antialiased = true
+				line.scale = Vector2()
+				line.points = [
+					Vector2(),
+					to - from
+				]
+				line.default_color = Color.white
+				line.width = 1
+				$lines.add_child(line)
+	update()
 
 func show_lines():
 	tween.stop_all()

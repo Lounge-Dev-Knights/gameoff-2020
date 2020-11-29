@@ -5,6 +5,7 @@ extends VBoxContainer
 func _ready():
 	$Music/Music.value = Settings.music_volume
 	$Sound/Sound.value = Settings.sound_volume
+	$Mute/CheckBox.pressed = Settings.master_volume == 0
 	
 	$Sound/Sound.connect("value_changed", self, "_sound_check")
 
@@ -24,3 +25,12 @@ func _sound_check(_new_value):
 
 func _on_SoundCheckTimer_timeout():
 	$SoundVolCheck.stop()
+
+
+func _on_mutus_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.is_pressed():
+		$Mute/CheckBox.pressed = !$Mute/CheckBox.pressed
+
+
+func _on_CheckBox_toggled(button_pressed: bool) -> void:
+	Settings.master_volume = 0 if button_pressed else 1

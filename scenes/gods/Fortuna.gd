@@ -3,6 +3,7 @@ extends "res://scenes/gods/God.gd"
 onready var countdown = $CanvasLayer/CountdownContainer/Countdown
 onready var countdown_container = $CanvasLayer/CountdownContainer
 
+
 const EFFECT_TIME = 5.0
 const SLOW_MOTION_SCALE = 0.1
 
@@ -20,6 +21,10 @@ var drag_object: Node2D = null
 var drag_origin: Vector2
 
 
+func _ready():
+	cursor = preload("res://scenes/gods/clover.png")
+
+
 func _process(delta):
 	if timer != null and  timer.time_left > 0:
 		countdown.value = timer.time_left
@@ -34,6 +39,7 @@ func _physics_process(delta):
 
 
 func start_effect():
+	.start_effect()
 	if not enabled:
 		return
 	effect_active = true
@@ -49,18 +55,22 @@ func start_effect():
 	timer.connect("timeout", self, "_on_Timer_timeout")
 	countdown.max_value = timer.time_left
 
+
 func stop_effect():
+	.stop_effect()
 	if effect_active:
+		effect_active = false
+		
 		for object in get_tree().get_nodes_in_group("objects"):
-			object.disconnect("mouse_entered", self, "_on_object_mouse_entered")
-			object.disconnect("mouse_exited", self, "_on_object_mouse_exited")
+			if object.is_connected("mouse_entered", self, "_on_object_mouse_entered"):
+				object.disconnect("mouse_entered", self, "_on_object_mouse_entered")
+				object.disconnect("mouse_exited", self, "_on_object_mouse_exited")
 		
 		hovered_object = null
 		drags_left = 1
 		
 		countdown_container.hide()
 		Engine.time_scale = 1.0
-		effect_active = false
 
 
 func _on_Timer_timeout():
@@ -79,7 +89,7 @@ func _unhandled_input(event):
 			_start_drag(hovered_object)
 		elif drag_object != null:
 			_stop_drag()
-			
+
 
 func _start_drag(object):
 	drags_left -= 1
@@ -88,7 +98,6 @@ func _start_drag(object):
 	
 func _stop_drag():
 	
-	print("stop drag")
 	drag_object = null
 	
 	$CPUParticles2D.emitting = true

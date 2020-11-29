@@ -119,6 +119,7 @@ __meta__ = {
 }
 
 [node name="VolumeSettings" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building" instance=ExtResource( 11 )]
+visible = false
 
 [node name="Clouds" type="TextureRect" parent="CanvasLayer/VBoxContainer2/CenterContainer"]
 material = SubResource( 8 )
@@ -131,6 +132,19 @@ mouse_filter = 2
 texture = ExtResource( 4 )
 expand = true
 stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LastCommand" type="Label" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 22.0
+grow_horizontal = 2
+theme = ExtResource( 10 )
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

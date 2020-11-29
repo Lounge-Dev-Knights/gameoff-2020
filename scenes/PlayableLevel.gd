@@ -35,6 +35,9 @@ func load_god():
 		'Mars':
 			portrait = load("res://scenes/gods/Mars.tscn")
 			moon_god = load("res://scenes/gods/MarsMoon.tscn")
+		'Jupiter':
+			portrait = load("res://scenes/gods/Jupiter.tscn")
+			moon_god = load("res://scenes/gods/FortunaMoon.tscn")
 
 	
 	add_child(portrait.instance())
@@ -43,6 +46,7 @@ func load_god():
 
 func _ready():
 	load_god()
+
 
 func _physics_process(delta):
 	check_velocity_unchanged(delta)
@@ -102,7 +106,6 @@ func save_progress():
 	save_file.open(progress_path, File.WRITE)
 	save_file.store_string(to_json(progress))
 	save_file.close()
-	print(progress)
 
 
 var star_count = 0
@@ -129,6 +132,7 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 		camera.target = start_planet
 	else:
 		# show blackhole, then show start_planet
+		camera.target = null
 		peek_level()
 		yield(tween, "tween_all_completed")
 	

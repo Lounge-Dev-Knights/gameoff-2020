@@ -28,7 +28,7 @@ enum LevelState {
 var level_data = {
 	"name": "Level 1",
 	"state": LevelState.LOCKED,
-	"stars": 0,
+	"stars": [],
 	"stars_max": 8
 }
 
@@ -46,7 +46,7 @@ func _ready():
 		state.hide()
 	
 	if level_data.has("stars") and level_data["state"] > LevelState.LOCKED and level_data["stars_max"] > 0:
-		stars.text = "%d/%d stars" % [level_data["stars"], level_data["stars_max"]]
+		stars.text = "%d/%d stars" % [level_data["stars"].size(), level_data["stars_max"]]
 	else:
 		stars.hide()
 	
@@ -56,7 +56,7 @@ func _ready():
 	elif level_data["state"] == LevelState.LOCKED:
 		$Constellation.load_constellation($Constellation.constellations["locked"])
 	else:
-		$Constellation.load_random()
+		$Constellation.load_procedural(level_data["stars"], level_data["stars_max"], level_data["name"].hash())
 	
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
 	_on_screen_resized()
@@ -110,8 +110,6 @@ func _set_current_index(new_index):
 		z_index = 5
 	
 	tween.start()
-
-
 
 func _on_Labels_gui_input(event):
 	if event is InputEventMouseButton:

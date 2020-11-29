@@ -83,3 +83,8 @@ func _on_Next_pressed():
 	
 	
 	
+func _on_ToolButton_pressed() -> void:
+	if $CanvasLayer/VBoxContainer/VolumeSettings.visible:
+		$CanvasLayer/VBoxContainer/VolumeSettings.hide()
+	else:
+		$CanvasLayer/VBoxContainer/VolumeSettings.show()

@@ -1,5 +1,18 @@
 extends CenterContainer
 
+const DEFAULT_LEVEL_LIST = [
+	"res://scenes/levels/Tutorial I.json",
+	"res://scenes/levels/Tutorial II.json",
+	"res://scenes/levels/Tutorial III.json",
+	"res://scenes/levels/Aquila.json",
+	"res://scenes/levels/Taurus.json",
+	"res://scenes/levels/Sagitta.json",
+	"res://scenes/levels/Reticulum.json",
+	"res://scenes/levels/Draco.json",
+	"res://scenes/levels/Lyra.json",
+	"res://scenes/levels/Hydra.json",
+]
+
 
 var current_index = 1 setget _set_current_index
 var progress_path = "user://progress.json"
@@ -19,7 +32,10 @@ func load_progress():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
 	var index = 0
+	var level_number = 1
+	
 	var custom_levels = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
 	custom_levels.index = index
 	custom_levels.level_data = {"name": "Level editor"}
@@ -30,31 +46,37 @@ func _ready():
 	var progress = load_progress()
 	
 	# load level dir into list
-	var level_list = Array()
-	var dir := Directory.new()
-	var level_dir = "res://scenes/levels/"
-	dir.open(level_dir)
-	dir.list_dir_begin(true)
-	var next: String =  dir.get_next()
-	while next != "":
-		if next.get_extension() == "json":
-			level_list.append(level_dir + next)
-		next = dir.get_next()
-	
-	dir.list_dir_end()
-	
-	level_list.sort()
+	#	var level_list = Array()
+	#	var dir := Directory.new()
+	#	var level_dir = "res://scenes/levels/"
+	#	dir.open(level_dir)
+	#	dir.list_dir_begin(true)
+	#	var next: String =  dir.get_next()
+	#	while next != "":
+	#		if next.get_extension() == "json":
+	#			level_list.append(level_dir + next)
+	#		next = dir.get_next()
+	#
+	#	dir.list_dir_end()
+	#
+	#	level_list.sort()
+	var level_list = DEFAULT_LEVEL_LIST
 	
 	for lvl in level_list:
 		var level_selection = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
 		level_selection.index = index
+		
 		var file = File.new()
 		file.open(lvl, File.READ)
 		var level_data = parse_json(file.get_as_text())
 		file.close()
 
 		var level_name = level_data["level_name"] if level_data.has("level_name") else lvl.split('/')[-1].split(".json")[0]
-
+		
+		if level_name != "Level Editor" and !level_name.begins_with("Tutorial"):
+			level_name = "%s %s" % [integerToRoman(level_number), level_name]
+			level_number += 1
+		
 		# get number of stars
 		var stars_max = 0	
 		if level_data.has("stars"):
@@ -76,7 +98,7 @@ func _ready():
 			"index": index,
 			"name": level_name,
 			"state": state,
-			"stars": len(stars),
+			"stars": stars,
 			"stars_max": stars_max,
 			"level_path": lvl,
 			"next_levels": level_list.slice(index, len(level_list)),
@@ -101,6 +123,31 @@ func _input(event):
 	if Input.is_action_just_pressed("ui_accept"):
 		open_selected_level()
 
+
+
+# convert integer to roman numeral string
+# https://www.geeksforgeeks.org/converting-decimal-number-lying-between-1-to-3999-to-roman-numerals/
+func integerToRoman(num: int) -> String:
+	# Storing roman values of digits from 0-9 
+	# when placed at different places
+	var m = [ "", "M", "MM", "MMM" ]
+	var c = [ "", "C", "CC", "CCC", "CD", "D", 
+		   "DC", "DCC", "DCCC", "CM "]
+	var x = [ "", "X", "XX", "XXX", "XL", "L", 
+		   "LX", "LXX", "LXXX", "XC" ]
+	var i = [ "", "I", "II", "III", "IV", "V", 
+		   "VI", "VII", "VIII", "IX"]
+		  
+	# Converting to roman
+	var thousands = m[num / 1000]
+	var hundereds = c[(num % 1000) / 100]
+	var tens =  x[(num % 100) / 10]
+	var ones = i[num % 10]
+		  
+	var ans = (thousands + hundereds +
+				 tens + ones)
+		  
+	return ans;
 
 func open_selected_level():
 	if current_index == 0:

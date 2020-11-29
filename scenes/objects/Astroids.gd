@@ -3,11 +3,13 @@ extends RigidBody2D
 
 var AsteroidLifeTime = 30.0
 
+var timer: SceneTreeTimer
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	yield(get_tree().create_timer(AsteroidLifeTime), "timeout")
-	queue_free()
+	get_tree().create_timer(AsteroidLifeTime).connect("timeout", self, "explode")
+	
 
 
 func explode():
@@ -18,6 +20,8 @@ func explode():
 	$AudioStreamPlayer2D.play()
 	$AsteroidExplosion.play("AsteroidExplosion")
 	yield($AsteroidExplosion,"animation_finished") 
+	if timer != null:
+		timer.free()
 	queue_free()
 
 
