@@ -51,10 +51,10 @@ __meta__ = {
 }
 
 [node name="Portrait" type="TextureButton" parent="CanvasLayer/MarginContainer"]
-anchor_left = -0.02
-anchor_top = 0.155556
-anchor_right = -0.02
-anchor_bottom = 0.155556
+anchor_left = -0.005
+anchor_top = 0.157778
+anchor_right = -0.005
+anchor_bottom = 0.157778
 margin_left = 20.0
 margin_top = 20.0
 margin_right = 180.0

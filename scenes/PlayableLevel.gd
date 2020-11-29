@@ -45,7 +45,7 @@ func load_god():
 			$Moon.add_child(moon_god.instance())
 		'Jupiter':
 			portrait = load("res://scenes/gods/Jupiter.tscn")
-			moon_god = load("res://scenes/gods/FortunaMoon.tscn")
+			moon_god = load("res://scenes/gods/JupiterMoon.tscn")
 			add_child(portrait.instance())
 			$Moon.add_child(moon_god.instance())
 

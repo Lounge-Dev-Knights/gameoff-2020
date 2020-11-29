@@ -1,11 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/gods/fortuna_run_1.png" type="Texture" id=1]
-[ext_resource path="res://scenes/gods/fortuna_run_2.png" type="Texture" id=2]
+[ext_resource path="res://scenes/gods/jupiter.png" type="Texture" id=1]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 2 ) ],
+"frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "run",
 "speed": 5.0
@@ -14,8 +13,8 @@ animations = [ {
 [node name="god" type="AnimatedSprite" groups=[
 "moon_gods",
 ]]
-position = Vector2( 10.2134, 34.4619 )
-scale = Vector2( 0.1, 0.1 )
+position = Vector2( 5.2134, 62.4619 )
+scale = Vector2( 0.0837662, 0.0753897 )
 frames = SubResource( 1 )
 animation = "run"
 playing = true
