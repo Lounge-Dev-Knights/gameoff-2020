@@ -6,6 +6,7 @@ var progress_path = "user://progress.json"
 
 var stars = 0
 
+
 const STARS_FOR_MARS = 10
 const STARS_FOR_JUPITER = 20
 
@@ -13,8 +14,8 @@ var fortuna_sprite = preload("res://scenes/gods/fortuna.png")
 var mars_sprite = preload("res://scenes/gods/mars.png")
 var jupiter_sprite = preload("res://scenes/gods/jupiter.png")
 
-var gods = ['Mars', 'Fortuna', 'Jupiter']
-
+var gods = Array()
+var god_selection
 
 func load_total_stars():
 	var file = File.new()
@@ -38,20 +39,20 @@ func _ready():
 	stars = load_total_stars()
 	
 	# load Mars first
-	var god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
+	god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
 	god_selection.index = index
 	var state = god_selection.State.LOCKED if stars < STARS_FOR_MARS else god_selection.State.UNLOCKED
 	#var state = god_selection.State.UNLOCKED
 	
 	
-	var god_selection_data = {
+	gods.append({
 		"name": "Mars",
 		"state": state,
 		"sprite": mars_sprite,
 		"stars_needed": STARS_FOR_MARS - stars
-	}
+	})
 	
-	god_selection.god_data = god_selection_data
+	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
 	$Center.add_child(god_selection)
 	
@@ -63,14 +64,14 @@ func _ready():
 	state = god_selection.State.UNLOCKED
 	
 	
-	god_selection_data = {
+	gods.append({
 		"name": "Fortuna",
 		"state": state,
 		"sprite": fortuna_sprite,
 		"stars_needed": 0
-	}
+	})
 	
-	god_selection.god_data = god_selection_data
+	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
 	$Center.add_child(god_selection)
 	
@@ -82,14 +83,14 @@ func _ready():
 	#state = god_selection.State.UNLOCKED
 
 	
-	god_selection_data = {
+	gods.append({
 		"name": "Jupiter",
 		"state": state,
 		"sprite": jupiter_sprite,
 		"stars_needed": STARS_FOR_JUPITER - stars
-	}
+	})
 	
-	god_selection.god_data = god_selection_data
+	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
 	$Center.add_child(god_selection)
 	
@@ -101,7 +102,9 @@ func _on_GodSelectionItem_selected(index):
 		self.current_index = index
 
 func set_god():
-	get_tree().call_group("level_select", "set_god", gods[current_index])
+	var god = gods[current_index]
+	if god["state"] == god_selection.State.UNLOCKED:
+		get_tree().call_group("level_select", "set_god", god["name"])
 
 
 func _set_current_index(new_index: int):
