@@ -54,8 +54,6 @@ func _ready():
 
 
 func _on_screen_resized():
-	offset_1 = get_viewport_rect().size.x / 4.0
-	offset_2 = get_viewport_rect().size.x / 5.0
 	self.current_index = current_index
 
 

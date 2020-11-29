@@ -27,7 +27,6 @@ func _ready():
 	if OS.has_feature("HTML5"):
 		$CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit.hide()
 
-
 var command_input = ""
 
 func _unhandled_key_input(event):

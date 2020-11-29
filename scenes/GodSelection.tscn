@@ -2,14 +2,13 @@
 
 [ext_resource path="res://scenes/GodSelection.gd" type="Script" id=1]
 
-[node name="CenterContainer" type="Node2D"]
+[node name="CenterContainer" type="CenterContainer"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Center" type="Control" parent="."]
-margin_left = 512.0
-margin_top = 300.0
-margin_right = 512.0
-margin_bottom = 300.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

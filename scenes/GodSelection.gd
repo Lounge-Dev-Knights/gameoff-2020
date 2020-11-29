@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 
 var current_index = 1 setget _set_current_index
