@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/title_screen/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_screen/title_screen.png" type="Texture" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://scenes/Sky.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/title_screen/LevelSelection.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/GodSelection.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/objects/star.svg" type="Texture" id=15]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 9 )
@@ -68,9 +69,28 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Stars" type="Control" parent="CanvasLayer/VBoxContainer2"]
+margin_right = 1024.0
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer2/Stars"]
+margin_left = 9.0
+margin_top = 4.0
+margin_right = 28.0
+margin_bottom = 26.0
+theme = ExtResource( 10 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="star" type="Sprite" parent="CanvasLayer/VBoxContainer2/Stars"]
+position = Vector2( 38.5508, 13.9803 )
+texture = ExtResource( 15 )
+
 [node name="LevelSelection" parent="CanvasLayer/VBoxContainer2" instance=ExtResource( 13 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
+margin_top = 4.0
 margin_right = 1024.0
 margin_bottom = 216.0
 

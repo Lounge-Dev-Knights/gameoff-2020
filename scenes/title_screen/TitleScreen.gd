@@ -4,8 +4,12 @@ var current_index = 1
 
 var last_command = ""
 
+var stars = 0
+
 onready var level_selection = $CanvasLayer/VBoxContainer2/LevelSelection
 onready var god_selection = $CanvasLayer/GodSelection
+onready var star_label = $CanvasLayer/VBoxContainer2/Stars/Label
+
 
 func _ready():
 	$CanvasLayer/LastCommand.text = last_command
@@ -13,8 +17,13 @@ func _ready():
 	MusicEngine.play_sound("Music")
 	
 	level_selection.current_index = current_index
+
 	god_selection.current_index = 1
 	
+
+	stars = god_selection.stars
+	star_label.text = str(stars)
+
 	if OS.has_feature("HTML5"):
 		$CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit.hide()
 
