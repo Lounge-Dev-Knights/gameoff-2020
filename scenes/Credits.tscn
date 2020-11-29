@@ -1,0 +1,93 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://resources/default_theme.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/Sky.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/Credits.gd" type="Script" id=3]
+[ext_resource path="res://resources/font/Underdog-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://scenes/level_editor/ArrowLeft.svg" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 32
+font_data = ExtResource( 4 )
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sky" parent="." instance=ExtResource( 2 )]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Sky"]
+margin_left = 242.0
+margin_top = 75.0
+margin_right = 781.0
+margin_bottom = 524.0
+custom_constants/separation = 40
+alignment = 1
+
+[node name="Thanks" type="Label" parent="Sky/VBoxContainer"]
+margin_right = 539.0
+margin_bottom = 38.0
+custom_fonts/font = SubResource( 1 )
+text = "THANKS FOR PLAYING!!!"
+align = 1
+
+[node name="CreatedBy" type="Label" parent="Sky/VBoxContainer"]
+margin_top = 78.0
+margin_right = 539.0
+margin_bottom = 125.0
+text = "Created by
+Alan, Belinda, Benjamin, Dardan, Raphael, Reto, Stefan, Stephanie"
+align = 1
+
+[node name="Godot" type="Label" parent="Sky/VBoxContainer"]
+margin_top = 165.0
+margin_right = 539.0
+margin_bottom = 187.0
+text = "Made with Godot"
+align = 1
+
+[node name="License" type="VBoxContainer" parent="Sky/VBoxContainer"]
+margin_top = 227.0
+margin_right = 539.0
+margin_bottom = 345.0
+
+[node name="Label" type="Label" parent="Sky/VBoxContainer/License"]
+margin_right = 539.0
+margin_bottom = 22.0
+text = "Licenses"
+align = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Sky/VBoxContainer/License"]
+margin_top = 26.0
+margin_right = 539.0
+margin_bottom = 118.0
+bbcode_enabled = true
+bbcode_text = "[center][url=https://www.youtube.com/watch?v=LMkHL6gV7so]Bass Hits & Explosions Sound Effects[/url] by Pixel Magic, N/A
+[url=https://fonts.google.com/specimen/Underdog#about]Underdog Font[/url] by Sergey Steblina and Jovanny Lemonad, [url=https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL]Open Font License[/url]
+[url=https://www.imphenzia.com/universal-sound-fx]Universal Sound FX[/url] by Imphenzia, [url=https://www.imphenzia.com/terms-and-conditions]EULA[/url][/center]"
+text = "Bass Hits & Explosions Sound Effects by Pixel Magic, N/A
+Underdog Font by Sergey Steblina and Jovanny Lemonad, Open Font License
+Universal Sound FX by Imphenzia, EULA"
+fit_content_height = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Sky/VBoxContainer"]
+margin_top = 385.0
+margin_right = 539.0
+margin_bottom = 449.0
+alignment = 1
+
+[node name="Button" type="ToolButton" parent="Sky/VBoxContainer/HBoxContainer"]
+margin_left = 148.0
+margin_right = 391.0
+margin_bottom = 64.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+text = "Return to TitleScreen"
+icon = ExtResource( 5 )
+[connection signal="meta_clicked" from="Sky/VBoxContainer/License/RichTextLabel" to="." method="_on_RichTextLabel_meta_clicked"]
+[connection signal="pressed" from="Sky/VBoxContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]

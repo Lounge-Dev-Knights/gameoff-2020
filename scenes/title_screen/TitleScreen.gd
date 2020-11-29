@@ -27,7 +27,6 @@ func _unhandled_key_input(event):
 
 
 func check_command():
-	print("check %s" % command_input)
 	if command_input.ends_with("RESETPROGRESS"):
 		var dir = Directory.new()
 		dir.remove("user://progress.json")
@@ -35,6 +34,7 @@ func check_command():
 	elif command_input.ends_with("UNLOCKALL"):
 		unlock_all()
 		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"last_command": "All levels have been unlocked."})
+
 
 func unlock_all():
 	# TODO: Kinda hacky... Progress stuff could be moved in to a separate class?

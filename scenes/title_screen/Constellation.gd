@@ -147,6 +147,7 @@ func load_random() -> void:
 
 func load_procedural(collected_stars: Array, max_stars: int, constellation_seed: int):
 	var rng = RandomNumberGenerator.new()
+	rng.seed = constellation_seed
 	for i in range(max_stars):
 		stars.append(Vector2(rng.randf_range(-150, 150), rng.randf_range(-150, 150)))
 	
