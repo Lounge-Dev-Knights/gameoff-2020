@@ -16,6 +16,7 @@ const DEFAULT_LEVEL_LIST = [
 
 var current_index = 1 setget _set_current_index
 var progress_path = "user://progress.json"
+var level_selection
 
 var god = 'Fortuna'
 
@@ -63,7 +64,7 @@ func _ready():
 	var level_list = DEFAULT_LEVEL_LIST
 	
 	for lvl in level_list:
-		var level_selection = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
+		level_selection = preload("res://scenes/title_screen/LevelSelectionItem.tscn").instance()
 		level_selection.index = index
 		
 		var file = File.new()
@@ -154,12 +155,15 @@ func open_selected_level():
 		SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
 	else:
 		var level = $Center.get_child(current_index)
-		SceneLoader.goto_scene("res://scenes/Game.tscn", {
-			"selection_index": current_index,
-			"level_path": level.level_data["level_path"],
-			"next_levels": level.level_data["next_levels"],
-			"god": god
-		})
+		if level.level_data["state"] != level_selection.LevelState.LOCKED:
+			SceneLoader.goto_scene("res://scenes/Game.tscn", {
+				"selection_index": current_index,
+				"level_path": level.level_data["level_path"],
+				"next_levels": level.level_data["next_levels"],
+				"god": god
+			})
+		else:
+			SoundEngine.play_sound("Whoosh")
 
 
 func _on_LevelSelectionItem_selected(index):

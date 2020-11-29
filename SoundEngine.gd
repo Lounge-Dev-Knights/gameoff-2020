@@ -47,6 +47,10 @@ const sounds = {
 		"stream": preload("res://Sounds/Jupiter1.wav"),
 		"volume": 0
 		},
+	"Whoosh": {
+		"stream": preload("res://Sounds/woosh.wav"),
+		"volume": 20
+		},
 	}
 
 
