@@ -5,7 +5,7 @@ var current_index = 1
 var last_command = ""
 
 onready var level_selection = $CanvasLayer/VBoxContainer2/LevelSelection
-onready var god_selection = $CanvasLayer/VBoxContainer2/CenterContainer/GodSelection
+onready var god_selection = $CanvasLayer/GodSelection
 
 func _ready():
 	$CanvasLayer/LastCommand.text = last_command

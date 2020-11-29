@@ -31,7 +31,11 @@ func load_level(reload: bool = false):
 	file.open(level_path, File.READ)
 	var level_data = parse_json(file.get_as_text())
 	level.level_path = level_path
+	
+	# load god
 	level.god = god
+	level.load_god()
+
 	if not next_levels.find(level_path) == len(next_levels)-1:
 		level.next_level_path = next_levels[next_levels.find(level_path)+1]
 	level.load_data(level_data, reload)

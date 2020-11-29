@@ -36,7 +36,6 @@ func _ready():
 	var index = 0
 	
 	stars = load_total_stars()
-	print("Total number of stars collected: ", stars)
 	
 	# load Mars first
 	var god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
@@ -96,7 +95,6 @@ func _ready():
 	
 	
 func _on_GodSelectionItem_selected(index):
-	print(current_index, " clicked!")
 	if index == current_index:
 		set_god()
 	else:
@@ -109,4 +107,5 @@ func set_god():
 func _set_current_index(new_index: int):
 	current_index = new_index
 	get_tree().call_group("god_select", "_set_current_index", current_index)
+	set_god()
 	SoundEngine.play_sound("MoonThrowing")
