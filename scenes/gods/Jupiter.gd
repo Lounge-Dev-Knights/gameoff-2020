@@ -76,7 +76,7 @@ func shoot_bolt(location: Vector2):
 	get_tree().call_group("moon", "suffer_explosion", get_global_mouse_position())
 	
 	bolts_left -= 1
-	
+	SoundEngine.play_sound("Jupiter")
 	if bolts_left <= 0:
 		stop_effect()
 

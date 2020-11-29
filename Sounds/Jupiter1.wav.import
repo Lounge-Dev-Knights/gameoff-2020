@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Jupiter1.wav-04b2f5d9b7cfaf3716b6765aa406acaa.sample"
+
+[deps]
+
+source_file="res://Sounds/Jupiter1.wav"
+dest_files=[ "res://.import/Jupiter1.wav-04b2f5d9b7cfaf3716b6765aa406acaa.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

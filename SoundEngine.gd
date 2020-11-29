@@ -39,8 +39,12 @@ const sounds = {
 		"stream": preload("res://Sounds/Mars1.wav"),
 		"volume": 0
 		},
-		"Mars2": {
+	"Mars2": {
 		"stream": preload("res://Sounds/Mars2.wav"),
+		"volume": 0
+		},
+	"Jupiter": {
+		"stream": preload("res://Sounds/Jupiter1.wav"),
 		"volume": 0
 		},
 	}
