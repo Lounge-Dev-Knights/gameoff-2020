@@ -14,22 +14,21 @@ var scale_1 = 0.7
 var scale_2 = 0.3
 
 
-onready var labels = $Labels
-onready var level_name = $Labels/Name
-onready var state = $Labels/Status
-onready var stars = $Labels/Stars
+onready var name_label = $God/Name
+onready var sprite = $God/Sprite
+onready var god_collision = $God/CollisionShape2D
 
-enum LevelState {
+
+enum State {
 	LOCKED,
-	UNLOCKED,
-	COMPLETED
+	UNLOCKED
 }
 
-var level_data = {
-	"name": "Level 1",
-	"state": LevelState.LOCKED,
-	"stars": 0,
-	"stars_max": 8
+var god_data = {
+	"name": "Fortuna",
+	"state": State.UNLOCKED,
+	"sprite": null,
+	"stars_needed": 0
 }
 
 
@@ -37,27 +36,18 @@ onready var tween = $Tween
 
 
 func _ready():
+
+	# set god label
+	name_label.text = god_data["name"]
+	# set text color to black
+	name_label.add_color_override("font_color", Color(0,0,0,1))
 	
-	level_name.text = level_data["name"]
-	
-	if level_data.has("state"):
-		state.text = LevelState.keys()[level_data["state"]]
-	else:
-		state.hide()
-	
-	if level_data.has("stars") and level_data["state"] > LevelState.LOCKED and level_data["stars_max"] > 0:
-		stars.text = "%d/%d stars" % [level_data["stars"], level_data["stars_max"]]
-	else:
-		stars.hide()
-	
-	
-	if not level_data.has("state"):
-		$Constellation.load_constellation($Constellation.constellations["editor"])
-	elif level_data["state"] == LevelState.LOCKED:
-		$Constellation.load_constellation($Constellation.constellations["locked"])
-	else:
-		$Constellation.load_random()
-	
+	# set sprite
+	var god_image = god_data['sprite']
+	sprite.texture = god_image
+	if god_data["state"] == State.LOCKED:
+		name_label.text = "Need " + str(god_data["stars_needed"]) + " more Stars"
+		sprite.modulate = Color(0,0,0,1)
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
 	_on_screen_resized()
 
@@ -67,53 +57,51 @@ func _on_screen_resized():
 	offset_1 = get_viewport_rect().size.x / 4.0
 	offset_2 = get_viewport_rect().size.x / 5.0
 	self.current_index = current_index
-	
+
 
 
 func _set_current_index(new_index):
 	current_index = new_index
 	
-	tween.stop_all()
-	
+	tween.stop_all()	
+
+		
 	if current_index <= index - 2:
 		tween.interpolate_property(self, "position", position, Vector2(offset_2, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_2, scale_2), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		labels.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	elif current_index == index - 1:
 		tween.interpolate_property(self, "position", position, Vector2(offset_1, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.3), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_1, scale_1), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		labels.mouse_filter = Control.MOUSE_FILTER_PASS
+		name_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	elif current_index == index:
 		tween.interpolate_property(self, "position", position, Vector2(), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 1.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(1.0, 1.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		labels.mouse_filter = Control.MOUSE_FILTER_PASS
+		name_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	elif current_index == index + 1:
 		tween.interpolate_property(self, "position", position, Vector2(-offset_1, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.3), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_1, scale_1), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		labels.mouse_filter = Control.MOUSE_FILTER_PASS
+		name_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	elif current_index >= index + 2:
 		tween.interpolate_property(self, "position", position, Vector2(-offset_2, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_2, scale_2), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		labels.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	
+		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	
 	if current_index == index:
-		$Constellation.show_lines()
 		z_index = 6
 	else:
-		$Constellation.hide_lines()
 		z_index = 5
 	
 	tween.start()
 
 
 
-func _on_Labels_gui_input(event):
+func _on_God_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		var mouse_event = (event as InputEventMouseButton)
 		if mouse_event.pressed and mouse_event.button_index == BUTTON_LEFT:
