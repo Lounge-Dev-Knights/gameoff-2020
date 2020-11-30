@@ -48,9 +48,8 @@ func _ready():
 		"name": "Mars",
 		"state": state,
 		"sprite": mars_sprite,
-		"stars_needed": clamp(STARS_FOR_JUPITER - stars, 0, 200)
+		"stars_needed": clamp(STARS_FOR_MARS - stars, 0, 200)
 	})
-	
 	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
 	$Center.add_child(god_selection)
