@@ -42,6 +42,7 @@ var _moon_destroyed = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_angle = randf() * 2 * PI
+	$planet.scale = Vector2()
 	$god.hide()
 
 
@@ -49,16 +50,16 @@ func _process(delta: float) -> void:
 	if not _moon_destroyed:
 		if mode == RigidBody2D.MODE_KINEMATIC:
 			
-		
-			$god.show()
-			$god.scale.x = sign(orbit_speed)
+			if enabled:
+				$god.show()
+				$god.scale.x = sign(orbit_speed)
+				
 			# get_tree().set_group("moon_gods", "scale", Vector2(sign(orbit_speed), 1))
 			start_angle += orbit_speed * delta
 			rotation = start_angle + PI / 2
 			
 			var wrapped_angle = wrapf(start_angle, 0, 2 * PI)
-			if abs(last_angle - wrapped_angle) > PI:
-				print("play sound")
+			if abs(last_angle - wrapped_angle) > PI and enabled:
 				SoundEngine.play_sound("Reset")
 			last_angle = wrapped_angle
 
