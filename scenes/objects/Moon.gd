@@ -42,7 +42,7 @@ var _moon_destroyed = false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_angle = randf() * 2 * PI
-	get_tree().call_group("moon_gods", "hide")
+	$god.hide()
 
 
 func _process(delta: float) -> void:
@@ -50,7 +50,9 @@ func _process(delta: float) -> void:
 		if mode == RigidBody2D.MODE_KINEMATIC:
 			
 		
-			get_tree().call_group("moon_gods", "show")
+			$god.show()
+			$god.scale.x = sign(orbit_speed)
+			# get_tree().set_group("moon_gods", "scale", Vector2(sign(orbit_speed), 1))
 			start_angle += orbit_speed * delta
 			rotation = start_angle + PI / 2
 			
@@ -203,7 +205,8 @@ func disappear(in_node: Node2D) -> void:
 	_moon_stopped = true
 	enabled = false
 	orbit(in_node, 0)
-	get_tree().call_group("moon_gods", "hide")
+	
+	$god.hide()
 	$CollisionShape2D.set_deferred("disabled", true)
 	$AnimationPlayer.play("disappear")
 	emit_signal("wurmhole")
@@ -239,7 +242,7 @@ func _on_Moon_moving():
 	$MoonCharging.stop()
 	$MoonFlying.play()
 	SoundEngine.play_sound("MoonThrowing")
-	get_tree().call_group("moon_gods", "hide")
+	$god.hide()
 
 
 func _on_Moon_reset():

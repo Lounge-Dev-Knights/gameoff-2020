@@ -37,17 +37,17 @@ func load_god():
 			portrait = load("res://scenes/gods/Fortuna.tscn")
 			moon_god = load("res://scenes/gods/FortunaMoon.tscn")
 			add_child(portrait.instance())
-			$Moon.add_child(moon_god.instance())
+			$Moon/god.add_child(moon_god.instance())
 		'Mars':
 			portrait = load("res://scenes/gods/Mars.tscn")
 			moon_god = load("res://scenes/gods/MarsMoon.tscn")
 			add_child(portrait.instance())
-			$Moon.add_child(moon_god.instance())
+			$Moon/god.add_child(moon_god.instance())
 		'Jupiter':
 			portrait = load("res://scenes/gods/Jupiter.tscn")
 			moon_god = load("res://scenes/gods/JupiterMoon.tscn")
 			add_child(portrait.instance())
-			$Moon.add_child(moon_god.instance())
+			$Moon/god.add_child(moon_god.instance())
 
 	
 	
