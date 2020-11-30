@@ -37,19 +37,18 @@ func _ready():
 	var index = 0
 	
 	stars = load_total_stars()
-	
+
 	# load Mars first
 	god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
 	god_selection.index = index
 	var state = god_selection.State.LOCKED if stars < STARS_FOR_MARS else god_selection.State.UNLOCKED
-	#var state = god_selection.State.UNLOCKED
 	
 	
 	gods.append({
 		"name": "Mars",
 		"state": state,
 		"sprite": mars_sprite,
-		"stars_needed": STARS_FOR_MARS - stars
+		"stars_needed": clamp(STARS_FOR_JUPITER - stars, 0, 200)
 	})
 	
 	god_selection.god_data = gods[index]
@@ -60,7 +59,6 @@ func _ready():
 	index += 1
 	god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
 	god_selection.index = index
-	#var state = god_selection.State.LOCKED if stars < STARS_FOR_MARS else god_selection.State.LOCKED
 	state = god_selection.State.UNLOCKED
 	
 	
@@ -74,12 +72,12 @@ func _ready():
 	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
 	$Center.add_child(god_selection)
-	
+	print(stars)
 	# load Jupiter
 	index += 1
 	god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
 	god_selection.index = index
-	state = god_selection.State.LOCKED if stars < STARS_FOR_JUPITER else god_selection.State.LOCKED
+	state = god_selection.State.LOCKED if stars < STARS_FOR_JUPITER else god_selection.State.UNLOCKED
 	#state = god_selection.State.UNLOCKED
 
 	
@@ -87,7 +85,7 @@ func _ready():
 		"name": "Jupiter",
 		"state": state,
 		"sprite": jupiter_sprite,
-		"stars_needed": STARS_FOR_JUPITER - stars
+		"stars_needed": clamp(STARS_FOR_JUPITER - stars, 0, 200)
 	})
 	
 	god_selection.god_data = gods[index]
