@@ -29,6 +29,7 @@ func _ready():
 
 var command_input = ""
 
+
 func _unhandled_key_input(event):
 	if event.is_pressed() and not event.is_echo():
 		command_input += event.as_text()
