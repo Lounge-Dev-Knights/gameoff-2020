@@ -14,8 +14,8 @@ animations = [ {
 [node name="god" type="AnimatedSprite" groups=[
 "moon_gods",
 ]]
-position = Vector2( 55.304, -14.3864 )
-scale = Vector2( 0.115651, 0.139546 )
+position = Vector2( 72.122, -13.966 )
+scale = Vector2( 0.14, 0.14 )
 frames = SubResource( 1 )
 animation = "run"
 frame = 1

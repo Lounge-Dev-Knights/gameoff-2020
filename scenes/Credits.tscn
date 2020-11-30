@@ -22,15 +22,15 @@ __meta__ = {
 [node name="Sky" parent="." instance=ExtResource( 2 )]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Sky"]
-margin_left = 242.0
+margin_left = 249.0
 margin_top = 75.0
-margin_right = 781.0
+margin_right = 775.0
 margin_bottom = 524.0
 custom_constants/separation = 40
 alignment = 1
 
 [node name="Thanks" type="Label" parent="Sky/VBoxContainer"]
-margin_right = 539.0
+margin_right = 526.0
 margin_bottom = 38.0
 custom_fonts/font = SubResource( 1 )
 text = "THANKS FOR PLAYING!!!"
@@ -38,33 +38,33 @@ align = 1
 
 [node name="CreatedBy" type="Label" parent="Sky/VBoxContainer"]
 margin_top = 78.0
-margin_right = 539.0
+margin_right = 526.0
 margin_bottom = 125.0
 text = "Created by
-Alan, Belinda, Benjamin, Dardan, Raphael, Reto, Stefan, Stephanie"
+Alan, Belinda, Benjamin, Dardan, Däster, Reto, Stefan, Stephanie"
 align = 1
 
 [node name="Godot" type="Label" parent="Sky/VBoxContainer"]
 margin_top = 165.0
-margin_right = 539.0
+margin_right = 526.0
 margin_bottom = 187.0
 text = "Made with Godot"
 align = 1
 
 [node name="License" type="VBoxContainer" parent="Sky/VBoxContainer"]
 margin_top = 227.0
-margin_right = 539.0
+margin_right = 526.0
 margin_bottom = 345.0
 
 [node name="Label" type="Label" parent="Sky/VBoxContainer/License"]
-margin_right = 539.0
+margin_right = 526.0
 margin_bottom = 22.0
 text = "Licenses"
 align = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Sky/VBoxContainer/License"]
 margin_top = 26.0
-margin_right = 539.0
+margin_right = 526.0
 margin_bottom = 118.0
 bbcode_enabled = true
 bbcode_text = "[center][url=https://www.youtube.com/watch?v=LMkHL6gV7so]Bass Hits & Explosions Sound Effects[/url] by Pixel Magic, N/A
@@ -77,13 +77,13 @@ fit_content_height = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Sky/VBoxContainer"]
 margin_top = 385.0
-margin_right = 539.0
+margin_right = 526.0
 margin_bottom = 449.0
 alignment = 1
 
 [node name="Button" type="ToolButton" parent="Sky/VBoxContainer/HBoxContainer"]
-margin_left = 148.0
-margin_right = 391.0
+margin_left = 141.0
+margin_right = 384.0
 margin_bottom = 64.0
 grow_horizontal = 2
 size_flags_horizontal = 0
