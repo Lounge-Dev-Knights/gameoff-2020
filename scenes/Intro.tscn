@@ -7,7 +7,7 @@
 [ext_resource path="res://scenes/title_screen/theGODS_scaled.png" type="Texture" id=5]
 [ext_resource path="res://scenes/Sky.tscn" type="PackedScene" id=6]
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=1]
 resource_name = "idle"
 length = 2.0
 loop = true
@@ -24,7 +24,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=2]
 resource_name = "intro"
 length = 2.0
 tracks/0/type = "value"
@@ -64,7 +64,7 @@ tracks/2/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="DynamicFont" id=11]
+[sub_resource type="DynamicFont" id=3]
 size = 48
 outline_size = 3
 outline_color = Color( 0, 0, 0, 1 )
@@ -120,8 +120,8 @@ __meta__ = {
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "intro"
-anims/idle = SubResource( 12 )
-anims/intro = SubResource( 9 )
+anims/idle = SubResource( 1 )
+anims/intro = SubResource( 2 )
 next/intro = "idle"
 
 [node name="Label" type="Label" parent="."]
@@ -133,7 +133,7 @@ margin_left = -260.5
 margin_top = -56.0
 margin_right = 260.5
 grow_horizontal = 2
-custom_fonts/font = SubResource( 11 )
+custom_fonts/font = SubResource( 3 )
 text = "Press any key..."
 align = 1
 __meta__ = {
