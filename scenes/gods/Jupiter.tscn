@@ -39,9 +39,12 @@ scale_amount_curve = SubResource( 1 )
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -450.0
-margin_right = 200.0
+margin_left = -60.8112
+margin_top = -442.929
+margin_right = 439.189
+margin_bottom = 307.071
 grow_vertical = 0
+rect_scale = Vector2( 0.682163, 0.682163 )
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
@@ -53,8 +56,8 @@ __meta__ = {
 [node name="Portrait" type="TextureButton" parent="CanvasLayer/MarginContainer"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 180.0
-margin_bottom = 430.0
+margin_right = 480.0
+margin_bottom = 730.0
 rect_pivot_offset = Vector2( 0, 50 )
 action_mode = 0
 shortcut = SubResource( 3 )
