@@ -27,7 +27,7 @@ self_modulate = Color( 0, 0, 0, 1 )
 
 [node name="Sprite" type="Sprite" parent="God"]
 material = SubResource( 2 )
-position = Vector2( -6.10059, -97.7748 )
+position = Vector2( -9.85451, -98.1628 )
 scale = Vector2( 0.178678, 0.178678 )
 texture = ExtResource( 1 )
 
