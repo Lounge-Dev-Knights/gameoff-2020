@@ -10,8 +10,9 @@ var current_index = 0 setget _set_current_index
 var offset_1 = 100
 var offset_2 = 200
 
-var scale_1 = 0.7
-var scale_2 = 0.3
+var scale_1 = 0.8
+var scale_2 = 0.4
+var scale_full = 1.5
 
 
 onready var name_label = $God/Name
@@ -48,6 +49,7 @@ func _ready():
 	if god_data["state"] == State.LOCKED:
 		name_label.text = "Need " + str(god_data["stars_needed"]) + " more Stars"
 		sprite.modulate = Color(0,0,0,1)
+
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
 	_on_screen_resized()
 
@@ -61,34 +63,39 @@ func _on_screen_resized():
 func _set_current_index(new_index):
 	current_index = new_index
 	
-	tween.stop_all()	
+	tween.stop_all()
 
-		
-	if current_index <= index - 2:
-		tween.interpolate_property(self, "position", position, Vector2(offset_2, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		tween.interpolate_property(self, "scale", scale, Vector2(scale_2, scale_2), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
+	if current_index == index - 2:
+		tween.interpolate_property(self, "position", position, Vector2(-offset_1, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.6), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		tween.interpolate_property(self, "scale", scale, Vector2(scale_1, scale_1), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		name_label.hide()
+		name_label.mouse_filter = Control.MOUSE_FILTER_PASS	
 	elif current_index == index - 1:
 		tween.interpolate_property(self, "position", position, Vector2(offset_1, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.3), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.6), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_1, scale_1), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		name_label.hide()
 		name_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	elif current_index == index:
 		tween.interpolate_property(self, "position", position, Vector2(), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 1.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		tween.interpolate_property(self, "scale", scale, Vector2(1.0, 1.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		tween.interpolate_property(self, "scale", scale, Vector2(scale_full, scale_full), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		name_label.show()
 		name_label.mouse_filter = Control.MOUSE_FILTER_PASS
 	elif current_index == index + 1:
 		tween.interpolate_property(self, "position", position, Vector2(-offset_1, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.3), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.6), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		tween.interpolate_property(self, "scale", scale, Vector2(scale_1, scale_1), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 		name_label.mouse_filter = Control.MOUSE_FILTER_PASS
-	elif current_index >= index + 2:
-		tween.interpolate_property(self, "position", position, Vector2(-offset_2, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		tween.interpolate_property(self, "scale", scale, Vector2(scale_2, scale_2), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-		name_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		name_label.hide()
+	elif current_index == index + 2:
+		tween.interpolate_property(self, "position", position, Vector2(offset_1, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		tween.interpolate_property(self, "modulate", modulate, Color(1.0, 1.0, 1.0, 0.6), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		tween.interpolate_property(self, "scale", scale, Vector2(scale_1, scale_1), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+		name_label.mouse_filter = Control.MOUSE_FILTER_PASS
+		name_label.hide()
 	
 	if current_index == index:
 		z_index = 6

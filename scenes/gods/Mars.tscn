@@ -1,13 +1,16 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/gods/Mars.gd" type="Script" id=1]
-[ext_resource path="res://scenes/gods/mars.png" type="Texture" id=2]
 
 [sub_resource type="InputEventAction" id=1]
 action = "start_effect"
 
 [sub_resource type="ShortCut" id=2]
 shortcut = SubResource( 1 )
+
+[sub_resource type="StreamTexture" id=3]
+flags = 4
+load_path = "res://.import/mars.png-96c74acf56bc9b8d4df67f4aac009b2d.stex"
 
 [node name="Mars" type="Node2D" groups=[
 "gods",
@@ -41,7 +44,7 @@ margin_bottom = 595.0
 rect_pivot_offset = Vector2( 0, 50 )
 action_mode = 0
 shortcut = SubResource( 2 )
-texture_normal = ExtResource( 2 )
+texture_normal = SubResource( 3 )
 expand = true
 stretch_mode = 5
 __meta__ = {
