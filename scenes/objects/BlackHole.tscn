@@ -7,7 +7,7 @@
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
-const float rotation_factor = 30.0 * 2.0 * 3.1415;
+const float rotation_factor = -5.0 * 2.0 * 3.1415;
 
 vec2 rotate(vec2 v, float a) {
     float s = sin(a);
@@ -20,7 +20,7 @@ void fragment() {
 	vec2 offset = vec2(0.5, 0.5);
 	vec2 uv = UV - offset;
 	float radius = uv.x * uv.x + uv.y * uv.y;
-	float rotation = -radius * rotation_factor + TIME;
+	float rotation = -radius * rotation_factor - TIME;
 	
 	
 	COLOR = texture(TEXTURE, rotate(uv, rotation) + offset);
@@ -57,7 +57,6 @@ tracks/0/keys = {
 [node name="BlackHole" type="Area2D" groups=[
 "objects",
 ]]
-z_index = 1
 space_override = 1
 gravity_vec = Vector2( 0, 0 )
 gravity = 0.0
