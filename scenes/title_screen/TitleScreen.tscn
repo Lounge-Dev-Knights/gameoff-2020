@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://scenes/title_screen/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_screen/title_screen_scaled.png" type="Texture" id=2]
@@ -15,6 +15,12 @@
 [ext_resource path="res://scenes/title_screen/LevelSelection.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/GodSelection.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/objects/star.svg" type="Texture" id=15]
+[ext_resource path="res://resources/font/Underdog-Regular.ttf" type="DynamicFontData" id=16]
+
+[sub_resource type="DynamicFont" id=9]
+size = 48
+outline_color = Color( 0.0431373, 0.0431373, 0.0431373, 1 )
+font_data = ExtResource( 16 )
 
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
@@ -73,29 +79,41 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stars" type="Control" parent="CanvasLayer/VBoxContainer2"]
+[node name="Stars" type="MarginContainer" parent="CanvasLayer/VBoxContainer2"]
 margin_right = 1024.0
+margin_bottom = 84.0
+mouse_filter = 1
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer2/Stars"]
-margin_left = 9.0
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/Stars"]
+margin_left = 20.0
+margin_top = 20.0
+margin_right = 1024.0
+margin_bottom = 84.0
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer2/Stars/HBoxContainer"]
 margin_top = 4.0
-margin_right = 28.0
-margin_bottom = 26.0
+margin_right = 31.0
+margin_bottom = 60.0
+mouse_filter = 1
 theme = ExtResource( 10 )
+custom_fonts/font = SubResource( 9 )
 text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="star" type="Sprite" parent="CanvasLayer/VBoxContainer2/Stars"]
-position = Vector2( 38.5508, 13.9803 )
-scale = Vector2( 0.25, 0.25 )
+[node name="Star" type="TextureRect" parent="CanvasLayer/VBoxContainer2/Stars/HBoxContainer"]
+margin_left = 35.0
+margin_right = 99.0
+margin_bottom = 64.0
 texture = ExtResource( 15 )
 
 [node name="LevelSelection" parent="CanvasLayer/VBoxContainer2" instance=ExtResource( 13 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 4.0
+margin_top = 88.0
 margin_right = 1024.0
 margin_bottom = 216.0
 
