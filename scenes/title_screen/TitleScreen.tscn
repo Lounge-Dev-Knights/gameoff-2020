@@ -69,30 +69,23 @@ anchor_right = 0.5
 anchor_bottom = 0.96
 grow_horizontal = 0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-theme = ExtResource( 10 )
-alignment = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Stars" type="MarginContainer" parent="CanvasLayer/VBoxContainer2"]
-margin_right = 1024.0
+[node name="Stars" type="MarginContainer" parent="CanvasLayer"]
+margin_right = 119.0
 margin_bottom = 84.0
 mouse_filter = 1
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer2/Stars"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Stars"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 1024.0
+margin_right = 119.0
 margin_bottom = 84.0
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer2/Stars/HBoxContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Stars/HBoxContainer"]
 margin_top = 4.0
 margin_right = 31.0
 margin_bottom = 60.0
@@ -104,16 +97,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Star" type="TextureRect" parent="CanvasLayer/VBoxContainer2/Stars/HBoxContainer"]
+[node name="Star" type="TextureRect" parent="CanvasLayer/Stars/HBoxContainer"]
 margin_left = 35.0
 margin_right = 99.0
 margin_bottom = 64.0
 texture = ExtResource( 15 )
 
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 10 )
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="LevelSelection" parent="CanvasLayer/VBoxContainer2" instance=ExtResource( 13 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = 88.0
 margin_right = 1024.0
 margin_bottom = 216.0
 

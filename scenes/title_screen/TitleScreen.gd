@@ -8,7 +8,7 @@ var stars = 0
 
 onready var level_selection = $CanvasLayer/VBoxContainer2/LevelSelection
 onready var god_selection = $CanvasLayer/GodSelection
-onready var star_label = $CanvasLayer/VBoxContainer2/Stars/HBoxContainer/Label
+onready var star_label = $CanvasLayer/Stars/HBoxContainer/Label
 
 
 func _ready():
