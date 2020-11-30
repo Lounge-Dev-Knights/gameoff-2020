@@ -9,6 +9,8 @@ onready var tween = $Tween
 onready var camera = $Camera2D
 
 
+var progress_path = "user://progress.json"
+
 var stars_collected := Array()
 var tries := 0
 
@@ -17,6 +19,7 @@ var level_name = 'Level 1'
 var level_path: String = ''
 var next_level_path: String = ''
 var god = ''
+
 
 enum LevelState {
 	LOCKED,
@@ -55,8 +58,11 @@ func load_god():
 
 func _ready():
 	load_god()
-
-
+	var progress = load_progress()
+	if progress and progress.has(level_path):
+		if progress[level_path].has("tries"):
+			tries = progress[level_path]["tries"]
+	
 func _physics_process(delta):
 	check_velocity_unchanged(delta)
 
@@ -69,14 +75,18 @@ func _unhandled_input(event):
 		tween.emit_signal("tween_all_completed")
 		camera.target = start_planet
 
-
-func save_progress():
-	# load progress first
-	var progress_path = "user://progress.json"
+func load_progress():
 	var file = File.new()
 	var err = file.open(progress_path, File.READ)
 	var progress = parse_json(file.get_as_text())
 	file.close()
+	return progress
+
+func save_progress():
+	# load progress first
+
+	var progress = load_progress()
+
 	
 	if not progress:
 		progress = Dictionary()
@@ -92,7 +102,9 @@ func save_progress():
 		level_progress["state"] = LevelState.COMPLETED
 		if not progress.has(next_level_path):
 			progress[next_level_path] = Dictionary()
-		progress[next_level_path]["state"] = LevelState.UNLOCKED
+			progress[next_level_path]["state"] = LevelState.UNLOCKED 
+		if not progress[next_level_path]["state"] == LevelState.COMPLETED:
+			progress[next_level_path]["state"] = LevelState.UNLOCKED 
 		
 		if level_progress.has("stars_collected"):
 			for star in stars_collected:
@@ -238,9 +250,11 @@ func _on_Moon_exploded():
 func _on_PlayableLevel_failure():
 	save_progress()
 
+
 func _on_PlayableLevel_success():
 	finished = true
 	save_progress()
+
 	
 func _on_star_collected(index: int):
 	stars_collected.append(index)
