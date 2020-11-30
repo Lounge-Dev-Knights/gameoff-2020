@@ -16,6 +16,17 @@
 [ext_resource path="res://scenes/GodSelection.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/objects/star.svg" type="Texture" id=15]
 
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+
+void vertex() {
+	VERTEX.x += sin(TIME) * 5.0;
+	VERTEX.y += (1.0 + sin(TIME / 2.0)) * 5.0;
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 600, 467 )
@@ -37,17 +48,6 @@ region_rect = Rect2( 0, 0, 380, 88 )
 [sub_resource type="StyleBoxTexture" id=6]
 texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 380, 88 )
-
-[sub_resource type="Shader" id=7]
-code = "shader_type canvas_item;
-
-void vertex() {
-	VERTEX.x += sin(TIME) * 5.0;
-	VERTEX.y += (1.0 + sin(TIME / 2.0)) * 5.0;
-}"
-
-[sub_resource type="ShaderMaterial" id=8]
-shader = SubResource( 7 )
 
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource( 1 )
@@ -119,6 +119,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Clouds" type="TextureRect" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
+material = SubResource( 8 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -512.0
+margin_top = -190.0
+margin_right = 512.0
+grow_horizontal = 2
+grow_vertical = 0
+rect_min_size = Vector2( 1024, 190 )
+mouse_filter = 2
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Settings" type="Button" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
 margin_left = 81.1864
 margin_top = 203.081
@@ -150,21 +170,6 @@ __meta__ = {
 
 [node name="VolumeSettings" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building" instance=ExtResource( 11 )]
 visible = false
-
-[node name="Clouds" type="TextureRect" parent="CanvasLayer/VBoxContainer2/CenterContainer"]
-material = SubResource( 8 )
-margin_right = 1024.0
-margin_bottom = 570.0
-grow_horizontal = 2
-grow_vertical = 0
-rect_min_size = Vector2( 1024, 380 )
-mouse_filter = 2
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="LastCommand" type="Label" parent="CanvasLayer"]
 anchor_left = 0.5
