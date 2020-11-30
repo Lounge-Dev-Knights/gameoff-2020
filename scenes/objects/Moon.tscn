@@ -189,6 +189,8 @@ script = ExtResource( 7 )
 
 [node name="Shield" parent="." instance=ExtResource( 8 )]
 visible = false
+
+[node name="god" type="Node2D" parent="."]
 [connection signal="exploded" from="." to="." method="_on_Moon_exploded"]
 [connection signal="moving" from="." to="." method="_on_Moon_moving"]
 [connection signal="reset" from="." to="." method="_on_Moon_reset"]
