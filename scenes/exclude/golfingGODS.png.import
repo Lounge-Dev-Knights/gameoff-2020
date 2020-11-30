@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/title_screen.png-8bd45977dc2aa037e59b879c6c24d6b2.stex"
+path="res://.import/golfingGODS.png-cce8b8da8d86cc03194d1de7e431895d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/title_screen/title_screen.png"
-dest_files=[ "res://.import/title_screen.png-8bd45977dc2aa037e59b879c6c24d6b2.stex" ]
+source_file="res://scenes/exclude/golfingGODS.png"
+dest_files=[ "res://.import/golfingGODS.png-cce8b8da8d86cc03194d1de7e431895d.stex" ]
 
 [params]
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://scenes/title_screen/TitleScreen.gd" type="Script" id=1]
-[ext_resource path="res://scenes/title_screen/title_screen.png" type="Texture" id=2]
+[ext_resource path="res://scenes/title_screen/title_screen_scaled.png" type="Texture" id=2]
 [ext_resource path="res://Sounds/MenuButtonHoverSound.wav" type="AudioStream" id=3]
-[ext_resource path="res://scenes/title_screen/clouds.png" type="Texture" id=4]
+[ext_resource path="res://scenes/title_screen/clouds_scaled.png" type="Texture" id=4]
 [ext_resource path="res://resources/font/WeissLapidar.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://resources/font/Button_Exitus_normal.png" type="Texture" id=6]
 [ext_resource path="res://resources/font/Button_Exitus_mouse_over.png" type="Texture" id=7]
@@ -125,6 +125,8 @@ margin_right = 173.186
 margin_bottom = 274.081
 focus_mode = 0
 custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 1 )
 custom_styles/normal = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -138,17 +140,20 @@ margin_bottom = 276.259
 focus_mode = 0
 theme = SubResource( 4 )
 custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 5 )
 custom_styles/normal = SubResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VolumeSettings" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building" instance=ExtResource( 11 )]
+visible = false
 
 [node name="Clouds" type="TextureRect" parent="CanvasLayer/VBoxContainer2/CenterContainer"]
 material = SubResource( 8 )
 margin_right = 1024.0
-margin_bottom = 380.0
+margin_bottom = 570.0
 grow_horizontal = 2
 grow_vertical = 0
 rect_min_size = Vector2( 1024, 380 )
