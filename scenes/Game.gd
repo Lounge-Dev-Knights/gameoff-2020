@@ -5,6 +5,7 @@ onready var level = $PlayableLevel
 onready var retry_panel = $CanvasLayer/RetryPanel
 onready var success_panel = $CanvasLayer/SuccessPanel
 onready var next_button = $CanvasLayer/SuccessPanel/VBoxContainer/Next
+onready var tween = $Tween
 
 
 var level_path: String = "res://scenes/levels/test_level.json"
@@ -73,6 +74,7 @@ func _on_PlayableLevel_success():
 	if len(next_levels) == 0:
 		yield(get_tree().create_timer(2.0), "timeout")
 		SceneLoader.goto_scene("res://scenes/Credits.tscn")
+	yield(get_tree().create_timer(0.5), "timeout")
 	$CanvasLayer/SuccessPanel.popup_centered()
 	$CanvasLayer/Back.hide()
 	$CanvasLayer/Control/SuccessConfettiStars.emitting = true
@@ -95,3 +97,16 @@ func _on_ToolButton_pressed() -> void:
 		$CanvasLayer/VBoxContainer/VolumeSettings.hide()
 	else:
 		$CanvasLayer/VBoxContainer/VolumeSettings.show()
+
+
+func _on_SuccessPanel_about_to_show():
+	tween.stop_all()
+	tween.interpolate_property(success_panel, "modulate:a", 0.0, 1.0, 1.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween.start()
+
+
+func _on_RetryPanel_about_to_show():
+	tween.stop_all()
+	yield(get_tree().create_timer(0.5), "timeout")
+	tween.interpolate_property(retry_panel, "modulate:a", 0.0, 1.0, 1.5, Tween.TRANS_LINEAR, Tween.EASE_IN)
+	tween.start()

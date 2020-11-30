@@ -28,6 +28,8 @@ script = ExtResource( 2 )
 
 [node name="PlayableLevel" parent="." instance=ExtResource( 1 )]
 
+[node name="Tween" type="Tween" parent="."]
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Back" type="ToolButton" parent="CanvasLayer"]
@@ -191,12 +193,14 @@ __meta__ = {
 [connection signal="failure" from="PlayableLevel" to="." method="_on_PlayableLevel_failure"]
 [connection signal="success" from="PlayableLevel" to="." method="_on_PlayableLevel_success"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_Back_pressed"]
+[connection signal="about_to_show" from="CanvasLayer/SuccessPanel" to="." method="_on_SuccessPanel_about_to_show"]
 [connection signal="mouse_entered" from="CanvasLayer/SuccessPanel/VBoxContainer/Next" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/SuccessPanel/VBoxContainer/Next" to="." method="_on_Next_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/SuccessPanel/VBoxContainer/Restart" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/SuccessPanel/VBoxContainer/Restart" to="." method="_on_Reset_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/SuccessPanel/VBoxContainer/Titlescreen" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/SuccessPanel/VBoxContainer/Titlescreen" to="." method="_on_Titlescreen_pressed"]
+[connection signal="about_to_show" from="CanvasLayer/RetryPanel" to="." method="_on_RetryPanel_about_to_show"]
 [connection signal="mouse_entered" from="CanvasLayer/RetryPanel/VBoxContainer/Restart" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/RetryPanel/VBoxContainer/Restart" to="." method="_on_Reset_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/RetryPanel/VBoxContainer/Titlescreen" to="." method="_on_Button_mouse_entered"]
