@@ -7,8 +7,8 @@ signal selected
 var index = 0
 var current_index = 0 setget _set_current_index
 
-var offset_1 = 50
-var offset_2 = 100
+var offset_1 = 100
+var offset_2 = 200
 
 var scale_1 = 0.7
 var scale_2 = 0.3
