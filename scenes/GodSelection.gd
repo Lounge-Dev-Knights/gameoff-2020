@@ -37,7 +37,6 @@ func _ready():
 	var index = 0
 	
 	stars = load_total_stars()
-
 	# load Mars first
 	god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
 	god_selection.index = index
@@ -53,6 +52,8 @@ func _ready():
 	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
 	$Center.add_child(god_selection)
+	# manually tweak sprite position. this is a bit hacky.
+	$Center/GodSelectionItem/God/Sprite.offset.y += 145
 	
 	# load Fortuna
 	index += 1

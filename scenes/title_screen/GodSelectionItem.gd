@@ -65,7 +65,6 @@ func _set_current_index(new_index):
 	
 	tween.stop_all()
 
-	print(god_data["name"], " CurrentIndex: ", current_index, " Index: ", index)
 	
 	if current_index == index - 2:
 		tween.interpolate_property(self, "position", position, Vector2(-offset_1, 0), 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
