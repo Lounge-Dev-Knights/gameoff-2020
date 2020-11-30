@@ -70,6 +70,9 @@ func _on_PlayableLevel_failure():
 
 
 func _on_PlayableLevel_success():
+	if len(next_levels) == 0:
+		yield(get_tree().create_timer(2.0), "timeout")
+		SceneLoader.goto_scene("res://scenes/Credits.tscn")
 	$CanvasLayer/SuccessPanel.popup_centered()
 	$CanvasLayer/Back.hide()
 	$CanvasLayer/Control/SuccessConfettiStars.emitting = true
