@@ -19,6 +19,7 @@ var level_name = 'Level 1'
 var level_path: String = ''
 var next_level_path: String = ''
 var god = ''
+var portrait = null
 
 
 enum LevelState {
@@ -28,28 +29,30 @@ enum LevelState {
 }
 
 func load_god():
-	var portrait
 	var moon_god
 	var inst
 	
-	# clear portrait
-	portrait = null
-	moon_god = null
+	
+	if moon_god != null:
+		moon_god.queue_free()
+	if portrait != null:
+		portrait.queue_free()
+	
 	match god:
 		'Fortuna':
-			portrait = load("res://scenes/gods/Fortuna.tscn")
+			portrait = load("res://scenes/gods/Fortuna.tscn").instance()
 			moon_god = load("res://scenes/gods/FortunaMoon.tscn")
-			add_child(portrait.instance())
+			add_child(portrait)
 			$Moon/god.add_child(moon_god.instance())
 		'Mars':
-			portrait = load("res://scenes/gods/Mars.tscn")
+			portrait = load("res://scenes/gods/Mars.tscn").instance()
 			moon_god = load("res://scenes/gods/MarsMoon.tscn")
-			add_child(portrait.instance())
+			add_child(portrait)
 			$Moon/god.add_child(moon_god.instance())
 		'Jupiter':
-			portrait = load("res://scenes/gods/Jupiter.tscn")
+			portrait = load("res://scenes/gods/Jupiter.tscn").instance()
 			moon_god = load("res://scenes/gods/JupiterMoon.tscn")
-			add_child(portrait.instance())
+			add_child(portrait)
 			$Moon/god.add_child(moon_god.instance())
 
 	
