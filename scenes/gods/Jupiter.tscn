@@ -39,12 +39,12 @@ scale_amount_curve = SubResource( 1 )
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = -60.8112
-margin_top = -442.929
-margin_right = 439.189
-margin_bottom = 307.071
+margin_left = -97.5807
+margin_top = -387.775
+margin_right = 402.419
+margin_bottom = 362.225
 grow_vertical = 0
-rect_scale = Vector2( 0.682163, 0.682163 )
+rect_scale = Vector2( 0.879426, 0.879426 )
 custom_constants/margin_right = 20
 custom_constants/margin_top = 20
 custom_constants/margin_left = 20
