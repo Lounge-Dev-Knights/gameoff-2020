@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/GodSelection.gd" type="Script" id=1]
+[ext_resource path="res://scenes/title_screen/GodPreview.tscn" type="PackedScene" id=2]
 
 [node name="CenterContainer" type="CenterContainer"]
 script = ExtResource( 1 )
@@ -12,3 +13,7 @@ __meta__ = {
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GodPreview" parent="CanvasLayer" instance=ExtResource( 2 )]
