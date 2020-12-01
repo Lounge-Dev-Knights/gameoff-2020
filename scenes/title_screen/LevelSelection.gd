@@ -25,6 +25,7 @@ const DEFAULT_LEVEL_LIST = [
 	"res://scenes/levels/Orion.json",
 	"res://scenes/levels/Fornax.json",
 	"res://scenes/levels/Sagitta.json",
+	"res://scenes/levels/ComaBerenices.json",
 	"res://scenes/levels/Phoenix.json",
 ]
 
