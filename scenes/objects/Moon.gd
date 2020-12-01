@@ -141,6 +141,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func reset(start_planet: Node2D = null):
+	_start_charging = 0
 	shield.hide()
 	_moon_destroyed = false
 	_moon_stopped = false
