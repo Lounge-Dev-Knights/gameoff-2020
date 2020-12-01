@@ -101,7 +101,7 @@ func _stop_drag():
 	drag_object = null
 	
 	$CPUParticles2D.emitting = true
-	get_tree().call_group("cameras", "add_trauma", 0.3)
+	get_tree().call_group("cameras", "add_trauma", 0.2)
 	stop_effect()
 
 
