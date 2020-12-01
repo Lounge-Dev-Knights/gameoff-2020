@@ -147,6 +147,8 @@ func load_data(level_data: Dictionary, reload: bool = false) -> void:
 	if level_data.has("level_name"):
 		level_name = level_data["level_name"]
 	get_tree().call_group("gods", "reset")
+	Engine.time_scale = 1.0
+	
 	$StarCounter.num_stars = star_count
 	
 	$AnimationPlayer.play("setup")
@@ -233,6 +235,8 @@ func _on_Moon_started_orbiting(center: Node2D) -> void:
 		camera.target = center
 	
 	get_tree().call_group("gods", "disable")
+	get_tree().call_group("gods", "reset")
+	
 
 
 
