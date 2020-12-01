@@ -1,6 +1,10 @@
 extends Control
 
 
+const FORTUNA_PREVIEW_TEXT = "Press E to start your god power!\nUse your luck to slow down time and move one obstacle out of the way."
+const MARS_PREVIEW_TEXT = "Press E to start your god power!\nNext time you hit a planet your shield lets you bounce of the planet instead of exploding."
+const JUPITER_PREVIEW_TEXT = "Press E to start your god power!\n Use the impact of your three thunderbolts to divert your trajectory."
+
 var current_index = 1 setget _set_current_index
 var progress_path = "user://progress.json"
 
@@ -16,6 +20,8 @@ var jupiter_sprite = preload("res://scenes/gods/jupiter.png")
 
 var gods = Array()
 var god_selection
+
+onready var god_preview = $CanvasLayer/GodPreview
 
 func load_total_stars():
 	var file = File.new()
@@ -53,9 +59,10 @@ func _ready():
 	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
 	
+	
 	# show videoplayer 
-	god_selection.connect("show_god_preview", self, "show_god_preview", 
-			[preload("res://scenes/title_screen/god_description/mars_effect.ogv")])
+	god_selection.connect("show_god_preview", god_preview, "show_god_preview", 
+			[preload("res://scenes/title_screen/god_description/mars_effect.ogv"), MARS_PREVIEW_TEXT])
 	
 	$Center.add_child(god_selection)
 	# manually tweak sprite position. this is a bit hacky.
@@ -79,8 +86,8 @@ func _ready():
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
 	
 	# show videoplayer 
-	god_selection.connect("show_god_preview", self, "show_god_preview", 
-			[preload("res://scenes/title_screen/god_description/fortuna_effect.ogv")])
+	god_selection.connect("show_god_preview", god_preview, "show_god_preview", 
+			[preload("res://scenes/title_screen/god_description/fortuna_effect.ogv"), FORTUNA_PREVIEW_TEXT])
 	$Center.add_child(god_selection)
 	
 	
@@ -104,8 +111,8 @@ func _ready():
 	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
 	# show videoplayer 
-	god_selection.connect("show_god_preview", self, "show_god_preview", 
-			[preload("res://scenes/title_screen/god_description/jupiter_effect.ogv")])
+	god_selection.connect("show_god_preview", god_preview, "show_god_preview", 
+			[preload("res://scenes/title_screen/god_description/jupiter_effect.ogv"), JUPITER_PREVIEW_TEXT])
 			
 	$Center.add_child(god_selection)
 	
@@ -117,11 +124,7 @@ func _ready():
 			return
 			
 
-func show_god_preview(stream):
-	print("show_preview")
-	$CanvasLayer/WindowDialog/VideoPlayer.stream = stream
-	$CanvasLayer/WindowDialog/VideoPlayer.play()
-	$CanvasLayer/WindowDialog.popup_centered()
+
 
 	
 func _on_GodSelectionItem_selected(index):
@@ -144,10 +147,3 @@ func _set_current_index(new_index: int):
 	set_god()
 	SoundEngine.play_sound("MoonThrowing")
 
-
-func _on_VideoPlayer_finished():
-	$CanvasLayer/WindowDialog/VideoPlayer.play()
-
-
-func _on_WindowDialog_popup_hide():
-	$CanvasLayer/WindowDialog/VideoPlayer.stop()

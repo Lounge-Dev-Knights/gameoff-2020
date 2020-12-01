@@ -1,1 +1,44 @@
-{"black_hole":{"pos_x":2123.137695,"pos_y":18.463135},"level_name":"Tutorial III","objects":[{"additional_properties":{"text":"Avoid planets."},"pos_x":1019.023926,"pos_y":-104.124268,"type":"Text"},{"additional_properties":{"text":"Press E to activate your god power."},"pos_x":1021.156372,"pos_y":217.881104,"type":"Text"},{"pos_x":1016.081665,"pos_y":20.090759,"type":"MediumPlanet"}],"preview_image":"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","stars":[{"pos_x":863.24231,"pos_y":100.604309}],"start_planet":{"pos_x":0,"pos_y":0}}
+{
+    "black_hole": {
+        "pos_x": 1620.359131,
+        "pos_y": 33.889282
+    },
+    "level_name": "Untitled Level 1",
+    "objects": [
+        {
+            "additional_properties": {
+                "text": "Avoid planets."
+            },
+            "pos_x": 1019.023926,
+            "pos_y": -104.124268,
+            "type": "Text"
+        },
+        {
+            "additional_properties": {
+                "text": "Press E to activate your god power."
+            },
+            "pos_x": 1021.156372,
+            "pos_y": 217.881104,
+            "type": "Text"
+        },
+        {
+            "pos_x": 641.83667,
+            "pos_y": -26.880005,
+            "type": "LargePlanet"
+        }
+    ],
+    "stars": [
+        {
+            "pos_x": 1162.148438,
+            "pos_y": -0.633423
+        },
+        {
+            "pos_x": 85.391357,
+            "pos_y": -73.178589
+        }
+    ],
+    "start_planet": {
+        "pos_x": -443.944946,
+        "pos_y": 166.655884
+    }
+}
