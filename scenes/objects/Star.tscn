@@ -72,7 +72,6 @@ scale_amount_curve = SubResource( 2 )
 color_ramp = SubResource( 3 )
 
 [node name="texture" type="Sprite" parent="."]
-modulate = Color( 0.67451, 0.839216, 0, 1 )
 texture = ExtResource( 4 )
 
 [node name="Index" type="Label" parent="."]
