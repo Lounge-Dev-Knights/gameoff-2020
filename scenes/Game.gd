@@ -45,10 +45,10 @@ func load_level(reload: bool = false):
 
 
 func _on_Back_pressed():
-	if level_path.find("user://levels") == -1:
-		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"current_index": selection_index})
-	else:
+	if from_editor:
 		SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
+	else:
+		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"current_index": selection_index})
 		
 	SoundEngine.play_sound("MenuButtonSound")
 
@@ -62,7 +62,10 @@ func _on_Reset_pressed():
 
 
 func _on_Titlescreen_pressed():
-	SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"current_index": selection_index})
+	if from_editor:
+		SceneLoader.goto_scene("res://scenes/level_editor/CustomLevelsManager.tscn")
+	else:
+		SceneLoader.goto_scene("res://scenes/title_screen/TitleScreen.tscn", {"current_index": selection_index})
 	SoundEngine.play_sound("MenuButtonSound")
 
 
@@ -88,6 +91,7 @@ func _on_Button_mouse_entered():
 func _on_Next_pressed():
 	success_panel.hide()
 	level_path = next_levels.pop_front()
+	selection_index += 1
 
 	load_level(false)
 	

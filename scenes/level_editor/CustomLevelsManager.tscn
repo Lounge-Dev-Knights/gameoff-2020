@@ -178,8 +178,8 @@ rect_min_size = Vector2( 400, 300 )
 popup_exclusive = true
 access = 2
 filters = PoolStringArray( "*.json" )
-current_dir = "/home/dardan/code/gameoff-2020"
-current_path = "/home/dardan/code/gameoff-2020/"
+current_dir = "/Users/Dardan/code/gameoff-2020"
+current_path = "/Users/Dardan/code/gameoff-2020/"
 
 [node name="RenameFileDialog" type="ConfirmationDialog" parent="."]
 margin_left = 7.0
@@ -303,11 +303,11 @@ text = "Close"
 [connection signal="confirmed" from="RenameFileDialog" to="." method="_on_RenameFileDialog_confirmed"]
 [connection signal="text_changed" from="RenameFileDialog/HBoxContainer2/LineEdit" to="RenameFileDialog" method="_on_LineEdit_text_changed"]
 [connection signal="mouse_entered" from="CanvasLayer/Back" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Back" to="." method="_on_Back_pressed"]
 [connection signal="mouse_entered" from="ExportTextDialog/VBoxContainer/HBoxContainer/CopyToClipboard" to="." method="_on_button_mouse_entered"]
-[connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/CopyToClipboard" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/CopyToClipboard" to="." method="_on_CopyToClipboard_pressed"]
+[connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/CopyToClipboard" to="." method="_on_button_pressed"]
 [connection signal="mouse_entered" from="ExportTextDialog/VBoxContainer/HBoxContainer/Close" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/Close" to="." method="_on_ExportText_Close_pressed"]
 [connection signal="pressed" from="ExportTextDialog/VBoxContainer/HBoxContainer/Close" to="." method="_on_button_pressed"]
