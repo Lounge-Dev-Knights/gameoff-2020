@@ -101,3 +101,7 @@ func _on_Exit_mouse_entered():
 func _viewport_size_changed():
 	var size = get_viewport_rect()
 	$CanvasLayer/Control/CPUParticles2D.emission_rect_extents = size.size / 2
+
+
+func _on_Credits_pressed():
+	SceneLoader.goto_scene("res://scenes/Credits.tscn")
