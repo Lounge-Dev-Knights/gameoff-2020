@@ -30,7 +30,7 @@ func collect_star(star: Node2D, index: int = 0) -> void:
 		if object[0] == star:
 			# change the texture of the star in the counter
 			if star_outline != null:
-				star_outline.texture = preload("res://scenes/objects/star.svg")
+				star_outline.texture = preload("res://scenes/objects/star.png")
 			
 			# remove the star after animation
 			star.queue_free()
@@ -45,7 +45,7 @@ func render_stars():
 	
 	for _i in range(num_stars):
 		var star = TextureRect.new()
-		star.texture = preload("res://scenes/objects/star_outline.svg")
+		star.texture = preload("res://scenes/objects/star_outline.png")
 		stars.add_child(star)
 
 
