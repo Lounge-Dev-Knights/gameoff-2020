@@ -11,6 +11,10 @@ const DEFAULT_LEVEL_LIST = [
 	"res://scenes/levels/Draco.json",
 	"res://scenes/levels/Lyra.json",
 	"res://scenes/levels/Hydra.json",
+	"res://scenes/levels/Cassiopeia.json",
+	"res://scenes/levels/Ursa Major.json",
+	"res://scenes/levels/Orion.json",
+	"res://scenes/levels/Fornax.json",
 ]
 
 

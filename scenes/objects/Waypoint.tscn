@@ -101,17 +101,17 @@ texture = ExtResource( 6 )
 texture = ExtResource( 7 )
 
 [node name="waypoint_3" type="Sprite" parent="Node2D"]
-rotation = 6.47132
+rotation = 13.7283
 scale = Vector2( 1, 1 )
 texture = ExtResource( 4 )
 
 [node name="waypoint_2" type="Sprite" parent="Node2D"]
-rotation = -4.11104
+rotation = -9.15219
 scale = Vector2( 1, 1 )
 texture = ExtResource( 8 )
 
 [node name="waypoint_1" type="Sprite" parent="Node2D"]
-rotation = 2.05552
+rotation = 4.57609
 texture = ExtResource( 5 )
 
 [node name="waypoint_border" type="Sprite" parent="Node2D"]
