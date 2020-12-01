@@ -17,6 +17,10 @@ _global_script_class_icons={
 
 config/name="Golfing Gods"
 run/main_scene="res://scenes/Intro.tscn"
+boot_splash/image="res://scenes/title_screen/theGODS_scaled.png"
+config/icon="res://icon.png"
+config/macos_native_icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
