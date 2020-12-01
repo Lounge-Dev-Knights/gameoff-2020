@@ -1,6 +1,8 @@
 tool
 extends CenterContainer
 
+export(Vector2) var light_position = Vector2(0.5, 1.0) setget set_light_position
+
 
 func _ready():
 	randomize()
@@ -35,3 +37,9 @@ func _get_noise_texture(size: Vector2):
 	texture.height = size.y
 	
 	return texture
+
+
+func set_light_position(pos: Vector2) -> void:
+	light_position = pos
+	$Background.material = $Background.material.duplicate()
+	($Background.material as ShaderMaterial).set_shader_param("light_position", pos)
