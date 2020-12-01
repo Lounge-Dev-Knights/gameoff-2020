@@ -127,11 +127,11 @@ func _on_CustomLevels_item_selected(index):
 
 func _on_CustomLevels_item_activated(index):
 	selected_level = level_directory + levels_list.get_item_text(index) + ".json"
-	SceneLoader.goto_scene("res://scenes/Game.tscn", {"level_path": selected_level})
+	SceneLoader.goto_scene("res://scenes/Game.tscn", {"level_path": selected_level, "from_editor": true})
 
 
 func _on_Play_pressed() -> void:
-	SceneLoader.goto_scene("res://scenes/Game.tscn", {"level_path": selected_level})
+	SceneLoader.goto_scene("res://scenes/Game.tscn", {"level_path": selected_level, "from_editor": true})
 
 
 func _on_Edit_pressed() -> void:

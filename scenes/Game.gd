@@ -11,7 +11,8 @@ onready var tween = $Tween
 var level_path: String = "res://scenes/levels/test_level.json"
 var next_levels: Array = Array()
 var selection_index = 1
-var god = "Fortuna"
+var god = Settings.active_god
+var from_editor = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -71,7 +72,7 @@ func _on_PlayableLevel_failure():
 
 
 func _on_PlayableLevel_success():
-	if len(next_levels) == 0:
+	if len(next_levels) == 0 and not from_editor:
 		yield(get_tree().create_timer(2.0), "timeout")
 		SceneLoader.goto_scene("res://scenes/Credits.tscn")
 	yield(get_tree().create_timer(0.5), "timeout")
