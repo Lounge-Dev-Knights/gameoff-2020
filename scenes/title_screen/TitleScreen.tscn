@@ -14,7 +14,7 @@
 [ext_resource path="res://scenes/Sky.tscn" type="PackedScene" id=12]
 [ext_resource path="res://scenes/title_screen/LevelSelection.tscn" type="PackedScene" id=13]
 [ext_resource path="res://scenes/GodSelection.tscn" type="PackedScene" id=14]
-[ext_resource path="res://scenes/objects/star.svg" type="Texture" id=15]
+[ext_resource path="res://scenes/objects/star.png" type="Texture" id=15]
 [ext_resource path="res://resources/font/Underdog-Regular.ttf" type="DynamicFontData" id=16]
 
 [sub_resource type="DynamicFont" id=1]
@@ -82,13 +82,13 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Stars"]
 margin_left = 20.0
 margin_top = 20.0
-margin_right = 119.0
-margin_bottom = 84.0
+margin_right = 335.0
+margin_bottom = 300.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Stars/HBoxContainer"]
-margin_top = 4.0
+margin_top = 112.0
 margin_right = 31.0
-margin_bottom = 60.0
+margin_bottom = 168.0
 mouse_filter = 1
 theme = ExtResource( 10 )
 custom_fonts/font = SubResource( 1 )
@@ -99,8 +99,8 @@ __meta__ = {
 
 [node name="Star" type="TextureRect" parent="CanvasLayer/Stars/HBoxContainer"]
 margin_left = 35.0
-margin_right = 99.0
-margin_bottom = 64.0
+margin_right = 315.0
+margin_bottom = 280.0
 texture = ExtResource( 15 )
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer"]
