@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/title_screen/TitleScreen.gd" type="Script" id=1]
 [ext_resource path="res://scenes/title_screen/title_screen_scaled.png" type="Texture" id=2]
@@ -16,11 +16,29 @@
 [ext_resource path="res://scenes/GodSelection.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/objects/star.png" type="Texture" id=15]
 [ext_resource path="res://resources/font/Underdog-Regular.ttf" type="DynamicFontData" id=16]
+[ext_resource path="res://scenes/title_screen/creditus_active.png" type="Texture" id=17]
+[ext_resource path="res://scenes/title_screen/creditus_normal.png" type="Texture" id=18]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
 outline_color = Color( 0.0431373, 0.0431373, 0.0431373, 1 )
 font_data = ExtResource( 16 )
+
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 17 )
+region_rect = Rect2( 0, 0, 403, 240 )
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 17 )
+region_rect = Rect2( 0, 0, 403, 240 )
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 17 )
+region_rect = Rect2( 0, 0, 403, 240 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 18 )
+region_rect = Rect2( 0, 0, 404, 240 )
 
 [sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
@@ -41,17 +59,17 @@ region_rect = Rect2( 0, 0, 600, 467 )
 texture = ExtResource( 8 )
 region_rect = Rect2( 0, 0, 600, 476 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=10]
 font_data = ExtResource( 5 )
 
-[sub_resource type="Theme" id=7]
-default_font = SubResource( 6 )
+[sub_resource type="Theme" id=11]
+default_font = SubResource( 10 )
 
-[sub_resource type="StyleBoxTexture" id=8]
+[sub_resource type="StyleBoxTexture" id=12]
 texture = ExtResource( 7 )
 region_rect = Rect2( 0, 0, 380, 88 )
 
-[sub_resource type="StyleBoxTexture" id=9]
+[sub_resource type="StyleBoxTexture" id=13]
 texture = ExtResource( 6 )
 region_rect = Rect2( 0, 0, 380, 88 )
 
@@ -139,6 +157,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Credits" type="Button" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
+margin_left = 845.573
+margin_top = 307.0
+margin_right = 931.573
+margin_bottom = 355.0
+rect_rotation = -0.658411
+rect_scale = Vector2( 1.47813, 1.47813 )
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/normal = SubResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Clouds" type="TextureRect" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
 material = SubResource( 3 )
 anchor_left = 0.5
@@ -160,10 +193,10 @@ __meta__ = {
 }
 
 [node name="Settings" type="Button" parent="CanvasLayer/VBoxContainer2/CenterContainer/Building"]
-margin_left = 81.1864
-margin_top = 203.081
-margin_right = 173.186
-margin_bottom = 274.081
+margin_left = 113.327
+margin_top = 217.891
+margin_right = 180.327
+margin_bottom = 269.891
 focus_mode = 0
 custom_styles/hover = SubResource( 4 )
 custom_styles/pressed = SubResource( 4 )
@@ -179,11 +212,11 @@ margin_top = 228.259
 margin_right = 973.012
 margin_bottom = 276.259
 focus_mode = 0
-theme = SubResource( 7 )
-custom_styles/hover = SubResource( 8 )
-custom_styles/pressed = SubResource( 8 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/normal = SubResource( 9 )
+theme = SubResource( 11 )
+custom_styles/hover = SubResource( 12 )
+custom_styles/pressed = SubResource( 12 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/normal = SubResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -210,6 +243,8 @@ __meta__ = {
 stream = ExtResource( 3 )
 volume_db = -14.604
 bus = "Sound Vol"
+[connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Credits" to="." method="_on_Settings_mouse_entered"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Settings" to="." method="_on_Settings_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="mouse_entered" from="CanvasLayer/VBoxContainer2/CenterContainer/Building/Exit" to="." method="_on_Exit_mouse_entered"]
