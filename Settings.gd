@@ -11,6 +11,7 @@ const SETTINGS_FILENAME: String = "user://settings.json"
 var master_volume: float = 1 setget _set_master_volume
 var sound_volume: float = 1 setget _set_sound_volume
 var music_volume: float = 1 setget _set_music_volume
+var active_god: String = "Fortuna"
 ###
 
 

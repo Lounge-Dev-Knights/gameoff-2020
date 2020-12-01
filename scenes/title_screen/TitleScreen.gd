@@ -17,8 +17,6 @@ func _ready():
 	MusicEngine.play_sound("Music")
 	
 	level_selection.current_index = current_index
-
-	god_selection.current_index = 1
 	
 
 	stars = god_selection.stars

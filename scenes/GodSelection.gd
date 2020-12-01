@@ -92,6 +92,13 @@ func _ready():
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
 	$Center.add_child(god_selection)
 	
+	for i in gods.size():
+		print("%s / %s" % [gods[i]["name"], Settings.active_god])
+		if gods[i]["name"] == Settings.active_god:
+			print("select %s" % gods[i]["name"])
+			self.current_index = i
+			return
+	
 	
 func _on_GodSelectionItem_selected(index):
 	if index == current_index:
@@ -103,6 +110,8 @@ func set_god():
 	var god = gods[current_index]
 	if god["state"] == god_selection.State.UNLOCKED:
 		get_tree().call_group("level_select", "set_god", god["name"])
+		print(god["name"])
+		Settings.active_god = god["name"]
 
 
 func _set_current_index(new_index: int):
