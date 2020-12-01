@@ -47,7 +47,8 @@ func _ready():
 		"name": "Mars",
 		"state": state,
 		"sprite": mars_sprite,
-		"stars_needed": clamp(STARS_FOR_MARS - stars, 0, 200)
+		"stars_needed": clamp(STARS_FOR_MARS - stars, 0, 200),
+		
 	})
 	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
@@ -76,6 +77,8 @@ func _ready():
 	# load Jupiter
 	index += 1
 	god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
+	god_selection.connect("selected", self, "show_god_preview", 
+			[preload("res://scenes/title_screen/god_description/fortuna_effect.ogv")])
 	god_selection.index = index
 	state = god_selection.State.LOCKED if stars < STARS_FOR_JUPITER else god_selection.State.UNLOCKED
 	#state = god_selection.State.UNLOCKED
@@ -98,7 +101,14 @@ func _ready():
 			print("select %s" % gods[i]["name"])
 			self.current_index = i
 			return
-	
+			
+
+func show_god_preview(stream):
+	print("show_preview")
+	$CanvasLayer/WindowDialog/VideoPlayer.stream = stream
+	$CanvasLayer/WindowDialog/VideoPlayer.play()
+	$CanvasLayer/WindowDialog.popup_centered()
+
 	
 func _on_GodSelectionItem_selected(index):
 	if index == current_index:
@@ -119,3 +129,7 @@ func _set_current_index(new_index: int):
 	get_tree().call_group("god_select", "_set_current_index", current_index)
 	set_god()
 	SoundEngine.play_sound("MoonThrowing")
+
+
+func _on_VideoPlayer_finished():
+	$CanvasLayer/WindowDialog/VideoPlayer.play()

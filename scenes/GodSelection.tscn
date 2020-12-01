@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/GodSelection.gd" type="Script" id=1]
+[ext_resource path="res://scenes/level_editor/Close.svg" type="Texture" id=2]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+expand_margin_top = 20.0
 
 [node name="CenterContainer" type="CenterContainer"]
 script = ExtResource( 1 )
@@ -12,3 +21,31 @@ __meta__ = {
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="WindowDialog" type="WindowDialog" parent="CanvasLayer"]
+visible = true
+margin_left = -24.0
+margin_top = -1.0
+margin_right = 233.0
+margin_bottom = 208.0
+rect_min_size = Vector2( 514, 305 )
+custom_icons/close_highlight = ExtResource( 2 )
+custom_icons/close = ExtResource( 2 )
+custom_styles/panel = SubResource( 1 )
+custom_colors/title_color = Color( 1, 1, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VideoPlayer" type="VideoPlayer" parent="CanvasLayer/WindowDialog"]
+margin_left = 1.0
+margin_right = 513.0
+margin_bottom = 300.0
+rect_min_size = Vector2( 512, 300 )
+expand = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="finished" from="CanvasLayer/WindowDialog/VideoPlayer" to="." method="_on_VideoPlayer_finished"]
