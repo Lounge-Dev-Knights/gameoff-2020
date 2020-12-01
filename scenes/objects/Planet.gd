@@ -10,7 +10,9 @@ const planet_images = [
 	preload("res://scenes/objects/planet_images/planet_5.png"),
 	preload("res://scenes/objects/planet_images/planet_6.png"),
 	preload("res://scenes/objects/planet_images/planet_7.png"),
-	preload("res://scenes/objects/planet_images/planet_8.png")
+	preload("res://scenes/objects/planet_images/planet_8.png"),
+	preload("res://scenes/objects/planet_images/planet_9.png"),
+	preload("res://scenes/objects/planet_images/planet_10.png")
 ]
 
 
