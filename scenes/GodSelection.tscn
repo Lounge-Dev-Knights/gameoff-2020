@@ -48,4 +48,5 @@ expand = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="popup_hide" from="CanvasLayer/WindowDialog" to="." method="_on_WindowDialog_popup_hide"]
 [connection signal="finished" from="CanvasLayer/WindowDialog/VideoPlayer" to="." method="_on_VideoPlayer_finished"]

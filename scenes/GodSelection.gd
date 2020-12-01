@@ -34,6 +34,7 @@ func load_total_stars():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# TODO add separate method to add God (DRY)
 	var index = 0
 	
 	stars = load_total_stars()
@@ -41,8 +42,7 @@ func _ready():
 	god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
 	god_selection.index = index
 	var state = god_selection.State.LOCKED if stars < STARS_FOR_MARS else god_selection.State.UNLOCKED
-	
-	
+		
 	gods.append({
 		"name": "Mars",
 		"state": state,
@@ -52,17 +52,22 @@ func _ready():
 	})
 	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
+	
+	# show videoplayer 
+	god_selection.connect("show_god_preview", self, "show_god_preview", 
+			[preload("res://scenes/title_screen/god_description/mars_effect.ogv")])
+	
 	$Center.add_child(god_selection)
 	# manually tweak sprite position. this is a bit hacky.
 	$Center/GodSelectionItem/God/Sprite.offset.y += 145
+	
 	
 	# load Fortuna
 	index += 1
 	god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
 	god_selection.index = index
 	state = god_selection.State.UNLOCKED
-	
-	
+		
 	gods.append({
 		"name": "Fortuna",
 		"state": state,
@@ -72,17 +77,22 @@ func _ready():
 	
 	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
+	
+	# show videoplayer 
+	god_selection.connect("show_god_preview", self, "show_god_preview", 
+			[preload("res://scenes/title_screen/god_description/fortuna_effect.ogv")])
 	$Center.add_child(god_selection)
-	print(stars)
+	
+	
+	
 	# load Jupiter
 	index += 1
 	god_selection = preload("res://scenes/title_screen/GodSelectionItem.tscn").instance()
-	god_selection.connect("selected", self, "show_god_preview", 
-			[preload("res://scenes/title_screen/god_description/fortuna_effect.ogv")])
+	
+			
 	god_selection.index = index
 	state = god_selection.State.LOCKED if stars < STARS_FOR_JUPITER else god_selection.State.UNLOCKED
 	#state = god_selection.State.UNLOCKED
-
 	
 	gods.append({
 		"name": "Jupiter",
@@ -93,6 +103,10 @@ func _ready():
 	
 	god_selection.god_data = gods[index]
 	god_selection.connect("selected", self, "_on_GodSelectionItem_selected", [index])
+	# show videoplayer 
+	god_selection.connect("show_god_preview", self, "show_god_preview", 
+			[preload("res://scenes/title_screen/god_description/jupiter_effect.ogv")])
+			
 	$Center.add_child(god_selection)
 	
 	for i in gods.size():
@@ -133,3 +147,7 @@ func _set_current_index(new_index: int):
 
 func _on_VideoPlayer_finished():
 	$CanvasLayer/WindowDialog/VideoPlayer.play()
+
+
+func _on_WindowDialog_popup_hide():
+	$CanvasLayer/WindowDialog/VideoPlayer.stop()
