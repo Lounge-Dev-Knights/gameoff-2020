@@ -1,1 +1,9 @@
 = Github Gameoff 2020
+Our entry for Github Gameoff 2020.
+
+Visit https://lounge-dev-knights.itch.io/golfing-gods to play.
+
+
+= License
+All code made for this game is licensed under the Apache 2.0 license (see file LICENSE)
+All art made specifically for this game is licensed under the Creative Commons license (see file LICENSE_ART)
